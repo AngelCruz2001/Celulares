@@ -1,68 +1,67 @@
 
 import React, { Component } from 'react';
 
-class Carrusel extends Component {
+
+class Tabla extends Component {
     state = {  }
     render() {
         return (
            <div>
-                            <nav className="navbar navbar-default">
-                        <div className="container-fluid">
-
-                            <div className="navbar-header">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </button>
-                            <a className="navbar-brand" href="#">Brand</a>
-                            </div>
-
-                        
-                            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul className="nav navbar-nav">
-                                <li className="active"><a href="#">Link <span className="sr-only">(current)</span></a></li>
-                                <li><a href="#">Link</a></li>
-                                <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-                                <ul className="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">One more separated link</a></li>
-                                </ul>
-                                </li>
-                            </ul>
-                            <form className="navbar-form navbar-left">
-                                <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Search"/>
-                                </div>
-                                <button type="submit" className="btn btn-default">Submit</button>
-                            </form>
-                            <ul className="nav navbar-nav navbar-right">
-                                <li><a href="#">Link</a></li>
-                                <li className="dropdown">
-                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-                                <ul className="dropdown-menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li role="separator" className="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                        </nav>
+       <div className="container">
+       <div className="row" style="position:relative;">
+           <table className="table table-fixed table-bordered">
+               <tbody className="header">
+                 <tr>
+                   <td width="10%">#</td>
+                   <td width="80%">Name </td>
+                   <td width="10%">Points</td>
+                 </tr>
+               </tbody>
+               <tbody className="body">
+                 <tr>
+                   <td width="10%">1</td><td width="80%">Mike Adams</td><td width="10%">23</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">2</td><td width="80%">Holly Galivan</td><td width="10%">44</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">3</td><td width="80%">Mary Shea</td><td width="10%">86</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">4</td><td width="80%">Jim Adams</td><td width="10%">86</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">5</td><td width="80%">Henry Galivan</td><td width="10%">44</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">6</td><td width="80%">Bob Shea</td><td width="10%">26</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">7</td><td width="80%">Andy Parks</td><td width="10%">56</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">8</td><td width="80%">Bob Skelly</td><td width="10%">96</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">9</td><td width="80%">William Defoe</td><td width="10%">13</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">10</td><td width="80%">Will Tripp</td><td width="10%">16</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">11</td><td width="80%">Bill Champion</td><td width="10%">44</td>
+                 </tr>
+                 <tr>
+                   <td width="10%">12</td><td width="80%">Lastly Jane</td><td width="10%">6</td>
+                 </tr>
+               </tbody>
+             </table>
+       </div>
+     </div>
                     </div>
             
         );
     }
 }
 
-export default Carrusel;
+export default Tabla;

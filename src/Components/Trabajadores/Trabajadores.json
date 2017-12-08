@@ -1,0 +1,54 @@
+// Trabajadores.json
+[
+    {
+        "Curp":"JIFB010925MASMGRA2" ,
+        "Nombre":"BRENDA" ,
+        "Apellidos": "JIMENEZ FIGUEROA",
+        "FechaNacimiento":"2001/09/25" ,
+        "FechaAdmision":"2017/08/21" ,
+        "Sueldo":"5000" ,
+        "Puesto":"ATENCION AL PUBLICO" 
+
+    },
+    {
+            "Curp":"CARG010921HDGHMRA5" ,
+            "Nombre":"GERARDP" ,
+            "Apellidos": "CHAVEZ ROMAN",
+            "FechaNacimiento":"2001/09/21" ,
+            "FechaAdmision":"2016/08/18" ,
+            "Sueldo":"4500" ,
+            "Puesto":"REPARADOR" 
+    
+        },
+
+        {
+            "Curp":"CUGA010714HDGRRNA1" ,
+            "Nombre":"ANGEL" ,
+            "Apellidos": "CRUZ GARCIA",
+            "FechaNacimiento":"2001/07/14" ,
+            "FechaAdmision":"2013/10/21" ,
+            "Sueldo":"5000" ,
+            "Puesto":"GERENTE/DUEÑO" 
+    
+        },
+        {
+            "Curp":"GOZE001107MDWEROA1" ,
+            "Nombre":"ELIZABETH" ,
+            "Apellidos": "GONZALEZ SAUCEDO",
+            "FechaNacimiento":"2000/11/25" ,
+            "FechaAdmision":"2015/05/16" ,
+            "Sueldo":"2000" ,
+            "Puesto":"VENDEDOR" 
+    
+        },
+        {
+            "Curp":"UYRT120908MIQIERA1" ,
+            "Nombre":"MIGUEL ANGEL" ,
+            "Apellidos": "SANCHEZ MORAN",
+            "FechaNacimiento":"2001/04/18" ,
+            "FechaAdmision":"2014/12/24" ,
+            "Sueldo":"7000" ,
+            "Puesto":"CONDUCTOR" 
+    
+        }
+]

@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
-import  './Bienvenido.css';
-import JPG_Logo from '../../Assets/JPG_Logo.png';
- var Celular1="6188005053";
+// import  CSS from './Bienvenido.css';
+import Sucursales from "../Sucursales/Sucursales.js";
+var Celular1="6188005053";
  var Celular2="6181234532";
  var Correo1="Jpg_Cel@Hotmail.com";
  var Facebook="Jpg Celulares";
@@ -14,8 +14,13 @@ class Bienvenido extends Component {
     render() {
         return (
             // Todo
-            <div className="container"> 
+            <div className ="Todo">
+        
+               
+            <div className="container-fluid" > 
+            <link href={CSS} rel="stylesheet"/> 
             {/* // Titulo, Boton */} 
+
             
         {/* <img src={JPG_Logo} width="300" height="300"/> */}
                  <div className="text-center container">
@@ -29,7 +34,7 @@ class Bienvenido extends Component {
                </div>
                <br/>
           
-                        <div> 
+                        <div > 
                                     <nav className="navbar navbar-default">
                                         <div className="container-fluid">
 
@@ -49,12 +54,13 @@ class Bienvenido extends Component {
                                                 <li className=""><a href="#">¿Que hacemos? <span className="sr-only">(current)</span></a></li>
                                                 <li><a href="#">¿Quienes somos?</a></li>
                                                 <li className="dropdown">
-                                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CRUD <span className="caret"></span></a>
+                                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Secciones <span className="caret"></span></a>
                                                 <ul className="dropdown-menu">
+                                                  
                                                     <li><a href="#">Trabajadores</a></li>
                                                     <li><a href="#">Camiones</a></li>
                                                     <li><a href="#">Celulares</a></li>
-                                                    <li><a href="#">Sucursales</a></li>
+                                                    <li><a href="{Sucursales}">Sucursales</a></li>
                                                     <li><a href="#">Usuarios</a></li>
                                                     <li><a href="#"></a></li>
                                                     {/* <li role="separator" className="divider"></li>
@@ -75,24 +81,24 @@ class Bienvenido extends Component {
                     
                     
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div className="modal-header" >
                         <button type="button" className="close" data-dismiss="modal">&times;</button>
                         <h4 className="modal-title">Iniciar Sesion</h4>
                         </div>
                         <div className="modal-body">
-                              <div class="container-fluid">
+                              <div className="container-fluid">
                                 
                                     <form action="/action_page.php">
-                                        <div class="form-group">
-                                        <label for="email">Usuario:</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Inserte su usuario" name="email"/>
+                                        <div className="form-group">
+                                        <label htmlFor="email">Usuario:</label>
+                                        <input type="email" className="form-control" id="email" placeholder="Inserte su usuario" name="email"/>
                                         </div>
-                                        <div class="form-group">
-                                        <label for="pwd">Contraseña:</label>
-                                        <input type="password" class="form-control" id="pwd" placeholder="Inserte su contraseña" name="pwd"/>
+                                        <div className="form-group">
+                                        <label htmlFor="pwd">Contraseña:</label>
+                                        <input type="password" className="form-control" id="pwd" placeholder="Inserte su contraseña" name="pwd"/>
                                         </div>
                                         
-                                        <button type="submit" class="btn btn-default">Ingresar</button>
+                                        <button type="submit" className="btn btn-default">Ingresar</button>
                                     </form>
                                         </div>
                                                                 </div>
@@ -104,22 +110,24 @@ class Bienvenido extends Component {
                                                             </div>
                                                         </div>
                        
-                    
+                        <br/>
                         <hr/>
                         <br/>
-                     <h1>Imagenes (Carrusel)</h1>
+                        <h1>Imagenes (Carrusel)</h1>
+                        <br/>
                         <hr/>
                         <br/>
                  <h3>Contacto</h3>
                  <h5>Celular: {Celular1}</h5>
                  <h5>Celular: {Celular2}</h5>           
                  <h5>Correo: {Correo1}</h5>
-                 <div>
+                 <div id="Todo">
                      <h5>Facebook:{Facebook}</h5>
                  </div>
             </div> 
          </div> 
-             
+      
+         </div>
         );
     }
 }

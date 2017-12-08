@@ -1,5 +1,20 @@
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-    width: 70%;
-    margin: auto;
-}
+.table-fixed body.header {
+    width: 100%;
+  }
+  .table-fixed tbody.body {
+    height: 230px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .table-fixed tbody.body {
+    height: 230px;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .table-fixed tbody, .head, .table-fixed tbody.body, .table-fixed tr, .table-fixed td, .table-fixed th {
+    display: block;
+  }
+  .table-fixed tbody.body td, .table-fixed tbody.header > tr> td {
+    float: left;
+    border-bottom-width: 0;
+  }
