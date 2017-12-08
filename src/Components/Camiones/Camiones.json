@@ -1,0 +1,21 @@
+//Camiones.json
+[
+    {
+        "Placa": "NK-64-956",
+        "Capacidad": "80KG",
+        "Modelo": "SCANIA",
+        "Año": "2018"
+    },
+    {
+        "Placa": "KY-00-783",
+        "Capacidad": "300KG",
+        "Modelo": "MAN",
+        "Año": "2018"
+    },
+    {
+        "Placa": "EC-67-239",
+        "Capacidad": "100KG",
+        "Modelo": "HINO",
+        "Año": "1999"
+    }
+]
