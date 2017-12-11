@@ -14,3 +14,19 @@ tr {
       width: 100%;
       position: absolute;
     }
+
+     .form-group{
+      display: ruby !important;
+    
+
+
+    }
+
+    .form-control{
+      margin: 10px !important
+    }
+
+    .inputs {
+      display: -moz-inline-grid;
+    } 
+    /* display: -webkit-inline-flex; */
