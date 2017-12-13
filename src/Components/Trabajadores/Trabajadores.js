@@ -1,33 +1,74 @@
 import React, { Component } from 'react';
 import CSS from './Trabajadores.css';
 
-var Nombre="Sara";
-var Apellidos="Abarca Botella";
-var F="2017/11/22";
-var Sueldo="7000";
-var Puesto="Conductor";
-var Curp="AEHM920624HDGRRR07";
 
 
 class Trabajadores extends Component {
-    componentDidMount() {
-        ('.ckbox label').on('click', function () {
-            (this).parents('tr').toggleClass('selected');
-          });
-          ('.star').on('click', function () {
-            (this).toggleClass('star-checked');
-          });
-        }
+    // componentDidMount() {
+    //     ('.ckbox label').on('click', function () {
+    //         (this).parents('tr').toggleClass('selected');
+    //       });
+    //       s('.star').on('click', function () {
+    //         s(this).toggleClass('star-checked');
+    //       });
+    //     }
      
     state = { 
         T: [],
-        Produccion: "" 
+        fun: true, 
         
+        row:
+            {
+            ID: null,
+            Curp: "",
+            Nombre: "",
+            Apellidos: "",
+            FechaNacimiento: "",
+            FechaAdmision: "",
+            Sueldo: "",
+            Puesto: "" 
+            },
+       
+        Limpio:""
      }
 
     componentDidMount(){
         this.getTrabajadores();
+
+        // ('.ckbox label').on('click', function () {
+        //             (this).parents('tr').toggleClass('selected');
+        //           });
+        //           ('.star').on('click', function () {
+        //            (this).toggleClass('star-checked');
+        //           });
     }
+
+    updateForm = () =>{
+        this.setState({fun: false})
+    }
+    createForm = () =>{
+        this.setState({fun: true})
+    }
+    Normalidad =()=>{
+        var row = {
+            ID: null,
+            Curp: "",
+            Nombre: "",
+            Apellidos: "",
+            FechaNacimiento: "",
+            FechaAdmision: "",
+            Sueldo: "",
+            Puesto: "" 
+        }
+        this.setState({fun:true, row })
+        
+    }
+    Change = (event) =>{
+        const row =this.state.row;
+    row[event.target.name]=event.target.value;
+    this.setState({row});
+
+    } 
     
      getTrabajadores () {
          var T = [
@@ -36,8 +77,8 @@ class Trabajadores extends Component {
                 "Curp": "JIFB010925MASMGRA2",
                 "Nombre": "BRENDA",
                 "Apellidos": "JIMENEZ FIGUEROA",
-                "FechaNacimiento": "2001/09/25",
-                "FechaAdmision": "2017/08/21",
+                "FechaNacimiento": "25/09/2001",
+                "FechaAdmision": "21/08/2017",
                 "Sueldo": "5000",
                 "Puesto": "ATENCION AL PUBLICO" 
             },
@@ -46,8 +87,8 @@ class Trabajadores extends Component {
                 "Curp": "CARG010921HDGHMRA5",
                 "Nombre": "GERARDO",
                 "Apellidos": "CHAVEZ ROMAN",
-                "FechaNacimiento": "2001/09/21",
-                "FechaAdmision": "2016/08/18",
+                "FechaNacimiento": "21/09/2001",
+                "FechaAdmision": "18/08/2016",
                 "Sueldo": "4500",
                 "Puesto": "REPARADOR" 
             },
@@ -56,8 +97,8 @@ class Trabajadores extends Component {
                 "Curp": "CUGA010714HDGRRNA1",
                 "Nombre": "ANGEL",
                 "Apellidos": "CRUZ GARCIA",
-                "FechaNacimiento": "2001/07/14",
-                "FechaAdmision": "2013/10/21",
+                "FechaNacimiento": "14/07/2001",
+                "FechaAdmision": "21/10/2013",
                 "Sueldo": "5000",
                 "Puesto": "GERENTE/DUEÑO" 
         
@@ -67,8 +108,8 @@ class Trabajadores extends Component {
                 "Curp": "GOZE001107MDWEROA1",
                 "Nombre": "ELIZABETH",
                 "Apellidos": "GONZALEZ SAUCEDO",
-                "FechaNacimiento": "2000/11/25",
-                "FechaAdmision": "2015/05/16",
+                "FechaNacimiento": "25/11/2000",
+                "FechaAdmision": "16/05/2015",
                 "Sueldo": "2000",
                 "Puesto": "VENDEDOR" 
         
@@ -78,8 +119,8 @@ class Trabajadores extends Component {
                 "Curp": "UYRT120908MIQIERA1",
                 "Nombre": "MIGUEL ANGEL",
                 "Apellidos": "SANCHEZ MORAN",
-                "FechaNacimiento": "2001/04/18",
-                "FechaAdmision": "2014/12/24",
+                "FechaNacimiento": "18/04/2001",
+                "FechaAdmision": "24/12/2014",
                 "Sueldo": "7000",
                 "Puesto": "CONDUCTOR" 
             
@@ -89,15 +130,22 @@ class Trabajadores extends Component {
             T
         })
      }
-    
+
+     trselected = () => {}
+    Eliminar =(event)=> {
+      
+        this.state.T.splice(2, 1);
+    }
     render() {
+        let fun = this.state.fun;
+    
         return (
-            <div className ="Todo1">
+
                 <div className="container-fluid">
             
                     <br/>
                     <div className="Titulo">
-                        <div className="container-fluid text-center">
+                        <div className="container-fluid text-center"> 
                         <hr/>
                         <h1>Trabajadores</h1>
                         <hr/>
@@ -122,16 +170,21 @@ class Trabajadores extends Component {
                             <tbody>
                               
                             {this.state.T.map(function(t,i){
-                           
-                           
+                            
                                 return  (
                               
-                                <tr key={i}>
+                                <tr key={i} >
                                      <td>
-											<div className="ckbox">
-												<input type="checkbox" id="checkbox1"/>
-												<label for="checkbox1"></label>
-											</div>
+                                     {/* <label className="btn btn-success active">
+                                     <input type="radio" name="options"  autocomplete="off"/>
+                                     <span className="glyphicon glyphicon-ok"></span>
+                                 </label> */}
+                                            
+                                          
+ 											<div className="ckbox">
+ 											<input type="checkbox" id={'checkbox'+t.ID}/>
+                                             <label htmlFor={ 'checkbox'+t.ID}></label>
+ 											</div>
 									</td>
                                     <td>{t.Nombre}</td>
                                     <td>{t.Apellidos}</td>
@@ -146,10 +199,13 @@ class Trabajadores extends Component {
                         </table>
                       
                                 <div className="text-right container">
-                                <button type="button" class="btn btn-danger">Borrar</button>
+                                <button type="button" className="btn btn-danger" onClick={this.state.Eliminar}>Borrar</button>
+                                
+                                <button type="button" className="btn btn-success" onClick={this.updateForm.bind()}>{fun ? 'Actualizar': 'Agregar'}</button>
                                 </div>
+                                
                         <div className="text-center">
-                        <h3>Agregar Datos</h3>
+                        <h3>{fun ? 'Agregar' : 'Actualizar'}</h3>
                         <br/>
                         </div>
                         <div>
@@ -157,32 +213,36 @@ class Trabajadores extends Component {
                         <div className="container-fluid inputs1">
                                 <div className="form-group col-xs-4">
                                 <label htmlFor="Nombre">Nombre:</label>
-                                <input type="text" className="form-control" placeholder=""/>
+                                <input type="text" className="form-control" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.Change.bind()}/>
                                 </div>
                                 <div className="form-group col-xs-4">
                                 <label htmlFor="Apellidos">Apellidos:</label>
-                                <input type="text" className="form-control" placeholder=""/>
+                                <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()}/>
                                 </div>
                                 
                                 <div className="form-group col-xs-4">
-                                <label htmlFor="fechaNac">Fecha de nacimiento:</label>
-                                <input type="date" className="form-control" placeholder=""/>
+                                <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
+                                <input type="date" className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()}/>
                                 </div>
                                 </div>
                                 </div>
                                 <div className="row">
                                 <div className="container-fluid inputs2">
                                 <div className="form-group col-xs-4"> 
-                                <label htmlFor="fechaAdmision">Fecha de admision:</label>
-                                <input type="date" className="form-control" id="fechaAdmision"/>
+                                <label htmlFor="FechaAdmision">Fecha de admision:</label>
+                                <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()}/>
                                 </div>
                                 <div className="form-group col-xs-4"> 
                                 <label htmlFor="Sueldo">Sueldo:</label>
-                                <input type="text" className="form-control" id="Sueldo"/>
+                                <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}/>
                                 </div>
                                 <div className="form-group col-xs-4"> 
                                 <label htmlFor="Puesto">Puesto:</label>
-                                <input type="text" className="form-control" id="Puesto"/>
+                                <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()}/>
+                                </div>
+                                <div className="form-group col-xs-4"> 
+                                <label htmlFor="Curp">Curp:</label>
+                                <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()}/>
                                 </div>
                                 <br/>
                                 </div>
@@ -205,7 +265,8 @@ class Trabajadores extends Component {
 
                                 <br/>
                                 <div className="text-right container">
-                                <button type="button" class="btn btn-success">Agregar</button>
+                                <button type="button" className="btn btn-success">{fun ? 'Agregar' : 'Actualizar'}</button>
+                                <button type="button" className="btn btn-danger" onClick={this.Normalidad.bind()} >Cancelar</button>
                                 </div>
                             {/* <div className="container">
                                 <div className="row">
@@ -229,10 +290,37 @@ class Trabajadores extends Component {
                         <br/>
                         <br/>
                         <br/>
+                        
+ <div className="container">			
+
+ 	<div className="well well-sm text-center">
+
+ 		<h3>Radio</h3>
+		
+ 		<div className="btn-group" data-toggle="buttons">
+			
+ 			<label className="btn btn-success active">
+ 				<input type="radio" name="options"  autocomplete="off" />
+ 				<span className="glyphicon glyphicon-ok"></span>
+ 			</label>
+             <label className="btn btn-success active">
+ 				<input type="radio" name="options"  autocomplete="off"/>
+ 				<span className="glyphicon glyphicon-ok"></span>
+ 			</label>
+			
+		
+ 		</div>
+
+
+               
+ 	</div>
+
+ </div> 
+
                 </div>
-            </div>
+      
         );
     }
-}
+} 
 
 export default Trabajadores;
