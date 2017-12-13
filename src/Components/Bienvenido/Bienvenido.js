@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-// import  CSS from './Bienvenido.css';
+import  CSS from './Bienvenido.css';
 import Sucursales from "../Sucursales/Sucursales.js";
 var Celular1="6188005053";
  var Celular2="6181234532";

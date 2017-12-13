@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
 import CSS from './Trabajadores.css';
+
 var Nombre="Sara";
 var Apellidos="Abarca Botella";
-var fechaNacimiento="2017/11/22";
+var F="2017/11/22";
 var Sueldo="7000";
 var Puesto="Conductor";
 var Curp="AEHM920624HDGRRR07";
 
-class Trabajadores extends Component {
 
+class Trabajadores extends Component {
+    componentDidMount() {
+        ('.ckbox label').on('click', function () {
+            (this).parents('tr').toggleClass('selected');
+          });
+          ('.star').on('click', function () {
+            (this).toggleClass('star-checked');
+          });
+        }
+     
     state = { 
         T: [],
-        Produccion: ""
+        Produccion: "" 
+        
      }
 
     componentDidMount(){
@@ -81,124 +92,144 @@ class Trabajadores extends Component {
     
     render() {
         return (
-            <div className="container-fluid">
-                <br/>
-                <div className="container-fluid text-center">
-                <hr/>
-                <h1>Trabajadores</h1>
-                <hr/>
-                </div>
-                <br/>
+            <div className ="Todo1">
+                <div className="container-fluid">
+            
+                    <br/>
+                    <div className="Titulo">
+                        <div className="container-fluid text-center">
+                        <hr/>
+                        <h1>Trabajadores</h1>
+                        <hr/>
+                        </div>
+                    </div>
+                    <br/>
 
-                <table className="table table-fixed">
-                        <thead>
-                            <tr>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Fecha de nacimiento</th>
-                            <th>Sueldo</th>
-                            <th>Puesto</th>
-                            <th>Curp</th>
+                    <table className="table table-fixed">
+                            <thead>
+                                <tr>
+                                <th></th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Fecha de nacimiento</th>
+                                <th>Sueldo</th>
+                                <th>Puesto</th>
+                                <th>Curp</th>
+                                
+                                </tr>
+                            </thead>
                             
-                            </tr>
-                        </thead>
+                            <tbody>
+                              
+                            {this.state.T.map(function(t,i){
+                           
+                           
+                                return  (
+                              
+                                <tr key={i}>
+                                     <td>
+											<div className="ckbox">
+												<input type="checkbox" id="checkbox1"/>
+												<label for="checkbox1"></label>
+											</div>
+									</td>
+                                    <td>{t.Nombre}</td>
+                                    <td>{t.Apellidos}</td>
+                                    <td>{t.FechaNacimiento}</td>
+                                    <td>{t.Sueldo}</td>
+                                    <td>{t.Puesto}</td>
+                                    <td>{t.Curp}</td>
+                                </tr> 
+                                )
+                            })}                               
+                                </tbody>
+                        </table>
+                      
+                                <div className="text-right container">
+                                <button type="button" class="btn btn-danger">Borrar</button>
+                                </div>
+                        <div className="text-center">
+                        <h3>Agregar Datos</h3>
+                        <br/>
+                        </div>
+                        <div>
+                        <div className="row">
+                        <div className="container-fluid inputs1">
+                                <div className="form-group col-xs-4">
+                                <label htmlFor="Nombre">Nombre:</label>
+                                <input type="text" className="form-control" placeholder=""/>
+                                </div>
+                                <div className="form-group col-xs-4">
+                                <label htmlFor="Apellidos">Apellidos:</label>
+                                <input type="text" className="form-control" placeholder=""/>
+                                </div>
+                                
+                                <div className="form-group col-xs-4">
+                                <label htmlFor="fechaNac">Fecha de nacimiento:</label>
+                                <input type="date" className="form-control" placeholder=""/>
+                                </div>
+                                </div>
+                                </div>
+                                <div className="row">
+                                <div className="container-fluid inputs2">
+                                <div className="form-group col-xs-4"> 
+                                <label htmlFor="fechaAdmision">Fecha de admision:</label>
+                                <input type="date" className="form-control" id="fechaAdmision"/>
+                                </div>
+                                <div className="form-group col-xs-4"> 
+                                <label htmlFor="Sueldo">Sueldo:</label>
+                                <input type="text" className="form-control" id="Sueldo"/>
+                                </div>
+                                <div className="form-group col-xs-4"> 
+                                <label htmlFor="Puesto">Puesto:</label>
+                                <input type="text" className="form-control" id="Puesto"/>
+                                </div>
+                                <br/>
+                                </div>
+                                </div>
+                        </div>
                         
-                        <tbody>
-                          {this.state.T.map(function(t,i){
-                            return  (
-                            <tr key={i}>
-                                <td>{t.Nombre}</td>
-                                <td>{t.Apellidos}</td>
-                                <td>{t.fechaNacimiento}</td>
-                                <td>{t.Sueldo}</td>
-                                <td>{t.Puesto}</td>
-                                <td>{t.Curp}</td>
-                            </tr> 
-                            )
-                          })}                               
-                            </tbody>
-                     </table>
-                     <div className="text-center">
-                      <h3>Agregar Datos</h3>
-                      <br/>
-                      </div>
-                     <div>
-                      <div className="row">
-                      <div className="container-fluid inputs1">
-                            <div className="form-group col-xs-4">
-                            <label htmlFor="Nombre">Nombre:</label>
-                            <input type="text" className="form-control" placeholder=""/>
-                            </div>
-                            <div className="form-group col-xs-4">
-                            <label htmlFor="Apellidos">Apellidos:</label>
-                            <input type="text" className="form-control" placeholder=""/>
-                            </div>
+    {/* 
                             
-                            <div className="form-group col-xs-4">
-                            <label htmlFor="fechaNac">Fecha de nacimiento:</label>
-                            <input type="text" className="form-control" placeholder=""/>
-                            </div>
-                            </div>
-                            </div>
-                            <div className="row">
-                            <div className="container-fluid inputs2">
-                            <div className="form-group col-xs-4"> 
-                            <label htmlFor="fechaAdmision">Fecha de admision:</label>
-                            <input type="text" className="form-control" id="fechaAdmision"/>
-                            </div>
-                            <div className="form-group col-xs-4"> 
-                            <label htmlFor="Sueldo">Sueldo:</label>
-                            <input type="text" className="form-control" id="Sueldo"/>
-                            </div>
-                            <div className="form-group col-xs-4"> 
-                            <label htmlFor="Puesto">Puesto:</label>
-                            <input type="text" className="form-control" id="Puesto"/>
-                            </div>
-                            <br/>
-                             </div>
-                             </div>
-                     </div>
-                     
-{/* 
-                           
-                            <div className="col-xs-3">
-                                <input type="text" className="form-control" placeholder=".col-xs-3"/>
+                                <div className="col-xs-3">
+                                    <input type="text" className="form-control" placeholder=".col-xs-3"/>
+                                    </div>
+                                <div className="col-xs-4">
+                                    <input type="text" className="form-control" placeholder=".col-xs-4"/>
                                 </div>
-                            <div className="col-xs-4">
-                                <input type="text" className="form-control" placeholder=".col-xs-4"/>
-                            </div>
-                            <div className="col-xs-5">
-                                <input type="text" className="form-control" placeholder=".col-xs-5"/>
-                                </div>
-                           
- */}
+                                <div className="col-xs-5">
+                                    <input type="text" className="form-control" placeholder=".col-xs-5"/>
+                                    </div>
+                            
+    */}
 
-                             <br/>
-                            <div className="text-right container">
-                            <button type="button" class="btn btn-success">Agregar</button>
-                            </div>
-                        {/* <div className="container">
-                            <div className="row">
-                                <div className='col-sm-6'>
-                                    <div className="form-group">
-                                        <div className='input-group date' id='datetimepicker1'>
-                                            <input type='text' className="form-control" />
-                                            <span className="input-group-addon">
-                                                <span className="glyphicon glyphicon-calendar"></span>
-                                            </span>
+                                <br/>
+                                <div className="text-right container">
+                                <button type="button" class="btn btn-success">Agregar</button>
+                                </div>
+                            {/* <div className="container">
+                                <div className="row">
+                                    <div className='col-sm-6'>
+                                        <div className="form-group">
+                                            <div className='input-group date' id='datetimepicker1'>
+                                                <input type='text' className="form-control" />
+                                                <span className="input-group-addon">
+                                                    <span className="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
+                                    
+                                        
+                                    
                                 </div>
-                                   
-                                     
-                                 
-                            </div>
-                
-                    </div> */}
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+                    
+                        </div> */}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                </div>
             </div>
         );
     }

@@ -10,7 +10,8 @@ class App extends Component {
       // <Prueba/>
       // <Sucursales/> 
       <Trabajadores/>
-      // <Bienvenido/>
+      
+      //  <Bienvenido/>
     );
   }
 } 
