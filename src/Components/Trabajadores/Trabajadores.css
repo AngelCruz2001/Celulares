@@ -94,3 +94,6 @@ tr {
   .btn.active span.glyphicon {				
     opacity: 1;				
   }
+  /* #Id {
+    visibility:hidden
+  } */
