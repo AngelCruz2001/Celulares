@@ -88,12 +88,5 @@ tr {
     font-family: 'Glyphicons Halflings';
     position: absolute;
   } 
-  .btn span.glyphicon {    			
-    opacity: 0;				
-  }
-  .btn.active span.glyphicon {				
-    opacity: 1;				
-  }
-  /* #Id {
-    visibility:hidden
-  } */
+  
+ 
