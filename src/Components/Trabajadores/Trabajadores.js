@@ -66,6 +66,8 @@ class Trabajadores extends Component {
         CambiarAgregar:1,
         ID:5,
         Desactivado:true,
+        IndexDatos:null,
+       
         row:
             {
             ID: null,
@@ -89,8 +91,7 @@ class Trabajadores extends Component {
             
         
     componentDidMount(){
-   
-  
+        document.getElementById("Borrar").style.display = "none"
     }
 
     TraerCrear =()=>{
@@ -103,11 +104,56 @@ class Trabajadores extends Component {
          this.setState({fun:true})
         }
     }
-Ver =(IdCheck)=>{
-    console.log(IdCheck.target.value)
+Ver = (IdCheck) => {
+    var Cambio=this.state.Cambio;
     var T=this.state.T;
     var Extension=T.length;
     var Desactivado=IdCheck+1
+    var IndexDatos=IdCheck-1;
+    // console.log(IdCheck);
+    // console.log(Extension);
+    
+        if(Cambio==="Alteracion"){
+            for (var PP=1; PP<=Extension; PP++){ //Arriba
+                document.getElementById('checkbox'+PP).checked=false;
+                 
+            }
+        }
+
+
+        if(Extension!=IdCheck){
+    for (var DD=1; DD!=IdCheck; DD++){ //Arriba
+        document.getElementById('checkbox'+DD).checked=false;
+         
+    }
+}
+if (IdCheck===Extension){
+    var ExtensionExcepcion=Extension-1;
+    for (ExtensionExcepcion; ExtensionExcepcion!=0; ExtensionExcepcion--){//Abajo
+        document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
+   
+    }
+}
+    for (Extension; Extension!=IdCheck; Extension--){//Abajo
+        document.getElementById('checkbox'+Extension).checked=false;
+        
+    }
+    if(document.getElementById('checkbox'+IdCheck).checked){
+       console.log("Activado")
+       this.Traer(IndexDatos);
+     console.log(this.state.Desactivado);
+     document.getElementById("Borrar").style.display = "initial"
+    }else{
+        console.log("Desactivado")
+        this.Normalidad();
+        console.log(this.state.Desactivado);
+        document.getElementById("Borrar").style.display = "none"
+    }
+    
+   
+    
+    
+    
     
     for (var X=IdCheck; X<Extension;X++)
 
@@ -118,12 +164,14 @@ Ver =(IdCheck)=>{
             }
 
         }
-        console.log(IdCheck,"Desactivado: "+Desactivado);
+    //     console.log(Desactivado);
     }
     CambiarAgregar =()=>{
         var fun=this.state.fun;
         if (fun===true){
-            var ids = this.state.ID + 1;
+            
+        
+            var ids =this.state.ID+1;
         var row = {
             ID: ids,
             Curp: this.state.row.Curp,
@@ -136,14 +184,15 @@ Ver =(IdCheck)=>{
         }
           
           var X=this.state.T.concat([row])
-          console.log(X);
+        
            TInicial=X;
            this.Refresh();
            console.log("Agrego");
-           this.setState({CambiarAgregar:1});
+           this.setState({CambiarAgregar:1,ID:ids});
+           console.log('Lenght: ');
         }
         if(fun===false){
-            var IndexDatos=1;
+            var IndexDatos=this.state.IndexDatos;
             var row = {
                 ID: this.state.row.ID,
                 Curp: this.state.row.Curp,
@@ -162,21 +211,27 @@ Ver =(IdCheck)=>{
                this.setState({fun: true})
                this.Normalidad();
                this.setState({CambiarAgregar:2,Desactivado:true});
-
+               var T=this.state.T;
+               var Extension=T.length;
+               for(var i=1; i<=Extension; i++)
+               document.getElementById('checkbox'+i).checked=false;
+            console.log(i);
         }
         
         
         
-        console.log(this.state.CambiarAgregar);
+        
     }
-    Traer =()=>{
-        this.setState({fun: false})
+    Traer =(IndexDatos)=>{
+        this.setState({fun: false
+        ,IndexDatos})
+       
         // var  i, j, x = "";
         //     var T=this.state.T;
         //     for (i in T.Trabajadores) {
         //         x += T.Trabajadores[i].Nombre +"<br/>"  this.setState({Traer:x});
         
-        var IndexDatos=1;
+        
         
             var T = this.state.T;
              var Convertir=JSON.stringify(T);
@@ -204,9 +259,10 @@ Ver =(IdCheck)=>{
         this.setState({
             row,
             Desactivado:false,
-            fun:false
+            fun:false,
+            ID:IdActTra
         })
-        
+        console.log(row)
            
             }
 
@@ -239,8 +295,9 @@ Ver =(IdCheck)=>{
     }
     
     Normalidad () {
+        var IDO=this.state.ID;
         var row = {
-            ID: null,
+            ID: IDO,
             Curp: "",
             Nombre: "",
             Apellidos: "",
@@ -250,7 +307,7 @@ Ver =(IdCheck)=>{
             Puesto: "" 
         }
        
-        this.setState({fun:true, row })
+        this.setState({fun:true, row ,Desactivado:true})
 
     }
    
@@ -292,9 +349,19 @@ Ver =(IdCheck)=>{
     
     // this.setState({row:T})
     } 
-    createForm = () =>{
 
-        var ids = this.state.ID + 1;
+    // isValidate (){
+    //     const { ID, Curp, Nombre, Apellidos, FechaNacimiento, FechaAdmision, Sueldo, Puesto } = this.state.row;
+    //     if(ID || !Curp || !Nombre || !Apellidos || !FechaNacimiento || !FechaAdmision || !Sueldo || !Puesto){
+    //             return true
+    //     }
+    //     return false;
+    // }
+
+    createForm = () =>{
+        var ID=this.state.T.length;
+        
+        var ids =ID+1;
         var row = {
             ID: ids,
             Curp: this.state.row.Curp,
@@ -307,10 +374,11 @@ Ver =(IdCheck)=>{
         }
           
           var X=this.state.T.concat([row])
-          console.log(X);
+          console.log(this.state.T);
            TInicial=X;
            this.Refresh();
            console.log("Agrego");
+           console.log('Lenght: ',ID);
         // this.setState({ 
         //     T: this.state.T.concat({row}),
         //      ID: ids 
@@ -322,10 +390,36 @@ Ver =(IdCheck)=>{
         //   this.Normalidad();
         }
 
-     trselected = () => {}
-    Eliminar =(event)=> {
-      
-        this.state.T.splice(2, 1);
+     
+     
+    Eliminar =()=> {
+        var T = this.state.T;
+        var Convertir=JSON.stringify(T);
+        var obj = JSON.parse(Convertir);
+        for (var i = 0; i < obj.length; i++) {
+            if (obj[i].ID == this.state.ID) {
+                obj.splice(i, 1);
+
+              break;
+            }
+          }
+this.setState({T:obj})
+console.log(this.state.T.ID)
+   
+ console.log(obj);//json sin su elemento          
+     
+           //     var T=this.state.T;
+        var IndexDatos=this.state.IndexDatos;
+    //    var Azul=T.splice(IndexDatos,1);
+    //    console.log(Azul);
+
+
+
+        // document.getElementById("DatosT").deleteRow(IndexDatos);
+        
+        
+        this.Normalidad();
+        document.getElementById("Borrar").style.display = "none"
     }
     render() {
         let fun = this.state.fun;
@@ -343,8 +437,8 @@ Ver =(IdCheck)=>{
                         </div>
                     </div>
                     <br/>
-
-                    <table className="table table-fixed">
+                   
+                    <table className="table table-fixed" id="DatosT">
                             <thead>
                                 <tr>
                                 <th></th>
@@ -362,9 +456,9 @@ Ver =(IdCheck)=>{
                             <tbody>
                               
                             {Trabajadores.map(function(t,i){
-                            //  var t_Id=t.ID;
-                            //  this.setState({Id_Trab:t_Id});
-                             
+                            
+                             var IdCheck=t.ID;
+                              var iE=i+1;
                                 return  (
                               
                                 <tr key={i} >
@@ -376,8 +470,10 @@ Ver =(IdCheck)=>{
                                             {/*  */}
                                           
  											<div className="ckbox">
- 											<input type="checkbox" id={'checkbox'+t.ID} onClick={this.Ver.bind(t.ID)} />
-                                             <label htmlFor={ 'checkbox'+t.ID} ></label>
+                                             
+ 											<input type="checkbox" id={'checkbox'+iE} onClick={() => this.Ver(iE)} />
+                                             <label htmlFor={ 'checkbox'+iE} ></label>
+                                            
  											</div>
                                              
 									</td>
@@ -390,15 +486,11 @@ Ver =(IdCheck)=>{
                                     <td>{t.Curp}</td>
                                 </tr> 
                                 )
-                            }.bind(this))}                               
+                            },this)}                               
                                 </tbody>
                         </table>
                       
-                                <div className="text-right container">
-                                <button type="button" className="btn btn-danger" onClick={this.state.Eliminar}>Borrar</button>
                                 
-                                <button type="button" className="btn btn-success" onClick={this.TraerCrear.bind()} >{fun ? 'Actualizar': 'Agregar'}</button>
-                                </div>
                                 
                         <div className="text-center">
                         <h3>{fun ? 'Agregar' : 'Actualizar'}</h3>
@@ -465,27 +557,15 @@ Ver =(IdCheck)=>{
 
                                 <br/>
                                 <div className="text-right container">
+                                
                                 <button type="button" className="btn btn-success"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
-                                <button type="button" className="btn btn-danger" onClick={this.Normalidad.bind()} >Cancelar</button>
+                                <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
+                                
+                                
+                                
                                 </div>
-                            {/* <div className="container">
-                                <div className="row">
-                                    <div className='col-sm-6'>
-                                        <div className="form-group">
-                                            <div className='input-group date' id='datetimepicker1'>
-                                                <input type='text' className="form-control" />
-                                                <span className="input-group-addon">
-                                                    <span className="glyphicon glyphicon-calendar"></span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                        
-                                    
-                                </div>
-                    
-                        </div> */}
+                  
+                          
                         <br/>
                         <br/>
                         <br/>
