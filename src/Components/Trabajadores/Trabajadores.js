@@ -38,7 +38,7 @@ var TInicial = [
         "Curp": "GOZE001107MDWEROA1",
         "Nombre": "ELIZABETH",
         "Apellidos": "GONZALEZ SAUCEDO",
-        "FechaNacimiento":"2000/11-25" ,
+        "FechaNacimiento":"2000-11-25" ,
         "FechaAdmision":"2015-05-16" ,
         "Sueldo": "2000",
         "Puesto": "VENDEDOR" 
@@ -67,10 +67,12 @@ class Trabajadores extends Component {
         ID:5,
         Desactivado:true,
         IndexDatos:null,
+        ID2: null,
        
         row:
             {
             ID: null,
+           
             Curp: "",
             Nombre: "",
             Apellidos: "",
@@ -172,6 +174,7 @@ if (IdCheck===Extension){
             
         
             var ids =this.state.ID+1;
+            this.setState({ID2:ids})
         var row = {
             ID: ids,
             Curp: this.state.row.Curp,
@@ -190,6 +193,7 @@ if (IdCheck===Extension){
            console.log("Agrego");
            this.setState({CambiarAgregar:1,ID:ids});
            console.log('Lenght: ');
+           this.Normalidad();
         }
         if(fun===false){
             var IndexDatos=this.state.IndexDatos;
@@ -205,7 +209,7 @@ if (IdCheck===Extension){
             }
             this.state.T[IndexDatos] = row;
              
-               this.Refresh();
+            //    this.Refresh();
                console.log(this.state.T);
                console.log("Cambio");
                this.setState({fun: true})
@@ -216,6 +220,7 @@ if (IdCheck===Extension){
                for(var i=1; i<=Extension; i++)
                document.getElementById('checkbox'+i).checked=false;
             console.log(i);
+            document.getElementById("Borrar").style.display = "none"
         }
         
         
@@ -260,7 +265,7 @@ if (IdCheck===Extension){
             row,
             Desactivado:false,
             fun:false,
-            ID:IdActTra
+            ID2:IdActTra
         })
         console.log(row)
            
@@ -270,26 +275,7 @@ if (IdCheck===Extension){
         this.setState({fun: false})
        
     }
-    Cambiar =()=>{
-         var IndexDatos=1;
-        var row = {
-            ID: this.state.row.ID,
-            Curp: this.state.row.Curp,
-            Nombre: this.state.row.Nombre,
-            Apellidos: this.state.row.Apellidos,
-            FechaNacimiento: this.state.row.FechaNacimiento,
-            FechaAdmision: this.state.row.FechaAdmision,
-            Sueldo: this.state.row.Sueldo,
-            Puesto: this.state.row.Puesto 
-        }
-        this.state.T[IndexDatos] = row;
-         
-           this.Refresh();
-           console.log(this.state.T);
-           console.log("Cambio");
-           this.setState({fun: true})
-           this.Normalidad();
-    }
+   
     Checked =()=>{
         document.form.checkbox1.checked=false;
     }
@@ -315,6 +301,8 @@ if (IdCheck===Extension){
    
 
      Change = (event) =>{
+        var ids =this.state.ID+1;
+        this.setState({ID2:ids})
         const row =this.state.row;
     row[event.target.name]=event.target.value;
    
@@ -397,7 +385,7 @@ if (IdCheck===Extension){
         var Convertir=JSON.stringify(T);
         var obj = JSON.parse(Convertir);
         for (var i = 0; i < obj.length; i++) {
-            if (obj[i].ID == this.state.ID) {
+            if (obj[i].ID == this.state.ID2) {
                 obj.splice(i, 1);
 
               break;
@@ -419,7 +407,15 @@ console.log(this.state.T.ID)
         
         
         this.Normalidad();
+        var Extension=T.length;
         document.getElementById("Borrar").style.display = "none"
+        for (var PP=1; PP<=Extension; PP++){ //Arriba
+            document.getElementById('checkbox'+PP).checked=false;
+             
+        }
+    }
+    Id =()=>{
+        console.log(this.state.ID);
     }
     render() {
         let fun = this.state.fun;
@@ -534,7 +530,7 @@ console.log(this.state.T.ID)
                                 <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()}/>
                                 </div>
                                 <div className="form-group col-xs-4">
-                                <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID} onChange={this.Change.bind()} />
+                                <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
                                 </div>
                                 <br/>
                                 </div>
@@ -575,6 +571,8 @@ console.log(this.state.T.ID)
                         <br/>
                         <br/>
                         <br/>
+                        
+        
                 </div>
         );
     }
