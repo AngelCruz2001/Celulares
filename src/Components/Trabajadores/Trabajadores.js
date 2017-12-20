@@ -63,6 +63,7 @@ class Trabajadores extends Component {
     state = { 
         T:TInicial,
         fun: true, 
+        fun1:true,
         CambiarAgregar:1,
         ID:5,
         Desactivado:true,
@@ -170,6 +171,7 @@ if (IdCheck===Extension){
     }
     CambiarAgregar =()=>{
         var fun=this.state.fun;
+        this.setState({fun1:true});
         if (fun===true){
             
         
@@ -196,6 +198,7 @@ if (IdCheck===Extension){
            this.Normalidad();
         }
         if(fun===false){
+            this.setState({fun1:false})
             var IndexDatos=this.state.IndexDatos;
             var row = {
                 ID: this.state.row.ID,
@@ -420,6 +423,7 @@ console.log(this.state.T.ID)
     render() {
         let fun = this.state.fun;
         let Trabajadores=this.state.T;
+        let fun1 = this.state.fun1;
         return (
 
                 <div className="container-fluid">
@@ -429,151 +433,225 @@ console.log(this.state.T.ID)
                         <div className="container-fluid text-center"> 
                         <hr/>
                         <h1>Trabajadores</h1>
+                        
                         <hr/>
                         </div>
-                    </div>
-                    <br/>
-                   
-                    <table className="table table-fixed" id="DatosT">
-                            <thead>
-                                <tr>
-                                <th></th>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th>Fecha de nacimiento</th>
-                                <th>Sueldo</th>
-                                <th>Puesto</th>
-                                <th>Curp</th>
-                                
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
-                              
-                            {Trabajadores.map(function(t,i){
-                            
-                             var IdCheck=t.ID;
-                              var iE=i+1;
-                                return  (
-                              
-                                <tr key={i} >
-                                     <td>
-                                     {/* <label className="btn btn-success active">
-                                     <input type="radio" name="options"  autocomplete="off"/>
-                                     <span className="glyphicon glyphicon-ok"></span>
-                                 </label> */}
-                                            {/*  */}
-                                          
- 											<div className="ckbox">
-                                             
- 											<input type="checkbox" id={'checkbox'+iE} onClick={() => this.Ver(iE)} />
-                                             <label htmlFor={ 'checkbox'+iE} ></label>
-                                            
- 											</div>
-                                             
-									</td>
-                                    <td>{t.ID}</td>
-                                    <td>{t.Nombre}</td>
-                                    <td>{t.Apellidos}</td>
-                                    <td>{t.FechaNacimiento}</td>
-                                    <td>{t.Sueldo}</td>
-                                    <td>{t.Puesto}</td>
-                                    <td>{t.Curp}</td>
-                                </tr> 
-                                )
-                            },this)}                               
-                                </tbody>
-                        </table>
-                      
-                                
-                                
-                        <div className="text-center">
-                        <h3>{fun ? 'Agregar' : 'Actualizar'}</h3>
-                        <br/>
                         </div>
-                        <div>
-                        <div className="row">
-                        <div className="container-fluid inputs1">
+                        <nav className="navbar navbar-default">
+                                        <div className="container-fluid">
 
-                                <div className="form-group col-xs-4">
-                                <label htmlFor="Nombre">Nombre:</label>
-                                <input type="text" className="form-control" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.Change.bind()}/>
-                                </div>
-                                <div className="form-group col-xs-4">
-                                <label htmlFor="Apellidos">Apellidos:</label>
-                                <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()}/>
-                                </div>
-                                
-                                <div className="form-group col-xs-4">
-                                <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
-                                <input type="date" className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()}/>
-                                </div>
-                                </div>
-                                </div>
-                                <div className="row">
-                                <div className="container-fluid inputs2">
-                                <div className="form-group col-xs-4"> 
-                                <label htmlFor="FechaAdmision">Fecha de admision:</label>
-                                <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()}/>
-                                </div>
-                                <div className="form-group col-xs-4"> 
-                                <label htmlFor="Sueldo">Sueldo:</label>
-                                <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}/>
-                                </div>
-                                <div className="form-group col-xs-4"> 
-                                <label htmlFor="Puesto">Puesto:</label>
-                                <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()}/>
-                                </div>
-                                <div className="form-group col-xs-4"> 
-                                <label htmlFor="Curp">Curp:</label>
-                                <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()}/>
-                                </div>
-                                <div className="form-group col-xs-4">
-                                <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
-                                </div>
-                                <br/>
-                                </div>
-                                </div>
-                        </div>
-                        
-    {/* 
-                            
-                                <div className="col-xs-3">
-                                    <input type="text" className="form-control" placeholder=".col-xs-3"/>
-                                    </div>
-                                <div className="col-xs-4">
-                                    <input type="text" className="form-control" placeholder=".col-xs-4"/>
-                                </div>
-                                <div className="col-xs-5">
-                                    <input type="text" className="form-control" placeholder=".col-xs-5"/>
-                                    </div>
-                            
-    */}
+                                            <div className="navbar-header">
+                                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                                <span className="sr-only">Toggle navigation</span>
+                                                <span className="icon-bar"></span>
+                                                <span className="icon-bar"></span>
+                                                <span className="icon-bar"></span>
+                                            </button>
+                                            <a className="navbar-brand" href="#">JPG</a>
+                                            </div>
 
+                                        
+                                            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                            <ul className="nav navbar-nav">
+                                                <li className=""><a href="#">¿Que hacemos? <span className="sr-only">(current)</span></a></li>
+                                                <li><a href="#">¿Quienes somos?</a></li>
+                                                <li className="dropdown">
+                                                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Secciones <span className="caret"></span></a>
+                                                <ul className="dropdown-menu">
+                                                  
+                                                    <li><a href="#">Trabajadores</a></li>
+                                                    <li><a href="#">Camiones</a></li>
+                                                    <li><a href="#">Celulares</a></li>
+                                                    <li><a href="{Sucursales}">Sucursales</a></li>
+                                                    <li><a href="#">Usuarios</a></li>
+                                                    <li><a href="#"></a></li>
+                                                    {/* <li role="separator" className="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                    <li role="separator" className="divider"></li>
+                                                    <li><a href="#">One more separated link</a></li> */}
+                                                </ul>
+                                                </li>
+                                            </ul>
+                                    
+                                            </div>
+                                           
+                                        </div>
+                                        </nav>
+                    
+                        <div className="Cuerpo">
+                       
+                                
+                           
+                             
+                            
+                            <table className="table table-fixed" id="DatosT">
+                                    <thead>
+                                        <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Fecha de nacimiento</th>
+                                        <th>Sueldo</th>
+                                        <th>Puesto</th>
+                                        <th>Curp</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                    
+                                    {Trabajadores.map(function(t,i){
+                                    
+                                    var IdCheck=t.ID;
+                                    var iE=i+1;
+                                        return  (
+                                    
+                                        <tr key={i} >
+                                            <td>
+                                            {/* <label className="btn btn-success active">
+                                            <input type="radio" name="options"  autocomplete="off"/>
+                                            <span className="glyphicon glyphicon-ok"></span>
+                                        </label> */}
+                                                    {/*  */}
+                                                
+                                                    <div className="ckbox">
+                                                    
+                                                    <input type="checkbox" id={'checkbox'+iE} onClick={() => this.Ver(iE)} />
+                                                    <label htmlFor={ 'checkbox'+iE} ></label>
+                                                    
+                                                    </div>
+                                                    
+                                            </td>
+                                            <td>{t.ID}</td>
+                                            <td>{t.Nombre}</td>
+                                            <td>{t.Apellidos}</td>
+                                            <td>{t.FechaNacimiento}</td>
+                                            <td>{t.Sueldo}</td>
+                                            <td>{t.Puesto}</td>
+                                            <td>{t.Curp}</td>
+                                        </tr> 
+                                        )
+                                    },this)}                               
+                                        </tbody>
+                                </table>
+                            
+                                        
+                                        
+                                            <div className="Titulo2 text-center">
+                                            <h3>{fun ? 'Agregar' : 'Actualizar'}</h3>
+                                            <br/>
+                                            </div>
+                                            <div>
+                                            <div className="inputsTodos">
+                                            <div className="container-fluid">
+                                            <div className="row">
+                                            <div className="container-fluid inputs1">
+
+                                                    <div className="form-group col-xs-4">
+                                                    <label htmlFor="Nombre">Nombre:</label>
+                                                    <input type="text" className="form-control" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    <div className="form-group col-xs-4">
+                                                    <label htmlFor="Apellidos">Apellidos:</label>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    
+                                                    <div className="form-group col-xs-4">
+                                                    <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
+                                                    <input type="date" className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    </div>
+                                                    </div>
+                                                    <div className="row">
+                                                    <div className="container-fluid inputs2">
+                                                    <div className="form-group col-xs-4"> 
+                                                    <label htmlFor="FechaAdmision">Fecha de admision:</label>
+                                                    <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    <div className="form-group col-xs-4"> 
+                                                    <label htmlFor="Sueldo">Sueldo:</label>
+                                                    <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    <div className="form-group col-xs-4"> 
+                                                    <label htmlFor="Puesto">Puesto:</label>
+                                                    <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    <div className="form-group col-xs-4"> 
+                                                    <label htmlFor="Curp">Curp:</label>
+                                                    <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()}/>
+                                                    </div>
+                                                    <div className="form-group col-xs-4">
+                                                    <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
+                                                    </div>
+                                                    <br/>
+                                                    </div>
+                                                    </div>
+                                            </div>
+                                            </div>
+                                         </div>     
+                                
+            {/* 
+                                    
+                                        <div className="col-xs-3">
+                                            <input type="text" className="form-control" placeholder=".col-xs-3"/>
+                                            </div>
+                                        <div className="col-xs-4">
+                                            <input type="text" className="form-control" placeholder=".col-xs-4"/>
+                                        </div>
+                                        <div className="col-xs-5">
+                                            <input type="text" className="form-control" placeholder=".col-xs-5"/>
+                                            </div>
+                                    
+            */}
+
+                                        <br/>
+                                        <div className="text-right container">
+                                        
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
+                                        
+                                        
+                                        
+                                        </div>
+                                        
+                                
                                 <br/>
-                                <div className="text-right container">
+                                <br/>
+                                <br/>
+                                <br/>
+                            
+        <br/>
+                                <br/>
+                                <br/>
+                                <br/>
                                 
-                                <button type="button" className="btn btn-success"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
-                                <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
-                                
-                                
-                                
+                                <div className="container">
+                                    <div className="row">
+                                    
+                                    
+                                        <div className="row">
+
+
+                                            <div className="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                        <div className="modal-body">
+                                                        <h2>¡Correcto!</h2>
+                                                        <h4>Trabajador {fun1 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
                                 </div>
-                  
-                          
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                      
-<br/>
-                        <br/>
-                        <br/>
-                        <br/>
                         
-        
+                        
+
+                                    </div>		
                 </div>
+               
         );
     }
 } 
