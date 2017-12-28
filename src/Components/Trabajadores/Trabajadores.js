@@ -97,31 +97,17 @@ class Trabajadores extends Component {
         document.getElementById("Borrar").style.display = "none"
     }
 
-    TraerCrear =()=>{
-        var fun=this.state.fun;
-        if(fun===true){
-         this.Traer();
-        }
-        if(fun==false){
-            this.Normalidad();
-         this.setState({fun:true})
-        }
-    }
+  
 Ver = (IdCheck) => {
-    var Cambio=this.state.Cambio;
+
     var T=this.state.T;
     var Extension=T.length;
     var Desactivado=IdCheck+1
     var IndexDatos=IdCheck-1;
-    // console.log(IdCheck);
-    // console.log(Extension);
+    console.log(IdCheck);
+    console.log(Extension);
     
-        if(Cambio==="Alteracion"){
-            for (var PP=1; PP<=Extension; PP++){ //Arriba
-                document.getElementById('checkbox'+PP).checked=false;
-                 
-            }
-        }
+       
 
 
         if(Extension!=IdCheck){
@@ -154,7 +140,7 @@ if (IdCheck===Extension){
     }
     
    
-    
+     
     
     
     
@@ -173,7 +159,7 @@ if (IdCheck===Extension){
         var fun=this.state.fun;
         this.setState({fun1:true});
         if (fun===true){
-            
+            console.log("Agrego");
         
             var ids =this.state.ID+1;
             this.setState({ID2:ids})
@@ -192,12 +178,13 @@ if (IdCheck===Extension){
         
            TInicial=X;
            this.Refresh();
-           console.log("Agrego");
+           
            this.setState({CambiarAgregar:1,ID:ids});
            console.log('Lenght: ');
            this.Normalidad();
         }
         if(fun===false){
+            console.log("Cambio");
             this.setState({fun1:false})
             var IndexDatos=this.state.IndexDatos;
             var row = {
@@ -214,7 +201,7 @@ if (IdCheck===Extension){
              
             //    this.Refresh();
                console.log(this.state.T);
-               console.log("Cambio");
+               
                this.setState({fun: true})
                this.Normalidad();
                this.setState({CambiarAgregar:2,Desactivado:true});
@@ -233,14 +220,6 @@ if (IdCheck===Extension){
     Traer =(IndexDatos)=>{
         this.setState({fun: false
         ,IndexDatos})
-       
-        // var  i, j, x = "";
-        //     var T=this.state.T;
-        //     for (i in T.Trabajadores) {
-        //         x += T.Trabajadores[i].Nombre +"<br/>"  this.setState({Traer:x});
-        
-        
-        
             var T = this.state.T;
              var Convertir=JSON.stringify(T);
              var obj = JSON.parse(Convertir);
@@ -252,9 +231,6 @@ if (IdCheck===Extension){
             var FechaAdmisionActTra=obj[IndexDatos].FechaAdmision;
             var SueldoActTra=obj[IndexDatos].Sueldo;
             var PuestoActTra=obj[IndexDatos].Puesto;
-            
-            // var FechaNacimientoTraer = new date (FechaNacimientoActTra).getFullYear();
-        
                 var row = {
         ID: IdActTra,
         Curp: CurpActTra,
@@ -301,13 +277,18 @@ if (IdCheck===Extension){
     }
    
     
-   
+     mayus = (e) => {
+        e.value = e.value.toUpperCase();
+    }
 
      Change = (event) =>{
+         console.log("algo ",event)
         var ids =this.state.ID+1;
         this.setState({ID2:ids})
+  
         const row =this.state.row;
-    row[event.target.name]=event.target.value;
+        
+    row[event.target.name]=event.target.value.toUpperCase();
    
     this.setState({row});
     var rowVacio = {
@@ -321,6 +302,21 @@ if (IdCheck===Extension){
             Puesto: "" 
         }
         
+        // if(row.Curp!=rowVacio.Curp){
+        //     if(row.Nombre!=rowVacio.Nombre){
+        //         if(row.Apellidos!=rowVacio.Apellidos){
+        //             if(row.FechaNacimiento!=rowVacio.FechaNacimiento){
+        //                 if(row.FechaAdmision!=rowVacio.FechaAdmision){
+        //                     if(row.Sueldo!=rowVacio.Sueldo){
+        //                         if(row.Puesto!=rowVacio.Puesto){
+        //                           this.setState({Desactivado:false})
+        //                         }else{this.setState({Desactivado:true})}
+        //                     }else{this.setState({Desactivado:true})}
+        //                 }else{this.setState({Desactivado:true})}
+        //             }else{this.setState({Desactivado:true})}
+        //         }else{this.setState({Desactivado:true})}             
+        //     }else{this.setState({Desactivado:true})}
+        // }else{this.setState({Desactivado:true})}     
         if(row.Curp!=rowVacio.Curp){
             if(row.Nombre!=rowVacio.Nombre){
                 if(row.Apellidos!=rowVacio.Apellidos){
@@ -328,26 +324,18 @@ if (IdCheck===Extension){
                         if(row.FechaAdmision!=rowVacio.FechaAdmision){
                             if(row.Sueldo!=rowVacio.Sueldo){
                                 if(row.Puesto!=rowVacio.Puesto){
-                                  this.setState({Desactivado:false})
+                                    this.setState({Desactivado:false})
                                 }else{this.setState({Desactivado:true})}
                             }else{this.setState({Desactivado:true})}
                         }else{this.setState({Desactivado:true})}
                     }else{this.setState({Desactivado:true})}
                 }else{this.setState({Desactivado:true})}             
             }else{this.setState({Desactivado:true})}
-        }else{this.setState({Desactivado:true})}     
+        }else{this.setState({Desactivado:true})}  
        
-    
-    // this.setState({row:T})
     } 
 
-    // isValidate (){
-    //     const { ID, Curp, Nombre, Apellidos, FechaNacimiento, FechaAdmision, Sueldo, Puesto } = this.state.row;
-    //     if(ID || !Curp || !Nombre || !Apellidos || !FechaNacimiento || !FechaAdmision || !Sueldo || !Puesto){
-    //             return true
-    //     }
-    //     return false;
-    // }
+
 
     createForm = () =>{
         var ID=this.state.T.length;
@@ -480,7 +468,7 @@ console.log(this.state.T.ID)
                     
                         <div className="Cuerpo">
                        
-                                
+                                <div className="TablaToda container-fluid">
                            
                              
                             
@@ -535,7 +523,7 @@ console.log(this.state.T.ID)
                                     },this)}                               
                                         </tbody>
                                 </table>
-                            
+                            </div>
                                         
                                         
                                             <div className="Titulo2 text-center">
@@ -550,16 +538,16 @@ console.log(this.state.T.ID)
 
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Nombre">Nombre:</label>
-                                                    <input type="text" className="form-control" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.Change.bind()}/>
+                                                    <input type="text" className="form-control glyphicon glyphicon-ok" name="Nombre" placeholder="" value={this.state.row.Nombre}  onChange={this.Change.bind()} pattern="[A-Za-z0-9!?-]{2,25}" required/>
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()}/>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} required/>
                                                     </div>
                                                     
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
-                                                    <input type="date" className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()}/>
+                                                    <input type="date"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
                                                     </div>
                                                     </div>
                                                     </div>
@@ -567,23 +555,24 @@ console.log(this.state.T.ID)
                                                     <div className="container-fluid inputs2">
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="FechaAdmision">Fecha de admision:</label>
-                                                    <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()}/>
+                                                    <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()} required/>
                                                     </div>
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="Sueldo">Sueldo:</label>
-                                                    <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}/>
+                                                    <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()} required/>
                                                     </div>
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="Puesto">Puesto:</label>
-                                                    <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()}/>
+                                                    <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} required/>
                                                     </div>
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="Curp">Curp:</label>
-                                                    <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()}/>
+                                                    <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="/^[A-Z\d]{18}$/"  required/>
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
                                                     </div>
+                                                    <i class="fa fa-check check-ok"></i>
                                                     <br/>
                                                     </div>
                                                     </div>
@@ -591,19 +580,7 @@ console.log(this.state.T.ID)
                                             </div>
                                          </div>     
                                 
-            {/* 
-                                    
-                                        <div className="col-xs-3">
-                                            <input type="text" className="form-control" placeholder=".col-xs-3"/>
-                                            </div>
-                                        <div className="col-xs-4">
-                                            <input type="text" className="form-control" placeholder=".col-xs-4"/>
-                                        </div>
-                                        <div className="col-xs-5">
-                                            <input type="text" className="form-control" placeholder=".col-xs-5"/>
-                                            </div>
-                                    
-            */}
+            
 
                                         <br/>
                                         <div className="text-right container">
@@ -620,8 +597,7 @@ console.log(this.state.T.ID)
                                 <br/>
                                 <br/>
                                 <br/>
-                            
-        <br/>
+                                <br/>
                                 <br/>
                                 <br/>
                                 <br/>
@@ -649,7 +625,7 @@ console.log(this.state.T.ID)
                         
                         
 
-                                    </div>		
+                                </div>
                 </div>
                
         );

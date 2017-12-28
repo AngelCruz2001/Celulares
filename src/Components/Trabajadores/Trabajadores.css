@@ -1,3 +1,6 @@
+/* html,body {
+  font-family: 'Mukta Malar', sans-serif;
+} */
 tr {
     width: 100%;
     display: inline-table;
@@ -41,26 +44,25 @@ tr {
       font-family: arial, sans-serif;
     
       width: 100%;
-  }
-  
-  td, th {
+    }
 
+    td, th {
       text-align: left;
       padding: 8px;
-  }
+    }
   
-  tr:nth-child(even) {
+    tr:nth-child(even) {
       background-color: #dddddd;
       
-  }
+     }
  
-  .ckbox {
+   .ckbox {
     position: relative;
-  }
-  .ckbox input[type="checkbox"] {
+    }
+    .ckbox input[type="checkbox"] {
     opacity: 0;
-  }
-  .ckbox label {
+   }
+    .ckbox label {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -91,46 +93,49 @@ tr {
     font-family: 'Glyphicons Halflings';
     position: absolute;
   } 
-  
-  .modal  {
-      /* display: block;
-    padding-right: 0px;
-    background-color: rgba(4, 4, 4, 0.8);  */
-    }
+
    
-    .modal-dialog {
-            top: 20%;
-                width: 100%;
-    position: absolute;
-        }
+  .modal-dialog {
+  top: 20%;
+  width: 100%;
+  position: absolute;
+ }
         .modal-content {
-                border-radius: 0px;
-                border: none;
-    top: 40%;
-            }
-            .modal-body {
-                    background-color: #0f8845;
-    color: white;
-                }
-               .navbar{
-                 margin:0;
-                 background-color: #90f5e699;
-                 border: antiquewhite;
+  border-radius: 0px;
+  border: none;
+  top: 40%;
+ }
+.modal-body {
+ color: white;
+ background-color: #0f8845;
+         }
+.navbar{
+  margin:0;
+  background-color: #90f5e699;
+  border: antiquewhite;
+  font-size: 116%
                }
-               .inputsTodos{
-               
-               border-radius : 20px 20px 20px 20px !important;
-               -moz-border-radius: 20px 20px 20px 20px !important;
-               -webkit-border-radius: 20px 20px 20px 20px !important;
-               
+.inputsTodos{
+  border-radius : 20px 20px 20px 20px !important;
+  -moz-border-radius: 20px 20px 20px 20px !important;
+  -webkit-border-radius: 20px 20px 20px 20px !important;
                }
 .Titulo2{
   display: grid;
 }
 
-                #Borrar{
-                  margin: 3%;;
-                }
-                #Agregar{
-                  margin: 3%;
-                }
+#Borrar{
+   margin: 3%;;
+}
+#Agregar{
+   margin: 3%;
+}
+input:invalid{
+  background-color:white;
+ }
+ input:valid{
+  background-color:#DDDDDD;
+ }
+
+
+

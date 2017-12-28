@@ -1,64 +1,325 @@
 
 import React, { Component } from 'react';
-
-
+import $ from "jquery";
 class Tabla extends Component {
     state = {  }
-    render() {
+
+
+
+  render() {
         return (
            <div>
-       <div className="container">
-       <div className="row" style="position:relative;">
-           <table className="table table-fixed table-bordered">
-               <tbody className="header">
-                 <tr>
-                   <td width="10%">#</td>
-                   <td width="80%">Name </td>
-                   <td width="10%">Points</td>
-                 </tr>
-               </tbody>
-               <tbody className="body">
-                 <tr>
-                   <td width="10%">1</td><td width="80%">Mike Adams</td><td width="10%">23</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">2</td><td width="80%">Holly Galivan</td><td width="10%">44</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">3</td><td width="80%">Mary Shea</td><td width="10%">86</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">4</td><td width="80%">Jim Adams</td><td width="10%">86</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">5</td><td width="80%">Henry Galivan</td><td width="10%">44</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">6</td><td width="80%">Bob Shea</td><td width="10%">26</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">7</td><td width="80%">Andy Parks</td><td width="10%">56</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">8</td><td width="80%">Bob Skelly</td><td width="10%">96</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">9</td><td width="80%">William Defoe</td><td width="10%">13</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">10</td><td width="80%">Will Tripp</td><td width="10%">16</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">11</td><td width="80%">Bill Champion</td><td width="10%">44</td>
-                 </tr>
-                 <tr>
-                   <td width="10%">12</td><td width="80%">Lastly Jane</td><td width="10%">6</td>
-                 </tr>
-               </tbody>
-             </table>
-       </div>
-     </div>
+    <div className="container">
+
+<div className="row">
+    <div className="col-md-4">
+        <h3>Default Styling</h3>
+
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Checkbox Block (Default Checked)</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch">
+                        <label>
+                            <input type="checkbox" name="" checked="checked" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
                     </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Checkbox Inline (Default Unchecked)</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch">
+                        <input type="checkbox" name="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Checkbox Disabled (Default Checked)</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Checkbox Disabled (Default Unchecked)</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch">
+                        <input type="checkbox" name="" disabled="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        
+        <h3>Light Styling</h3>
+
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Checkbox Block</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-light">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Checkbox Inline</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-light">
+                        <input type="checkbox" name="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Checkbox Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-light">
+                        <input type="checkbox" name="" disabled="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <h3>Success</h3>            
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-success">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-success">
+                        <label>
+                            <input type="checkbox" name="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-success">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <div className="col-md-4">
+        <h3>Primary</h3>            
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-primary">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-primary">
+                        <label>
+                            <input type="checkbox" name="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-primary">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <h3>Info</h3>            
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-info">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-info">
+                        <label>
+                            <input type="checkbox" name="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-info">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <h3>Warning</h3>            
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-warning">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-warning">
+                        <label>
+                            <input type="checkbox" name="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-warning">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div className="col-md-4">
+        <h3>Danger</h3>            
+        <div className="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-danger">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-danger">
+                        <label>
+                            <input type="checkbox" name="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-danger">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        
+        <h3>Dark</h3>            
+        <div classNameName="panel panel-default">
+            <div className="panel-body">
+                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-dark">
+                        <label>
+                            <input type="checkbox" name="" checked="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
+                <div className="form-group">
+                    <div className="checkbox checbox-switch switch-dark">
+                        <label>
+                            <input type="checkbox" name="" />
+                            <span></span>
+                            Checkbox Label
+                        </label>
+                    </div>
+                </div>
+
+                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
+                <div className="form-group">
+                    <label className="checkbox-inline checbox-switch switch-dark">
+                        <input type="checkbox" name="" disabled="" checked="" />
+                        <span></span>
+                        Checkbox Label
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+</div>
+
+                  
             
         );
     }
