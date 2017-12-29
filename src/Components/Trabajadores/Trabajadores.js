@@ -68,7 +68,7 @@ class Trabajadores extends Component {
         ID:5,
         Desactivado:true,
         IndexDatos:null,
-        ID2: null,
+        ID2: 0,
        
         row:
             {
@@ -159,12 +159,24 @@ if (IdCheck===Extension){
         var fun=this.state.fun;
         this.setState({fun1:true});
         if (fun===true){
-            console.log("Agrego");
+           this.createForm();
+        }
+        if(fun===false){
+        this.Actualizar();
+        }
         
-            var ids =this.state.ID+1;
-            this.setState({ID2:ids})
+        
+        
+        
+    }
+
+    Actualizar =()=>{
+        console.log("Cambio");
+        this.setState({fun1:false})
+        var IndexDatos=this.state.IndexDatos;
+        console.log(this.state.IndexDatos)
         var row = {
-            ID: ids,
+            ID: this.state.row.ID,
             Curp: this.state.row.Curp,
             Nombre: this.state.row.Nombre,
             Apellidos: this.state.row.Apellidos,
@@ -173,49 +185,21 @@ if (IdCheck===Extension){
             Sueldo: this.state.row.Sueldo,
             Puesto: this.state.row.Puesto 
         }
-          
-          var X=this.state.T.concat([row])
-        
-           TInicial=X;
-           this.Refresh();
+         this.state.T[IndexDatos] = row;
+         
+        //    this.Refresh();
+           console.log(this.state.T);
            
-           this.setState({CambiarAgregar:1,ID:ids});
-           console.log('Lenght: ');
+           this.setState({fun: true})
            this.Normalidad();
-        }
-        if(fun===false){
-            console.log("Cambio");
-            this.setState({fun1:false})
-            var IndexDatos=this.state.IndexDatos;
-            var row = {
-                ID: this.state.row.ID,
-                Curp: this.state.row.Curp,
-                Nombre: this.state.row.Nombre,
-                Apellidos: this.state.row.Apellidos,
-                FechaNacimiento: this.state.row.FechaNacimiento,
-                FechaAdmision: this.state.row.FechaAdmision,
-                Sueldo: this.state.row.Sueldo,
-                Puesto: this.state.row.Puesto 
-            }
-            this.state.T[IndexDatos] = row;
-             
-            //    this.Refresh();
-               console.log(this.state.T);
-               
-               this.setState({fun: true})
-               this.Normalidad();
-               this.setState({CambiarAgregar:2,Desactivado:true});
-               var T=this.state.T;
-               var Extension=T.length;
-               for(var i=1; i<=Extension; i++)
-               document.getElementById('checkbox'+i).checked=false;
-            console.log(i);
-            document.getElementById("Borrar").style.display = "none"
-        }
-        
-        
-        
-        
+           this.setState({CambiarAgregar:2,Desactivado:true});
+           
+           var T=this.state.T;
+           var Extension=T.length;
+           for(var i=1; i<=Extension; i++)
+           document.getElementById('checkbox'+i).checked=false;
+        console.log(i);
+        document.getElementById("Borrar").style.display = "none"
     }
     Traer =(IndexDatos)=>{
         this.setState({fun: false
@@ -282,7 +266,7 @@ if (IdCheck===Extension){
     }
 
      Change = (event) =>{
-         console.log("algo ",event)
+      
         var ids =this.state.ID+1;
         this.setState({ID2:ids})
   
@@ -301,29 +285,14 @@ if (IdCheck===Extension){
             Sueldo: "",
             Puesto: "" 
         }
-        
-        // if(row.Curp!=rowVacio.Curp){
-        //     if(row.Nombre!=rowVacio.Nombre){
-        //         if(row.Apellidos!=rowVacio.Apellidos){
-        //             if(row.FechaNacimiento!=rowVacio.FechaNacimiento){
-        //                 if(row.FechaAdmision!=rowVacio.FechaAdmision){
-        //                     if(row.Sueldo!=rowVacio.Sueldo){
-        //                         if(row.Puesto!=rowVacio.Puesto){
-        //                           this.setState({Desactivado:false})
-        //                         }else{this.setState({Desactivado:true})}
-        //                     }else{this.setState({Desactivado:true})}
-        //                 }else{this.setState({Desactivado:true})}
-        //             }else{this.setState({Desactivado:true})}
-        //         }else{this.setState({Desactivado:true})}             
-        //     }else{this.setState({Desactivado:true})}
-        // }else{this.setState({Desactivado:true})}     
-        if(row.Curp!=rowVacio.Curp){
-            if(row.Nombre!=rowVacio.Nombre){
-                if(row.Apellidos!=rowVacio.Apellidos){
+
+        if(row.Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
+            if(row.Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+                if(row.Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
                     if(row.FechaNacimiento!=rowVacio.FechaNacimiento){
                         if(row.FechaAdmision!=rowVacio.FechaAdmision){
-                            if(row.Sueldo!=rowVacio.Sueldo){
-                                if(row.Puesto!=rowVacio.Puesto){
+                            if(row.Sueldo.match("[0-9]+[^.]")){
+                                if(row.Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
                                     this.setState({Desactivado:false})
                                 }else{this.setState({Desactivado:true})}
                             }else{this.setState({Desactivado:true})}
@@ -335,38 +304,32 @@ if (IdCheck===Extension){
        
     } 
 
-
+ 
 
     createForm = () =>{
-        var ID=this.state.T.length;
+        console.log("Agrego");
         
-        var ids =ID+1;
-        var row = {
-            ID: ids,
-            Curp: this.state.row.Curp,
-            Nombre: this.state.row.Nombre,
-            Apellidos: this.state.row.Apellidos,
-            FechaNacimiento: this.state.row.FechaNacimiento,
-            FechaAdmision: this.state.row.FechaAdmision,
-            Sueldo: this.state.row.Sueldo,
-            Puesto: this.state.row.Puesto 
-        }
-          
-          var X=this.state.T.concat([row])
-          console.log(this.state.T);
-           TInicial=X;
-           this.Refresh();
-           console.log("Agrego");
-           console.log('Lenght: ',ID);
-        // this.setState({ 
-        //     T: this.state.T.concat({row}),
-        //      ID: ids 
-        //   });
-        //   console.log(this.state.row);
-        //    console.log(this.state.T)
-
-
-        //   this.Normalidad();
+        var ids =this.state.ID+1;
+        this.setState({ID2:ids})
+    var row = {
+        ID: ids,
+        Curp: this.state.row.Curp,
+        Nombre: this.state.row.Nombre,
+        Apellidos: this.state.row.Apellidos,
+        FechaNacimiento: this.state.row.FechaNacimiento,
+        FechaAdmision: this.state.row.FechaAdmision,
+        Sueldo: this.state.row.Sueldo,
+        Puesto: this.state.row.Puesto 
+    }
+      
+      var X=this.state.T.concat([row])
+    
+       TInicial=X;
+       this.Refresh();
+       
+       this.setState({CambiarAgregar:1,ID:ids});
+       console.log('Lenght: ');
+       this.Normalidad();
         }
 
      
@@ -538,11 +501,11 @@ console.log(this.state.T.ID)
 
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Nombre">Nombre:</label>
-                                                    <input type="text" className="form-control glyphicon glyphicon-ok" name="Nombre" placeholder="" value={this.state.row.Nombre}  onChange={this.Change.bind()} pattern="[A-Za-z0-9!?-]{2,25}" required/>
+                                                    <input type="text" className="form-control glyphicon glyphicon-ok" name="Nombre" placeholder="" value={this.state.row.Nombre}  onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} required/>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
                                                     </div>
                                                     
                                                     <div className="form-group col-xs-4">
@@ -559,20 +522,20 @@ console.log(this.state.T.ID)
                                                     </div>
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="Sueldo">Sueldo:</label>
-                                                    <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()} required/>
+                                                    <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="[0-9]+[^.]" required/>
                                                     </div>
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="Puesto">Puesto:</label>
-                                                    <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} required/>
+                                                    <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
                                                     </div>
                                                     <div className="form-group col-xs-4"> 
                                                     <label htmlFor="Curp">Curp:</label>
-                                                    <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="/^[A-Z\d]{18}$/"  required/>
+                                                    <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"  required/>
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
                                                     </div>
-                                                    <i class="fa fa-check check-ok"></i>
+                                                    <i className="fa fa-check check-ok"></i>
                                                     <br/>
                                                     </div>
                                                     </div>
@@ -609,7 +572,7 @@ console.log(this.state.T.ID)
                                         <div className="row">
 
 
-                                            <div className="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                            <div className="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                                 <div className="modal-dialog modal-lg">
                                                         <div className="modal-content">
                                                         <div className="modal-body">
