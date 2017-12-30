@@ -50,12 +50,25 @@ tr {
       text-align: left;
       padding: 8px;
     }
-  
+    td{
+      word-wrap: break-word;
+    }
     tr:nth-child(even) {
       background-color: #dddddd;
       
      }
- 
+     .TDNombre{
+       width: 9%;
+     }
+     .TDID{
+      width: 8%;
+     }
+     .TDCheck{
+      width: 7%;
+     }
+    .CurpTd{
+      width: -moz-min-content;
+    }
    .ckbox {
     position: relative;
     }
@@ -136,6 +149,7 @@ input:invalid{
  input:valid{
   background-color:#DDDDDD;
  }
+ 
 
 
 

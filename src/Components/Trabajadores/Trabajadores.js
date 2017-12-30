@@ -81,7 +81,8 @@ class Trabajadores extends Component {
             FechaAdmision: "",
             Sueldo: "",
             Puesto: "" 
-            }
+            },
+            Verificar:0
       
      
      }
@@ -265,6 +266,7 @@ if (IdCheck===Extension){
         e.value = e.value.toUpperCase();
     }
 
+    
      Change = (event) =>{
       
         var ids =this.state.ID+1;
@@ -301,35 +303,54 @@ if (IdCheck===Extension){
                 }else{this.setState({Desactivado:true})}             
             }else{this.setState({Desactivado:true})}
         }else{this.setState({Desactivado:true})}  
-       
+
+
+        
     } 
 
  
 
     createForm = () =>{
         console.log("Agrego");
+        var T=this.state.T;
+        var Verificar=this.state.Verificar;
+        var Extension=T.length;
+        for (var i = 0; i < Extension; i++) {
+            if (T[i].Curp === this.state.row.Curp) {
+                 Verificar=1;
+              break;
+            }else{
+                console.log("Curp no repetida: ",T[i].Curp)
+            }
+          } 
+          if (Verificar===0){
+            var ids =this.state.ID+1;
+            this.setState({ID2:ids})
+        var row = {
+            ID: ids,
+            Curp: this.state.row.Curp,
+            Nombre: this.state.row.Nombre,
+            Apellidos: this.state.row.Apellidos,
+            FechaNacimiento: this.state.row.FechaNacimiento,
+            FechaAdmision: this.state.row.FechaAdmision,
+            Sueldo: this.state.row.Sueldo,
+            Puesto: this.state.row.Puesto 
+        }
+          if(this.state.Verificar===0){
+          var X=this.state.T.concat([row])
+          }else{
+              console.log("Existente")
+          }
+           TInicial=X;
+           this.Refresh();
+           
+           this.setState({CambiarAgregar:1,ID:ids});
         
-        var ids =this.state.ID+1;
-        this.setState({ID2:ids})
-    var row = {
-        ID: ids,
-        Curp: this.state.row.Curp,
-        Nombre: this.state.row.Nombre,
-        Apellidos: this.state.row.Apellidos,
-        FechaNacimiento: this.state.row.FechaNacimiento,
-        FechaAdmision: this.state.row.FechaAdmision,
-        Sueldo: this.state.row.Sueldo,
-        Puesto: this.state.row.Puesto 
-    }
-      
-      var X=this.state.T.concat([row])
-    
-       TInicial=X;
-       this.Refresh();
+           this.Normalidad();
+          }else {
+              console.log("Curp Repetida")
+          }
        
-       this.setState({CambiarAgregar:1,ID:ids});
-       console.log('Lenght: ');
-       this.Normalidad();
         }
 
      
@@ -431,16 +452,16 @@ console.log(this.state.T.ID)
                     
                         <div className="Cuerpo">
                        
-                                <div className="TablaToda container-fluid">
+                                <div className="TablaToda ">
                            
                              
                             
                             <table className="table table-fixed" id="DatosT">
                                     <thead>
                                         <tr>
-                                        <th></th>
-                                        <th>Id</th>
-                                        <th>Nombre</th>
+                                        <th className="TDCheck"></th>
+                                        <th className="TDID">Id</th>
+                                        <th className="TDNombre">Nombre</th>
                                         <th>Apellidos</th>
                                         <th>Fecha de nacimiento</th>
                                         <th>Sueldo</th>
@@ -459,7 +480,7 @@ console.log(this.state.T.ID)
                                         return  (
                                     
                                         <tr key={i} >
-                                            <td>
+                                            <td className="TDCheck">
                                             {/* <label className="btn btn-success active">
                                             <input type="radio" name="options"  autocomplete="off"/>
                                             <span className="glyphicon glyphicon-ok"></span>
@@ -474,8 +495,8 @@ console.log(this.state.T.ID)
                                                     </div>
                                                     
                                             </td>
-                                            <td>{t.ID}</td>
-                                            <td>{t.Nombre}</td>
+                                            <td className="TDID">{t.ID}</td>
+                                            <td className="TDNombre">{t.Nombre}</td>
                                             <td>{t.Apellidos}</td>
                                             <td>{t.FechaNacimiento}</td>
                                             <td>{t.Sueldo}</td>
