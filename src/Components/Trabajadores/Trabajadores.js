@@ -69,7 +69,7 @@ class Trabajadores extends Component {
         Desactivado:true,
         IndexDatos:null,
         ID2: 0,
-       
+       Modal:true,
         row:
             {
             ID: null,
@@ -318,6 +318,7 @@ if (IdCheck===Extension){
         for (var i = 0; i < Extension; i++) {
             if (T[i].Curp === this.state.row.Curp) {
                  Verificar=1;
+                 this.setState({Modal:false})
               break;
             }else{
                 console.log("Curp no repetida: ",T[i].Curp)
@@ -569,7 +570,7 @@ console.log(this.state.T.ID)
                                         <br/>
                                         <div className="text-right container">
                                         
-                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={this.state.Modal ? '.bs-example-modal-lg2' : '.bs-example-modal-lg'} onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
                                         <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
                                         
                                         
@@ -592,7 +593,6 @@ console.log(this.state.T.ID)
                                     
                                         <div className="row">
 
-
                                             <div className="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                                 <div className="modal-dialog modal-lg">
                                                         <div className="modal-content">
@@ -603,8 +603,27 @@ console.log(this.state.T.ID)
                                                     </div>
                                                 </div>
                                             </div> 
+                                            </div>
+                                            </div> 
                                         </div>
-                                    </div>
+                                            <div className="container">
+                                                <div className="row">
+                                                
+                                                
+                                                    <div className="row">
+
+                                                        <div className="modal fade bs-example-modal-lg2" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                                <div className="modal-dialog2 modal-lg2">
+                                                                        <div className="modal-content2">
+                                                                        <div className="modal-body2">
+                                                                        <h2>¡Error!</h2>
+                                                                        <h4>Este Trabajador ya se encuentra registrado.</h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
+                                                </div>
                                 </div>
                         
                         
