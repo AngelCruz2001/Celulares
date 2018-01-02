@@ -70,6 +70,7 @@ class Trabajadores extends Component {
         IndexDatos:null,
         ID2: 0,
        Modal:true,
+       NombreInvalido:"",
         row:
             {
             ID: null,
@@ -262,20 +263,33 @@ if (IdCheck===Extension){
     }
    
     
-     mayus = (e) => {
-        e.value = e.value.toUpperCase();
+    
+    ChangeNumber =(event)=>{
+        const row =this.state.row;
+        row[event.target.name]=event.target.value.toUpperCase();
+        this.setState({row});
+        var Nombre=row.Nombre;
+        if(!/^[a-zA-Z]*$/g.test(Nombre)){
+            this.setState({NombreInvalido:"Caracteres invalidos"})
+        }else{
+            this.setState({NombreInvalido:""})
+        }
     }
-
     
      Change = (event) =>{
-      
+
+        
+
         var ids =this.state.ID+1;
         this.setState({ID2:ids})
-  
+
         const row =this.state.row;
-        
-    row[event.target.name]=event.target.value.toUpperCase();
-   
+            
+        row[event.target.name]=event.target.value.toUpperCase();
+    
+
+
+
     this.setState({row});
     var rowVacio = {
             ID: null,
@@ -288,13 +302,20 @@ if (IdCheck===Extension){
             Puesto: "" 
         }
 
-        if(row.Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
-            if(row.Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-                if(row.Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+        var Curp=row.Curp.trim();
+        var Nombre=row.Nombre.trim();
+        var Apellidos=row.Apellidos.trim();
+        var Puesto=row.Puesto.trim();
+
+        
+
+        if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
+            if(Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+                if(Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
                     if(row.FechaNacimiento!=rowVacio.FechaNacimiento){
                         if(row.FechaAdmision!=rowVacio.FechaAdmision){
                             if(row.Sueldo.match("[0-9]+[^.]")){
-                                if(row.Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+                                if(Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
                                     this.setState({Desactivado:false})
                                 }else{this.setState({Desactivado:true})}
                             }else{this.setState({Desactivado:true})}
@@ -304,8 +325,39 @@ if (IdCheck===Extension){
             }else{this.setState({Desactivado:true})}
         }else{this.setState({Desactivado:true})}  
 
+    
+        // if(!/^[a-zA-Z]*$/g.test(event.target.value)){
+        //     this.setState({NombreInvalido:"Caracteres invalidos"})
+        // }else{
+        //     this.setState({NombreInvalido:""})
+        // }
 
+
+
+
+
+
+        // if(!Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
+     
+        // }
+        // if (!Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]")){
+        //     this.setState({NombreInvalido:"<zxcxz<vz<"})
+        //     console.log("Incorrecto") 
+        // }else{
+        //     this.setState({NombreInvalido:""})
+        //     console.log("Correcto")
+        // }
+
+        // if(row.Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+  
+        // }
+        // if(row.Sueldo.match("[0-9]+[^.]")){
+
+        // }
+        // if(row.Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
         
+        // }
+
     } 
 
  
@@ -367,15 +419,15 @@ if (IdCheck===Extension){
               break;
             }
           }
-this.setState({T:obj})
-console.log(this.state.T.ID)
-   
- console.log(obj);//json sin su elemento          
-     
+        this.setState({T:obj})
+        console.log(this.state.T.ID)
+        
+        console.log(obj);//json sin su elemento          
+            
            //     var T=this.state.T;
         var IndexDatos=this.state.IndexDatos;
-    //    var Azul=T.splice(IndexDatos,1);
-    //    console.log(Azul);
+        //    var Azul=T.splice(IndexDatos,1);
+        //    console.log(Azul);
 
 
 
@@ -390,6 +442,7 @@ console.log(this.state.T.ID)
              
         }
     }
+
     Id =()=>{
         console.log(this.state.ID);
     }
@@ -519,47 +572,49 @@ console.log(this.state.T.ID)
                                             <div className="inputsTodos">
                                             <div className="container-fluid">
                                             <div className="row">
-                                            <div className="container-fluid inputs1">
+                                                <div className="container-fluid inputs1">
 
                                                     <div className="form-group col-xs-4">
-                                                    <label htmlFor="Nombre">Nombre:</label>
-                                                    <input type="text" className="form-control glyphicon glyphicon-ok" name="Nombre" placeholder="" value={this.state.row.Nombre}  onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
+                                                        <label htmlFor="Nombre">Nombre:</label>
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.ChangeNumber.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required  maxlength="20"/>
+                                                        <label className="AdvertenciaNombre" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
                                                     <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
+                                                      <label className="AdvertenciaNombre"> </label>
                                                     </div>
                                                     
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
                                                     <input type="date"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
+                                                      <label className="AdvertenciaNombre"> </label>
                                                     </div>
-                                                    </div>
-                                                    </div>
+                                                </div>
+                                            </div>
                                                     <div className="row">
-                                                    <div className="container-fluid inputs2">
-                                                    <div className="form-group col-xs-4"> 
-                                                    <label htmlFor="FechaAdmision">Fecha de admision:</label>
-                                                    <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()} required/>
-                                                    </div>
-                                                    <div className="form-group col-xs-4"> 
-                                                    <label htmlFor="Sueldo">Sueldo:</label>
-                                                    <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="[0-9]+[^.]" required/>
-                                                    </div>
-                                                    <div className="form-group col-xs-4"> 
-                                                    <label htmlFor="Puesto">Puesto:</label>
-                                                    <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
-                                                    </div>
-                                                    <div className="form-group col-xs-4"> 
-                                                    <label htmlFor="Curp">Curp:</label>
-                                                    <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"  required/>
-                                                    </div>
-                                                    <div className="form-group col-xs-4">
-                                                    <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
-                                                    </div>
-                                                    <i className="fa fa-check check-ok"></i>
-                                                    <br/>
-                                                    </div>
+                                                        <div className="container-fluid inputs2">
+                                                            <div className="form-group col-xs-4"> 
+                                                            <label htmlFor="FechaAdmision">Fecha de admision:</label>
+                                                            <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()} required/>
+                                                            </div>
+                                                            <div className="form-group col-xs-4"> 
+                                                            <label htmlFor="Sueldo">Sueldo:</label>
+                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="[0-9]+[^.]" required/>
+                                                            </div>
+                                                            <div className="form-group col-xs-4"> 
+                                                            <label htmlFor="Puesto">Puesto:</label>
+                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
+                                                            </div>
+                                                            <div className="form-group col-xs-4"> 
+                                                            <label htmlFor="Curp">Curp:</label>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"  required/>
+                                                            </div>
+                                                            <div className="form-group col-xs-4">
+                                                            <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
+                                                            </div>
+                                                            <br/>
+                                                        </div>
                                                     </div>
                                             </div>
                                             </div>

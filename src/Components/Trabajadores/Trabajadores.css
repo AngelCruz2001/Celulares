@@ -30,7 +30,7 @@ tr {
     }
 
     .form-control{
-      margin: 10px !important
+      margin: 4px !important
     }
 
     .inputs {
@@ -157,13 +157,25 @@ tr {
 }
 #Agregar{
    margin: 3%;
+   /* 2px 2px 5px rgb(230, 13, 13); */
 }
-input:invalid{
+input:focus:required:invalid{
+border-color: #d62323;
   background-color:white;
+  box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(252, 42, 6, 0.6);
+     
  }
- input:valid{
+ 
+ input:required:valid{
   background-color:#DDDDDD;
+  
  }
+.AdvertenciaNombre{
+font-size: 82%;
+margin-top: 0px;
+color: red;
+margin-left: 4%;
+}
  
 
 
