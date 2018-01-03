@@ -71,6 +71,8 @@ class Trabajadores extends Component {
         ID2: 0,
        Modal:true,
        NombreInvalido:"",
+       ApellidosInvalidos:"",
+       PuestoInvalido:"",
         row:
             {
             ID: null,
@@ -266,13 +268,26 @@ if (IdCheck===Extension){
     
     ChangeNumber =(event)=>{
         const row =this.state.row;
-        row[event.target.name]=event.target.value.toUpperCase();
         this.setState({row});
-        var Nombre=row.Nombre;
+        var Nombre=this.state.row.Nombre;
+        var Apellidos=this.state.row.Apellidos;
+        var Puesto=this.state.row.Puesto;
         if(!/^[a-zA-Z]*$/g.test(Nombre)){
             this.setState({NombreInvalido:"Caracteres invalidos"})
+            this.setState({Verificar:false,Desactivado:true})
         }else{
             this.setState({NombreInvalido:""})
+            this.setState({Verificar:true})
+        }
+        if(!/^[a-zA-Z]*$/g.test(Apellidos)){
+            this.setState({ApellidosInvalidos:"Caracteres invalidos"})
+        }else{
+            this.setState({ApellidosInvalidos:""})
+        }
+        if(!/^[a-zA-Z]*$/g.test(Puesto)){
+            this.setState({PuestoInvalido:"Caracteres invalidos"})
+        }else{
+            this.setState({PuestoInvalido:""})
         }
     }
     
@@ -286,11 +301,11 @@ if (IdCheck===Extension){
         const row =this.state.row;
             
         row[event.target.name]=event.target.value.toUpperCase();
-    
+     this.setState({row});
+        this.ChangeNumber();
 
 
-
-    this.setState({row});
+   
     var rowVacio = {
             ID: null,
             Curp: "",
@@ -308,6 +323,7 @@ if (IdCheck===Extension){
         var Puesto=row.Puesto.trim();
 
         
+        console.log("Valor Nombre:",this.state.row.Nombre)
 
         if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
             if(Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
@@ -316,7 +332,9 @@ if (IdCheck===Extension){
                         if(row.FechaAdmision!=rowVacio.FechaAdmision){
                             if(row.Sueldo.match("[0-9]+[^.]")){
                                 if(Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-                                    this.setState({Desactivado:false})
+                                    if(this.state.Verificar){
+                                        this.setState({Desactivado:false})
+                                    }else{this.setState({Desactivado:true})}
                                 }else{this.setState({Desactivado:true})}
                             }else{this.setState({Desactivado:true})}
                         }else{this.setState({Desactivado:true})}
@@ -326,12 +344,7 @@ if (IdCheck===Extension){
         }else{this.setState({Desactivado:true})}  
 
     
-        // if(!/^[a-zA-Z]*$/g.test(event.target.value)){
-        //     this.setState({NombreInvalido:"Caracteres invalidos"})
-        // }else{
-        //     this.setState({NombreInvalido:""})
-        // }
-
+       
 
 
 
@@ -576,19 +589,19 @@ if (IdCheck===Extension){
 
                                                     <div className="form-group col-xs-4">
                                                         <label htmlFor="Nombre">Nombre:</label>
-                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.ChangeNumber.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required  maxlength="20"/>
-                                                        <label className="AdvertenciaNombre" >{this.state.NombreInvalido}</label>                                                
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
+                                                        <label className="Advertencia" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
-                                                      <label className="AdvertenciaNombre"> </label>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required/>
+                                                      <label className="Advertencia">{this.state.ApellidosInvalidos} </label>
                                                     </div>
                                                     
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
                                                     <input type="date"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
-                                                      <label className="AdvertenciaNombre"> </label>
+                                                      <label className="Advertencia"> </label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -604,11 +617,12 @@ if (IdCheck===Extension){
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Puesto">Puesto:</label>
-                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}" required/>
+                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}" required/>
+                                                            <label className="Advertencia">{this.state.PuestoInvalido} </label>
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"  required/>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$" maxlength="18"  required/>
                                                             </div>
                                                             <div className="form-group col-xs-4">
                                                             <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
