@@ -73,6 +73,8 @@ class Trabajadores extends Component {
        NombreInvalido:"",
        ApellidosInvalidos:"",
        PuestoInvalido:"",
+       SueldoInvalido:"",
+       CurpInvalido:"",
         row:
             {
             ID: null,
@@ -85,7 +87,8 @@ class Trabajadores extends Component {
             Sueldo: "",
             Puesto: "" 
             },
-            Verificar:0
+            Verificar:0,
+            Verificar2:null
       
      
      }
@@ -264,33 +267,97 @@ if (IdCheck===Extension){
 
     }
    
-    
-    
-    ChangeNumber =(event)=>{
-        const row =this.state.row;
-        this.setState({row});
-        var Nombre=this.state.row.Nombre;
-        var Apellidos=this.state.row.Apellidos;
+
+    // componentDidUpdate =()=>{
+    //     var Curp=this.state.row.Curp.trim();
+    //     var Nombre=this.state.row.Nombre.trim();
+    //     var Apellidos=this.state.row.Apellidos.trim();
+    //     var Puesto=this.state.row.Puesto.trim();
+    //     var FechaNacimiento=this.state.row.FechaNacimiento.trim();
+    //     var FechaAdmision=this.state.row.FechaAdmision.trim();
+    //     var Sueldo=this.state.row.Sueldo.trim();
+        
+    //     var rowVacio = {
+    //         ID: null,
+    //         Curp: "",
+    //         Nombre: "",
+    //         Apellidos: "",
+    //         FechaNacimiento: "",
+    //         FechaAdmision: "",
+    //         Sueldo: "",
+    //         Puesto: "" 
+    //     }
+    //     if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
+    //         if(Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+    //             if(Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+    //                 if(FechaNacimiento!=rowVacio.FechaNacimiento){
+    //                     if(FechaAdmision!=rowVacio.FechaAdmision){
+    //                         if(Sueldo.match("[0-9]+[^.]")){
+    //                             if(Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+    //                                 if(this.state.Verificar){
+    //                                     console.log(this.state.Verificar)
+    //                                     this.setState({Desactivado:false})
+    //                                 }else{this.setState({Desactivado:true})}
+    //                             }else{this.setState({Desactivado:true})}
+    //                         }else{this.setState({Desactivado:true})}
+    //                     }else{this.setState({Desactivado:true})}
+    //                 }else{this.setState({Desactivado:true})}
+    //             }else{this.setState({Desactivado:true})}             
+    //         }else{this.setState({Desactivado:true})}
+        // }else{this.setState({Desactivado:true})}  
+    // }
+    ChangePuesto =()=>{
+       
         var Puesto=this.state.row.Puesto;
-        if(!/^[a-zA-Z]*$/g.test(Nombre)){
-            this.setState({NombreInvalido:"Caracteres invalidos"})
-            this.setState({Verificar:false,Desactivado:true})
-        }else{
-            this.setState({NombreInvalido:""})
-            this.setState({Verificar:true})
-        }
-        if(!/^[a-zA-Z]*$/g.test(Apellidos)){
-            this.setState({ApellidosInvalidos:"Caracteres invalidos"})
-        }else{
-            this.setState({ApellidosInvalidos:""})
-        }
-        if(!/^[a-zA-Z]*$/g.test(Puesto)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Puesto)){
             this.setState({PuestoInvalido:"Caracteres invalidos"})
+                         
         }else{
             this.setState({PuestoInvalido:""})
+            
         }
     }
+    ChangeApellidos =()=>{
+        var Apellidos=this.state.row.Apellidos;
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Apellidos)){
+            this.setState({ApellidosInvalidos:"Campo invalidos"})
+             
+        }else{
+            this.setState({ApellidosInvalidos:""})
+            
+        }
+    }
+    ChangeNombre =()=>{
     
+        var Nombre=this.state.row.Nombre;
+        
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Nombre)){
+            this.setState({NombreInvalido:"CamposNombre invalidos"})
+            
+            console.log("No es correcta")
+
+            this.setState({Desactivado:true})
+        }else{
+            this.setState({NombreInvalido:""})
+            
+        }
+       
+    }
+    ChangeSueldo =()=>{
+        var Sueldo=this.state.row.Sueldo;
+        
+    if(!/^[1-9]+[0-9]+([.][0-9]+)?$/.test(Sueldo)){
+            this.setState({SueldoInvalido:"CamposSueldo invalidos"})
+            
+            console.log("No es correcta")
+
+            this.setState({Desactivado:true})
+        }else{
+            this.setState({SueldoInvalido:""})
+            console.log("Correcto")
+        }
+    }
+
      Change = (event) =>{
 
         
@@ -302,10 +369,9 @@ if (IdCheck===Extension){
             
         row[event.target.name]=event.target.value.toUpperCase();
      this.setState({row});
-        this.ChangeNumber();
 
-
-   
+    
+        
     var rowVacio = {
             ID: null,
             Curp: "",
@@ -316,25 +382,27 @@ if (IdCheck===Extension){
             Sueldo: "",
             Puesto: "" 
         }
-
+    
         var Curp=row.Curp.trim();
         var Nombre=row.Nombre.trim();
         var Apellidos=row.Apellidos.trim();
         var Puesto=row.Puesto.trim();
-
+        var FechaNacimiento=row.FechaNacimiento.trim();
+        var FechaAdmision=row.FechaAdmision.trim();
+        var Sueldo=row.Sueldo.trim();
+        // console.log("1=Activo, 0=Inactivo")
+   
         
-        console.log("Valor Nombre:",this.state.row.Nombre)
+        // console.log("Valor Nombre:",this.state.row.Nombre)
 
         if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
             if(Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
                 if(Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-                    if(row.FechaNacimiento!=rowVacio.FechaNacimiento){
-                        if(row.FechaAdmision!=rowVacio.FechaAdmision){
-                            if(row.Sueldo.match("[0-9]+[^.]")){
+                    if(FechaNacimiento!=rowVacio.FechaNacimiento){
+                        if(FechaAdmision!=rowVacio.FechaAdmision){
+                            if(Sueldo.match("[0-9]+[^.]{1,15}")){
                                 if(Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-                                    if(this.state.Verificar){
                                         this.setState({Desactivado:false})
-                                    }else{this.setState({Desactivado:true})}
                                 }else{this.setState({Desactivado:true})}
                             }else{this.setState({Desactivado:true})}
                         }else{this.setState({Desactivado:true})}
@@ -342,14 +410,15 @@ if (IdCheck===Extension){
                 }else{this.setState({Desactivado:true})}             
             }else{this.setState({Desactivado:true})}
         }else{this.setState({Desactivado:true})}  
-
     
-       
-
-
-
-
-
+    
+               
+this.ChangeNombre();
+this.ChangeApellidos();
+this.ChangePuesto();
+this.ChangeSueldo();
+    
+    
         // if(!Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
      
         // }
@@ -360,36 +429,39 @@ if (IdCheck===Extension){
         //     this.setState({NombreInvalido:""})
         //     console.log("Correcto")
         // }
-
+    
         // if(row.Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-  
+    
         // }
         // if(row.Sueldo.match("[0-9]+[^.]")){
-
+    
         // }
         // if(row.Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-        
+    
         // }
-
+    
     } 
 
  
 
     createForm = () =>{
+
+        
         console.log("Agrego");
+
         var T=this.state.T;
-        var Verificar=this.state.Verificar;
+        var Verificar2=this.state.Verificar2;
         var Extension=T.length;
         for (var i = 0; i < Extension; i++) {
             if (T[i].Curp === this.state.row.Curp) {
-                 Verificar=1;
+                 Verificar2=1;
                  this.setState({Modal:false})
               break;
             }else{
                 console.log("Curp no repetida: ",T[i].Curp)
             }
           } 
-          if (Verificar===0){
+          if (Verificar2===0){
             var ids =this.state.ID+1;
             this.setState({ID2:ids})
         var row = {
@@ -402,7 +474,7 @@ if (IdCheck===Extension){
             Sueldo: this.state.row.Sueldo,
             Puesto: this.state.row.Puesto 
         }
-          if(this.state.Verificar===0){
+          if(this.state.Verificar2===0){
           var X=this.state.T.concat([row])
           }else{
               console.log("Existente")
@@ -589,12 +661,12 @@ if (IdCheck===Extension){
 
                                                     <div className="form-group col-xs-4">
                                                         <label htmlFor="Nombre">Nombre:</label>
-                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder="" value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
                                                         <label className="Advertencia" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required/>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required/>
                                                       <label className="Advertencia">{this.state.ApellidosInvalidos} </label>
                                                     </div>
                                                     
@@ -610,14 +682,16 @@ if (IdCheck===Extension){
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="FechaAdmision">Fecha de admision:</label>
                                                             <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()} required/>
-                                                            </div>
+                                                            <label className="Advertencia"> </label>
+                                                           </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Sueldo">Sueldo:</label>
-                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="[0-9]+[^.]" required/>
+                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]+[0-9]+([.][0-9]+)?$"  required/>
+                                                            <label className="Advertencia">{this.state.SueldoInvalido} </label>                                                         
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Puesto">Puesto:</label>
-                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}" required/>
+                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}" required/>
                                                             <label className="Advertencia">{this.state.PuestoInvalido} </label>
                                                             </div>
                                                             <div className="form-group col-xs-4"> 

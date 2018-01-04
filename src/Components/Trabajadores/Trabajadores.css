@@ -178,6 +178,10 @@ font-size: 82%;
 margin-top: 0px;
 color: red;
 margin-left: 4%;
+
+}
+label{
+  display: unset;
 }
  
 
