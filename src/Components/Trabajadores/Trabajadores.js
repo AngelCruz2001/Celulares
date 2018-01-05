@@ -30,12 +30,12 @@ var TInicial = [
         "FechaNacimiento":"2001-07-14" ,
         "FechaAdmision":"2013-10-21" ,
         "Sueldo": "5000",
-        "Puesto": "GERENTE/DUEÑO" 
+        "Puesto": "GERENTE" 
 
     },
     {
         "ID": 4,
-        "Curp": "GOZE001107MDWEROA1",
+        "Curp": "GOZE000512MDGRRNA1",
         "Nombre": "ELIZABETH",
         "Apellidos": "GONZALEZ SAUCEDO",
         "FechaNacimiento":"2000-11-25" ,
@@ -46,7 +46,7 @@ var TInicial = [
     },
     {
         "ID": 5,
-        "Curp": "UYRT120908MIQIERA1",
+        "Curp": "SAMM010418HASNRGA2",
         "Nombre": "MIGUEL ANGEL",
         "Apellidos": "SANCHEZ MORAN",
         "FechaNacimiento":"2001-04-18" ,
@@ -104,7 +104,15 @@ class Trabajadores extends Component {
         document.getElementById("Borrar").style.display = "none"
     }
 
-  
+  RefreshCampInv =()=>{
+    this.setState({
+    NombreInvalido:"",
+    ApellidosInvalidos:"",
+    PuestoInvalido:"",
+    SueldoInvalido:"",
+    CurpInvalido:""
+    });
+  }
 Ver = (IdCheck) => {
 
     var T=this.state.T;
@@ -178,6 +186,8 @@ if (IdCheck===Extension){
     }
 
     Actualizar =()=>{
+        this.RefreshCampInv();
+        
         console.log("Cambio");
         this.setState({fun1:false})
         var IndexDatos=this.state.IndexDatos;
@@ -209,6 +219,8 @@ if (IdCheck===Extension){
         document.getElementById("Borrar").style.display = "none"
     }
     Traer =(IndexDatos)=>{
+        this.RefreshCampInv();
+        
         this.setState({fun: false
         ,IndexDatos})
             var T = this.state.T;
@@ -245,7 +257,7 @@ if (IdCheck===Extension){
         this.setState({fun: false})
        
     }
-   
+  
     Checked =()=>{
         document.form.checkbox1.checked=false;
     }
@@ -310,8 +322,9 @@ if (IdCheck===Extension){
        
         var Puesto=this.state.row.Puesto;
         if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Puesto)){
-            this.setState({PuestoInvalido:"Caracteres invalidos"})
-                         
+            this.setState({PuestoInvalido:"Campo invalido"})
+                       
+            this.setState({Desactivado:true})  
         }else{
             this.setState({PuestoInvalido:""})
             
@@ -322,6 +335,7 @@ if (IdCheck===Extension){
         if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Apellidos)){
             this.setState({ApellidosInvalidos:"Campo invalidos"})
              
+            this.setState({Desactivado:true})
         }else{
             this.setState({ApellidosInvalidos:""})
             
@@ -332,7 +346,7 @@ if (IdCheck===Extension){
         var Nombre=this.state.row.Nombre;
         
         if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Nombre)){
-            this.setState({NombreInvalido:"CamposNombre invalidos"})
+            this.setState({NombreInvalido:"Campo invalido"})
             
             console.log("No es correcta")
 
@@ -346,8 +360,9 @@ if (IdCheck===Extension){
     ChangeSueldo =()=>{
         var Sueldo=this.state.row.Sueldo;
         
-    if(!/^[1-9]+[0-9]+([.][0-9]+)?$/.test(Sueldo)){
-            this.setState({SueldoInvalido:"CamposSueldo invalidos"})
+    if(!/^[1-9]+[0-9]*([.][0-9])?$/.test(Sueldo)){
+        if(Sueldo!=""){
+            this.setState({SueldoInvalido:"Campo invalido"})
             
             console.log("No es correcta")
 
@@ -356,6 +371,81 @@ if (IdCheck===Extension){
             this.setState({SueldoInvalido:""})
             console.log("Correcto")
         }
+        }else{
+            this.setState({SueldoInvalido:""})
+            console.log("Correcto")
+        }
+    }
+
+    ChangeCurp =()=>{
+
+        var Curp=this.state.row.Curp;
+        var Apellidos = this.state.row.Apellidos;
+        var PLC = Curp.charAt(0); 
+        var PLA=Apellidos.charAt(0);
+        
+
+        // if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 0-9]*$/g.test(Curp)){
+        //     this.setState({CurpInvalido:"Caracteres invalidos"})
+            
+        //     console.log("No es correcta")
+
+        //     if (PLC!=PLA){
+        //         this.setState({Desactivado:true})
+        //          this.setState({CurpInvalido:"Curp no coincide"})
+                
+        //     }
+            
+        //     this.setState({Desactivado:true})
+        // }else{
+        //     this.setState({CurpInvalido:""})
+            
+        // }
+        
+    }
+    CurpValidate =()=>{
+        var Apellidos = this.state.row.Apellidos;
+        
+        var i = 0;
+        var PLA=Apellidos.charAt(0);
+        var vocal = false;
+        var Extension=Apellidos.length;
+        if((Apellidos.charAt(0) != 'A') &&
+                    (Apellidos.charAt(0) != 'E')  &&
+                    (Apellidos.charAt(0) != 'I') &&
+                    (Apellidos.charAt(0) != 'O') &&
+                    (Apellidos.charAt(0) != 'U')) {
+                        while (i < Extension & !vocal){
+                            if((Apellidos.charAt(i) == 'A') ||
+                                    (Apellidos.charAt(i) == 'E')  ||
+                                    (Apellidos.charAt(i) == 'I') ||
+                                    (Apellidos.charAt(i) == 'O') ||
+                                    (Apellidos.charAt(i) == 'U')) {
+                
+                                var cadena =Apellidos.charAt(i);
+                                vocal = true;
+                
+                            }
+                          i++;
+                        }
+                        console.log(cadena)
+                    }else{
+                        i=1;
+                        while (i < Extension & !vocal){
+                            if((Apellidos.charAt(i) == 'A') ||
+                                    (Apellidos.charAt(i) == 'E')  ||
+                                    (Apellidos.charAt(i) == 'I') ||
+                                    (Apellidos.charAt(i) == 'O') ||
+                                    (Apellidos.charAt(i) == 'U')) {
+                
+                                var cadena =Apellidos.charAt(i);
+                                vocal = true;
+                
+                            }
+                          i++;
+                        }
+                        console.log(cadena,"I=1")
+                    }
     }
 
      Change = (event) =>{
@@ -417,6 +507,7 @@ this.ChangeNombre();
 this.ChangeApellidos();
 this.ChangePuesto();
 this.ChangeSueldo();
+this.ChangeCurp();
     
     
         // if(!Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
@@ -448,6 +539,7 @@ this.ChangeSueldo();
 
         
         console.log("Agrego");
+        this.RefreshCampInv();
 
         var T=this.state.T;
         var Verificar2=this.state.Verificar2;
@@ -461,7 +553,7 @@ this.ChangeSueldo();
                 console.log("Curp no repetida: ",T[i].Curp)
             }
           } 
-          if (Verificar2===0){
+          if (Verificar2===null){
             var ids =this.state.ID+1;
             this.setState({ID2:ids})
         var row = {
@@ -494,6 +586,7 @@ this.ChangeSueldo();
      
      
     Eliminar =()=> {
+        this.RefreshCampInv();
         var T = this.state.T;
         var Convertir=JSON.stringify(T);
         var obj = JSON.parse(Convertir);
@@ -672,7 +765,7 @@ this.ChangeSueldo();
                                                     
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
-                                                    <input type="date"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
+                                                    <input type={this.state.Fecha} placeholder="Fecha de Nacimiento"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
                                                       <label className="Advertencia"> </label>
                                                     </div>
                                                 </div>
@@ -686,7 +779,7 @@ this.ChangeSueldo();
                                                            </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Sueldo">Sueldo:</label>
-                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]+[0-9]+([.][0-9]+)?$"  required/>
+                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]+[0-9]*([.][0-9])?$"  required/>
                                                             <label className="Advertencia">{this.state.SueldoInvalido} </label>                                                         
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
@@ -696,8 +789,9 @@ this.ChangeSueldo();
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$" maxlength="18"  required/>
-                                                            </div>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onFocus={this.CurpValidate.bind()} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$" maxlength="18"  required/>
+                                                            <label className="Advertencia">{this.state.CurpInvalido} </label>
+                                                            </div>    
                                                             <div className="form-group col-xs-4">
                                                             <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
                                                             </div>
@@ -772,6 +866,7 @@ this.ChangeSueldo();
                         
 
                                 </div>
+                       
                 </div>
                
         );
