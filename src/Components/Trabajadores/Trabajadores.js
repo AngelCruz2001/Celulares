@@ -75,6 +75,7 @@ class Trabajadores extends Component {
        PuestoInvalido:"",
        SueldoInvalido:"",
        CurpInvalido:"",
+       Vocal:"",
         row:
             {
             ID: null,
@@ -341,22 +342,23 @@ if (IdCheck===Extension){
             
         }
     }
-    ChangeNombre =()=>{
+    // ChangeNombre =()=>{
     
-        var Nombre=this.state.row.Nombre;
+    //     var Nombre=this.state.row.Nombre;
         
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Nombre)){
-            this.setState({NombreInvalido:"Campo invalido"})
+    //     if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Nombre)){
+    //         this.setState({NombreInvalido:"Campo invalido"})
             
-            console.log("No es correcta")
+    //         console.log("No es correcta")
 
-            this.setState({Desactivado:true})
-        }else{
-            this.setState({NombreInvalido:""})
+    //         this.setState({Desactivado:true})
+    //     }else{
+    //         this.setState({NombreInvalido:""})
             
-        }
+    //     }
        
-    }
+    // }
+   
     ChangeSueldo =()=>{
         var Sueldo=this.state.row.Sueldo;
         
@@ -369,38 +371,54 @@ if (IdCheck===Extension){
             this.setState({Desactivado:true})
         }else{
             this.setState({SueldoInvalido:""})
-            console.log("Correcto")
+            
         }
         }else{
             this.setState({SueldoInvalido:""})
-            console.log("Correcto")
+            
         }
     }
 
-    ChangeCurp =()=>{
+    ChangeCurp =(Vocal)=>{
 
-        var Curp=this.state.row.Curp;
-        var Apellidos = this.state.row.Apellidos;
+        var Nombre=this.state.row.Nombre.trim();
+        var Curp=this.state.row.Curp.trim();
+        var Apellidos = this.state.row.Apellidos.trim();
         var PLC = Curp.charAt(0); 
         var PLA=Apellidos.charAt(0);
+        var SLC=Curp.charAt(1);
+        var Verificar2=this.state.Verificar2;
+        var Extension=Curp.length;
+        var PLN=Nombre.charAt(0);
+        var CLC=Curp.charAt(3);
+        console.log("EXTENSION: ",Extension)
+
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 0-9]*$/g.test(Curp)){
+            this.setState({CurpInvalido:"Caracteres invalidos"})
+            
+            console.log("No es correcta")
+
+            
+            this.setState({Desactivado:true})
+        }else{
+           
+            this.setState({CurpInvalido:""})
+            
+        }
+        if (Extension===18){
+            if ((PLC!=PLA) || (SLC!=Vocal)||(PLN!=CLC)){
+                this.setState({Desactivado:true})
+                 this.setState({CurpInvalido:"Curp no coincide con los datos"})
+                console.log(Extension)
+
+            this.setState({Desactivado:true})
+            }else{
+
+            this.setState({CurpInvalido:""})
+            }
         
-
-        // if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 0-9]*$/g.test(Curp)){
-        //     this.setState({CurpInvalido:"Caracteres invalidos"})
-            
-        //     console.log("No es correcta")
-
-        //     if (PLC!=PLA){
-        //         this.setState({Desactivado:true})
-        //          this.setState({CurpInvalido:"Curp no coincide"})
-                
-        //     }
-            
-        //     this.setState({Desactivado:true})
-        // }else{
-        //     this.setState({CurpInvalido:""})
-            
-        // }
+       
+        }
         
     }
     CurpValidate =()=>{
@@ -410,6 +428,26 @@ if (IdCheck===Extension){
         var PLA=Apellidos.charAt(0);
         var vocal = false;
         var Extension=Apellidos.length;
+        var T=this.state.T;
+        var Verificar2=this.state.Verificar2;
+        var Extension=T.length;     
+
+
+        for (var i = 0; i < Extension; i++) {
+            if (T[i].Curp === this.state.row.Curp) {
+                 Verificar2=1;
+                 console.log("Existente")
+            this.setState({CurpInvalido:"Curp Repetida"})
+                this.setState({Modal:false}) //Existe       
+                 this.setState({Verificar2:1 })
+              break;
+            }else{
+             //No existe
+                this.setState({Verificar2:2 })
+                this.setState({Modal:true})
+
+            this.setState({CurpInvalido:""})
+            }
         if((Apellidos.charAt(0) != 'A') &&
                     (Apellidos.charAt(0) != 'E')  &&
                     (Apellidos.charAt(0) != 'I') &&
@@ -427,27 +465,42 @@ if (IdCheck===Extension){
                 
                             }
                           i++;
+                          if(cadena!=undefined){
+                            console.log("Vocal encontrada1")
+                            this.setState({Vocal:cadena});
+                            this.ChangeCurp(cadena)
+                            
+                         break;
+
                         }
+                        }
+
                         console.log(cadena)
                     }else{
                         i=1;
-                        while (i < Extension & !vocal){
+                        while (i < Extension && !vocal){
                             if((Apellidos.charAt(i) == 'A') ||
                                     (Apellidos.charAt(i) == 'E')  ||
                                     (Apellidos.charAt(i) == 'I') ||
                                     (Apellidos.charAt(i) == 'O') ||
                                     (Apellidos.charAt(i) == 'U')) {
                 
-                                var cadena =Apellidos.charAt(i);
+                                var cadena2 =Apellidos.charAt(i);
                                 vocal = true;
-                
                             }
                           i++;
                         }
-                        console.log(cadena,"I=1")
+                        if(cadena2!=undefined){
+                            console.log("Vocal encontrada2")
+                            this.setState({Vocal:cadena});
+                            this.ChangeCurp(cadena2)
+                        }
                     }
+                    var PrimeraVocalI=cadena;
+                    
     }
-
+    
+}
      Change = (event) =>{
 
         
@@ -487,6 +540,7 @@ if (IdCheck===Extension){
 
         if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
             if(Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
+                console.log("asdf");
                 if(Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
                     if(FechaNacimiento!=rowVacio.FechaNacimiento){
                         if(FechaAdmision!=rowVacio.FechaAdmision){
@@ -501,35 +555,19 @@ if (IdCheck===Extension){
             }else{this.setState({Desactivado:true})}
         }else{this.setState({Desactivado:true})}  
     
-    
-               
-this.ChangeNombre();
+
+        
+
+            
+            
+          
+this.CurpValidate();               
+// this.ChangeNombre();
 this.ChangeApellidos();
 this.ChangePuesto();
 this.ChangeSueldo();
-this.ChangeCurp();
-    
-    
-        // if(!Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
-     
-        // }
-        // if (!Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]")){
-        //     this.setState({NombreInvalido:"<zxcxz<vz<"})
-        //     console.log("Incorrecto") 
-        // }else{
-        //     this.setState({NombreInvalido:""})
-        //     console.log("Correcto")
-        // }
-    
-        // if(row.Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-    
-        // }
-        // if(row.Sueldo.match("[0-9]+[^.]")){
-    
-        // }
-        // if(row.Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-    
-        // }
+// this.ChangeCurp();
+
     
     } 
 
@@ -541,19 +579,9 @@ this.ChangeCurp();
         console.log("Agrego");
         this.RefreshCampInv();
 
-        var T=this.state.T;
-        var Verificar2=this.state.Verificar2;
-        var Extension=T.length;
-        for (var i = 0; i < Extension; i++) {
-            if (T[i].Curp === this.state.row.Curp) {
-                 Verificar2=1;
-                 this.setState({Modal:false})
-              break;
-            }else{
-                console.log("Curp no repetida: ",T[i].Curp)
-            }
-          } 
-          if (Verificar2===null){
+     var Verificar=this.state.Verificar;
+          if (this.state.Verificar2===2){
+              if (Verificar=1){}
             var ids =this.state.ID+1;
             this.setState({ID2:ids})
         var row = {
@@ -566,20 +594,21 @@ this.ChangeCurp();
             Sueldo: this.state.row.Sueldo,
             Puesto: this.state.row.Puesto 
         }
-          if(this.state.Verificar2===0){
+       
           var X=this.state.T.concat([row])
-          }else{
-              console.log("Existente")
-          }
-           TInicial=X;
-           this.Refresh();
-           
-           this.setState({CambiarAgregar:1,ID:ids});
+console.log(this.state.T)
+console.log(X)
+this.setState({T:X})
+console.log(this.state.T)
+this.setState({CambiarAgregar:1,ID:ids});
         
            this.Normalidad();
-          }else {
-              console.log("Curp Repetida")
           }
+        //    TInicial=X;
+        //    this.Refresh();
+      
+           
+     
        
         }
 
@@ -765,7 +794,7 @@ this.ChangeCurp();
                                                     
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
-                                                    <input type={this.state.Fecha} placeholder="Fecha de Nacimiento"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
+                                                    <input type="date" placeholder="Fecha de Nacimiento"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
                                                       <label className="Advertencia"> </label>
                                                     </div>
                                                 </div>
@@ -789,7 +818,7 @@ this.ChangeCurp();
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onFocus={this.CurpValidate.bind()} onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$" maxlength="18"  required/>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp}  onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$" maxlength="18"  required/>
                                                             <label className="Advertencia">{this.state.CurpInvalido} </label>
                                                             </div>    
                                                             <div className="form-group col-xs-4">
@@ -807,7 +836,7 @@ this.ChangeCurp();
                                         <br/>
                                         <div className="text-right container">
                                         
-                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={this.state.Modal ? '.bs-example-modal-lg2' : '.bs-example-modal-lg'} onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={this.state.Modal ? '.bs-example-modal-lg' : '.bs-example-modal-lg2'} onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
                                         <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
                                         
                                         
