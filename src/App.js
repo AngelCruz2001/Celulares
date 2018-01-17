@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return (
       // <Prueba/>
-      // <Sucursales/> 
-      <Trabajadores/>
+      <Sucursales/> 
+      // <Trabajadores/>
        
       //  <Bienvenido/>
     );

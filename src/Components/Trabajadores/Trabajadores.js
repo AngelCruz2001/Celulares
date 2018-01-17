@@ -587,7 +587,7 @@ this.setState({CambiarAgregar:1,ID:ids});
 
                 <div className="container-fluid">
             
-                    <br/>
+                 
                     <div className="Titulo">
                         <div className="container-fluid text-center"> 
                         <hr/>
