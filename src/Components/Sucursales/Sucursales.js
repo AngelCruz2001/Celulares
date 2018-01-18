@@ -41,21 +41,281 @@ var SInicial=
 ]
 class Sucursales extends Component {
     state = { 
-        S:SInicial
+        S:SInicial,
+        row: 
+        {
+            ID: null,
+            Ciudad: "",
+            Pais: "",
+            Direccion:"", 
+            Telefono:""
+        },
+        Desactivado:true,
+        ID:5,
+        ID2:null,
+        CambiarAgregar:1,
+        IndexDatos:null,
+        fun:true,
+        PaisInvalido:"",
+        CiudadInvalido:"",
+        TelefonoInvalido:"",
+        DireccionInvalido:""
+    }
+    componentDidMount(){
+        document.getElementById("Borrar").style.display = "none"
+    }
+    ChangePais =()=>{
+       
+        var Pais=this.state.row.Pais;
+        if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Pais)){
+            this.setState({PaisInvalido:"Campo invalido"})
+                       
+            this.setState({Desactivado:true})  
+        }else{
+            this.setState({PaisInvalido:""})
+            
+        }
+    }
+    ChangeCiudad=()=>{
+        var Ciudad=this.state.row.Ciudad;
+        
+        if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Ciudad)){
+            this.setState({CiudadInvalido:"Campo invalido"})
+                       console.log("Ciudad")
+            this.setState({Desactivado:true})  
+        }else{
+            this.setState({CiudadInvalido:""})
+            
+        }
+    }
+    ChangeTelefono=()=>{
+var Telefono=this.state.row.Telefono;
+if(/^[0-9]?$/g.test(Telefono)){
+    this.setState({TelefonoInvalido:"Campo invalido"})
+               
+    this.setState({Desactivado:true})  
+}else{
+    this.setState({TelefonoInvalido:""})
+    
+}
+    }
+    Change =(event)=>{
+
+        var ids =this.state.ID+1;
+        this.setState({ID2:ids})
+        const row =this.state.row;
+            
+        row[event.target.name]=event.target.value.toUpperCase();
+     this.setState({row});
+
+
+    var Ciudad=row.Ciudad.trim();
+    var Pais=row.Pais.trim();
+    var Direccion=row.Direccion.trim();
+    var Telefono=row.Telefono.trim();
+
+    if (Ciudad.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
+        if(Pais.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
+            if(Telefono.match("[0-9-]{2,20}")){
+                 if(Direccion.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#.,: ]{2,30}")){
+                        this.setState({Desactivado:false})
+                    }else{this.setState({Desactivado:true})}
+                }else{this.setState({Desactivado:true})}
+            }else{this.setState({Desactivado:true})}
+        }else{this.setState({Desactivado:true})}
+
+        this.ChangeCiudad();
+        this.ChangePais();
+    }
+    Eliminar=()=>{
+        // this.RefreshCampInv();
+        var S = this.state.S;
+        var Convertir=JSON.stringify(S);
+        var obj = JSON.parse(Convertir);
+        for (var i = 0; i < obj.length; i++) {
+        console.log(obj[i].ID)
+            
+            if (obj[i].ID == this.state.ID2) {
+                obj.splice(i, 1);
+
+              break;
+            }
+          }
+        this.setState({S:obj})
+        console.log(obj);         
+            
+        var IndexDatos=this.state.IndexDatos;
+ 
+        this.Normalidad();
+        var Extension=S.length;
+        document.getElementById("Borrar").style.display = "none"
+        for (var PP=1; PP<=Extension; PP++){ //Arriba
+            document.getElementById('checkbox'+PP).checked=false;
+             
+        }
+    }
+    CambiarAgregar=()=>{
+var fun=this.state.fun;
+if(fun===true){
+    this.Agregar();
+}else if(fun===false){
+this.Actualizar();
+}
+    }
+    Agregar=()=>{
+   
+        console.log("Agrego");
+        // this.RefreshCampInv();
+
+      
+         
+            var ids =this.state.ID+1;
+            this.setState({ID2:ids})
+            
+        var row = {
+            ID: ids,
+            Curp: this.state.row.Curp,
+            Nombre: this.state.row.Nombre,
+            Apellidos: this.state.row.Apellidos,
+            FechaNacimiento: this.state.row.FechaNacimiento,
+            FechaAdmision: this.state.row.FechaAdmision,
+            Sueldo: this.state.row.Sueldo,
+            Puesto: this.state.row.Puesto 
+        }
+        var row= {
+            ID: ids,
+            Ciudad: this.state.row.Ciudad,
+            Pais: this.state.row.Pais,
+            Direccion:this.state.row.Direccion, 
+            Telefono:this.state.row.Telefono
+        }
+       
+          var X=this.state.S.concat([row])
+console.log(X)
+this.setState({S:X})
+console.log(this.state.S)
+this.setState({CambiarAgregar:1,ID:ids});
+        
+           this.Normalidad();
+       
+    }
+    Actualizar=()=>{
+        // this.RefreshCampInv();
+        
+        console.log("Cambio");
+        this.setState({fun1:false})
+        var IndexDatos=this.state.IndexDatos;
+        var row= {
+            ID: this.state.row.ID,
+            Ciudad: this.state.row.Ciudad,
+            Pais: this.state.row.Pais,
+            Direccion:this.state.row.Direccion, 
+            Telefono:this.state.row.Telefono
+        }
+         this.state.S[IndexDatos] = row;
+         
+           
+           this.Normalidad();
+           this.setState({CambiarAgregar:2,Desactivado:true});
+           
+           var S=this.state.S;
+           var Extension=S.length;
+           for(var i=1; i<=Extension; i++)
+           document.getElementById('checkbox'+i).checked=false;
+        console.log(i);
+        document.getElementById("Borrar").style.display = "none"
+    }
+    Traer=(IndexDatos)=>{
+        this.setState({IndexDatos,fun: false})
+        var S = this.state.S;
+        var Convertir=JSON.stringify(S);
+        var obj = JSON.parse(Convertir);
+        var IdActTra=obj[IndexDatos].ID;
+       var CiudadActTra=obj[IndexDatos].Ciudad;
+       var PaisActTra=obj[IndexDatos].Pais;
+       var TelefonoActTra=obj[IndexDatos].Telefono;
+       var DireccionActTra=obj[IndexDatos].Direccion;
+       var row={
+           ID:IdActTra,
+           Ciudad:CiudadActTra,
+           Pais:PaisActTra,
+           Telefono:TelefonoActTra,
+           Direccion:DireccionActTra
+       }
+       this.setState({
+           row,Desactivado:false,ID2:IdActTra
+       })
+    }
+    Ver=(IdCheck)=>{
+        var S=this.state.S;
+    var Extension=S.length;
+    var Desactivado=IdCheck+1
+    var IndexDatos=IdCheck-1;
+    console.log(IdCheck);
+    console.log(Extension);
+    this
+       
+
+
+        if(Extension!=IdCheck){
+    for (var DD=1; DD!=IdCheck; DD++){ //Arriba
+        document.getElementById('checkbox'+DD).checked=false;
+         
+    }
+}
+if (IdCheck===Extension){
+    var ExtensionExcepcion=Extension-1;
+    for (ExtensionExcepcion; ExtensionExcepcion!=0; ExtensionExcepcion--){//Abajo
+        document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
+   
+    }
+}
+    for (Extension; Extension!=IdCheck; Extension--){//Abajo
+        document.getElementById('checkbox'+Extension).checked=false;
+        
+    }
+    if(document.getElementById('checkbox'+IdCheck).checked){
+       console.log("Activado")
+       this.Traer(IndexDatos);
+     document.getElementById("Borrar").style.display = "initial"
+    }else{
+        console.log("Desactivado")
+        this.Normalidad();
+        document.getElementById("Borrar").style.display = "none"
+    }
+    for (var X=IdCheck; X<Extension;X++)
+
+    if(document.getElementById('checkbox'+X).checked){
+        
+        for (var i=Desactivado; i<=Extension; i++){
+            document.getElementById('checkbox'+i).checked=false;
+            }
 
     }
+}
+Normalidad=()=>{
+    var IDO=this.state.ID;
+    var row = {
+        ID: IDO,
+        Ciudad: "",
+        Pais: "",
+        Direccion:"", 
+        Telefono:""
+    }
+   
+    this.setState({row:row,Desactivado:true,fun:true})
 
-
+}
     render() {
-        let fun = this.state.fun;
-        let Sucursales=this.state.T;
+        let fun =this.state.fun;
         return (
-        <div className="">
+            <div className="container-fluid">
 
             <div className="" >
         
             <div className="Titulo">
-                        <div className=" text-center"> 
+                        <div className="container-fluid text-center"> 
+
                         <hr/>
                         <h1>Sucursales</h1>
                         
@@ -101,22 +361,31 @@ class Sucursales extends Component {
                                         </nav>
                                         </div>
                                         <div className="row">
-            <table class="table-responsive tabla">
+                                        <div className="container-fluid">
+                                        <div className="TablaToda ">
+            <table class="table table-fixed">
         <thead>
         <tr className="text-center">
             <th></th>
             <th>ID</th>
-            <th className="thCiudad">Ciudad</th>
-            <th className="thPais">Pais</th>
+            <th>Ciudad</th>
+            <th>Pais</th>
             <th>Direccion</th>
             <th>Telefono</th>
         </tr>
         </thead>
         <tbody>
 
-            {this.state.S.map((t,i)=>
+            {this.state.S.map(function(t,i){
+            var iE=i+1;
+            return(
                     <tr key = {i}>
-                    <td></td>
+                    <td>
+                    <div className="ckbox">
+                    <input type="checkbox" id={'checkbox'+iE}  onClick={() => this.Ver(iE)}/>
+                    <label htmlFor={ 'checkbox'+iE} ></label>
+                    </div>
+                    </td>
                     <td>{t.ID}</td>
                     <td>{t.Ciudad}</td>
                     <td>{t.Pais}</td>
@@ -124,13 +393,72 @@ class Sucursales extends Component {
                     <td>{t.Telefono}</td>
                     
                     </tr>
-                
-            )}
+            )
+            },this)}
             
         </tbody>
     </table>
-            </div>
+    </div>
+        <div className="Titulo2 text-center">
+                <h3>{fun ? 'Agregar' : 'Actualizar'}</h3>
+                <br/>
                 </div>
+                <div>
+                <div className="inputsTodos">
+                <div className="container-fluid">
+                <div className="row">
+                    <div className="container-fluid inputs1">
+                </div>
+                </div>
+                <div className="form-group col-xs-4">
+                <label htmlFor="Ciudad">Ciudad:</label>
+                    <input type="text" className="form-control" id="Ciudad" name="Ciudad" placeholder=""   value={this.state.row.Ciudad} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}" required  />
+                    <label className="Advertencia" >{this.state.PuestoInvalido}</label>  
+        </div>
+            <div className="form-group col-xs-4">
+            <label htmlFor="Pais">Pais:</label>
+                <input type="text" className="form-control" id="Pais" name="Pais" placeholder=""   value={this.state.row.Pais} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}" required  />
+                <label className="Advertencia" >{this.state.PaisInvalido}</label>  
+                
+        </div>
+        <div className="form-group col-xs-4">
+            <label htmlFor="Telefono">Telefono:</label>
+                <input type="text" className="form-control" id="Telefono" name="Telefono" placeholder=""   value={this.state.row.Telefono} onChange={this.Change.bind()} pattern="[0-9-]{2,20}" required  />
+                <label className="Advertencia" >{this.state.TelefonoInvalido}</label>  
+       
+        </div>
+       
+        
+        
+                        </div>
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="container-fluid inputs2">
+                            <div className="form-group col-xs-4">
+                                    <label htmlFor="Direccion">Direccion:</label>
+                                    <textarea rows="3" name="Direccion" cols="50" className="form-control textArea" form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#.,: ]{2,30}" required></textarea>
+                                      <label className="Advertencia" >{this.state.DireccionInvalido}</label>  
+                               
+                                <div className="form-group col-xs-8">
+                                    <input type="hidden" className="form-control" id="ID" name="ID" placeholder=""   value={this.state.ID2} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
+                                </div> 
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+                        </div>
+                        <div className="text-right container">    
+                                        <button type="button" className="btn btn-success" data-toggle="modal"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
+                                        </div>
+
+                        
+            </div>
+            </div>
+            </div>
+            
+                
       
 
 );

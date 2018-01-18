@@ -89,7 +89,7 @@ class Trabajadores extends Component {
             Puesto: "" 
             },
             Verificar:0,
-            Verificar2:null
+            Verificar2:false
       
      
      }
@@ -221,7 +221,7 @@ if (IdCheck===Extension){
     }
     Traer =(IndexDatos)=>{
         this.RefreshCampInv();
-        
+        this.setState({Verificar2:true})
         this.setState({fun: false
         ,IndexDatos})
             var T = this.state.T;
@@ -281,44 +281,6 @@ if (IdCheck===Extension){
     }
    
 
-    // componentDidUpdate =()=>{
-    //     var Curp=this.state.row.Curp.trim();
-    //     var Nombre=this.state.row.Nombre.trim();
-    //     var Apellidos=this.state.row.Apellidos.trim();
-    //     var Puesto=this.state.row.Puesto.trim();
-    //     var FechaNacimiento=this.state.row.FechaNacimiento.trim();
-    //     var FechaAdmision=this.state.row.FechaAdmision.trim();
-    //     var Sueldo=this.state.row.Sueldo.trim();
-        
-    //     var rowVacio = {
-    //         ID: null,
-    //         Curp: "",
-    //         Nombre: "",
-    //         Apellidos: "",
-    //         FechaNacimiento: "",
-    //         FechaAdmision: "",
-    //         Sueldo: "",
-    //         Puesto: "" 
-    //     }
-    //     if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
-    //         if(Nombre.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-    //             if(Apellidos.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-    //                 if(FechaNacimiento!=rowVacio.FechaNacimiento){
-    //                     if(FechaAdmision!=rowVacio.FechaAdmision){
-    //                         if(Sueldo.match("[0-9]+[^.]")){
-    //                             if(Puesto.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,20}")){
-    //                                 if(this.state.Verificar){
-    //                                     console.log(this.state.Verificar)
-    //                                     this.setState({Desactivado:false})
-    //                                 }else{this.setState({Desactivado:true})}
-    //                             }else{this.setState({Desactivado:true})}
-    //                         }else{this.setState({Desactivado:true})}
-    //                     }else{this.setState({Desactivado:true})}
-    //                 }else{this.setState({Desactivado:true})}
-    //             }else{this.setState({Desactivado:true})}             
-    //         }else{this.setState({Desactivado:true})}
-        // }else{this.setState({Desactivado:true})}  
-    // }
     ChangePuesto =()=>{
        
         var Puesto=this.state.row.Puesto;
@@ -397,7 +359,7 @@ if (IdCheck===Extension){
             this.setState({CurpInvalido:""})
             
         }
-        if (Curp.length==18 && CurpCorrectaCampos==true){
+        if (Curp.length==18 && CurpCorrectaCampos==true && this.state.Verificar2==false){
             this.CurpRepetida();
         }
        
@@ -456,10 +418,7 @@ if (IdCheck===Extension){
         var FechaNacimiento=row.FechaNacimiento.trim();
         var FechaAdmision=row.FechaAdmision.trim();
         var Sueldo=row.Sueldo.trim();
-        // console.log("1=Activo, 0=Inactivo")
-   
         
-        // console.log("Valor Nombre:",this.state.row.Nombre)
 
         if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
             
@@ -762,7 +721,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                         <br/>
                                         <div className="text-right container">
                                         
-                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={this.state.Modal ? '.bs-example-modal-lg' : '.bs-example-modal-lg2'} onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={this.state.Modal ? '.bs-example-modal-lg2' : '.bs-example-modal-lg'} onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
                                         <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
                                         
                                         
