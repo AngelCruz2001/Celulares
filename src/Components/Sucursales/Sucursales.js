@@ -59,7 +59,8 @@ class Sucursales extends Component {
         PaisInvalido:"",
         CiudadInvalido:"",
         TelefonoInvalido:"",
-        DireccionInvalido:""
+        DireccionInvalido:"",
+        textAreaClass:"form-control"
     }
     componentDidMount(){
         document.getElementById("Borrar").style.display = "none"
@@ -67,9 +68,8 @@ class Sucursales extends Component {
     ChangePais =()=>{
        
         var Pais=this.state.row.Pais;
-        if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Pais)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ ]*$/g.test(Pais)){
             this.setState({PaisInvalido:"Campo invalido"})
-                       
             this.setState({Desactivado:true})  
         }else{
             this.setState({PaisInvalido:""})
@@ -79,9 +79,8 @@ class Sucursales extends Component {
     ChangeCiudad=()=>{
         var Ciudad=this.state.row.Ciudad;
         
-        if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Ciudad)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ ]*$/g.test(Ciudad)){
             this.setState({CiudadInvalido:"Campo invalido"})
-                       console.log("Ciudad")
             this.setState({Desactivado:true})  
         }else{
             this.setState({CiudadInvalido:""})
@@ -90,14 +89,28 @@ class Sucursales extends Component {
     }
     ChangeTelefono=()=>{
 var Telefono=this.state.row.Telefono;
-if(/^[0-9]?$/g.test(Telefono)){
+if(!/^[0-9]{1,13}?$/g.test(Telefono)){
     this.setState({TelefonoInvalido:"Campo invalido"})
                
     this.setState({Desactivado:true})  
 }else{
     this.setState({TelefonoInvalido:""})
-    
+    }   
+
 }
+    ChangeDireccion=()=>{
+        var Direccion=this.state.row.Direccion;
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#". ]*$/g.test(Direccion)){
+            this.setState({DireccionInvalido:"Campo invalido"})
+            this.setState({Desactivado:true})  
+    }else{
+        this.setState({DireccionInvalido:""})
+    
+        }
+        if(Direccion.length<1){
+            this.setState({textAreaClass:"form-control"})
+        }
+    
     }
     Change =(event)=>{
 
@@ -113,19 +126,23 @@ if(/^[0-9]?$/g.test(Telefono)){
     var Pais=row.Pais.trim();
     var Direccion=row.Direccion.trim();
     var Telefono=row.Telefono.trim();
-
+console.log(Direccion)
+if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#". ]*$/g.test(Direccion)){
+    this.setState({textAreaClass:"form-control textAreaCorrecta"})
+    
     if (Ciudad.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
         if(Pais.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
             if(Telefono.match("[0-9-]{2,20}")){
-                 if(Direccion.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#.,: ]{2,30}")){
                         this.setState({Desactivado:false})
                     }else{this.setState({Desactivado:true})}
                 }else{this.setState({Desactivado:true})}
             }else{this.setState({Desactivado:true})}
-        }else{this.setState({Desactivado:true})}
+        }else{this.setState({Desactivado:true,textAreaClass:"form-control textAreaIncorrecta"})}
 
         this.ChangeCiudad();
         this.ChangePais();
+        this.ChangeDireccion();
+        this.ChangeTelefono();
     }
     Eliminar=()=>{
         // this.RefreshCampInv();
@@ -413,7 +430,7 @@ Normalidad=()=>{
                 <div className="form-group col-xs-4">
                 <label htmlFor="Ciudad">Ciudad:</label>
                     <input type="text" className="form-control" id="Ciudad" name="Ciudad" placeholder=""   value={this.state.row.Ciudad} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}" required  />
-                    <label className="Advertencia" >{this.state.PuestoInvalido}</label>  
+                    <label className="Advertencia" >{this.state.CiudadInvalido}</label>  
         </div>
             <div className="form-group col-xs-4">
             <label htmlFor="Pais">Pais:</label>
@@ -423,7 +440,7 @@ Normalidad=()=>{
         </div>
         <div className="form-group col-xs-4">
             <label htmlFor="Telefono">Telefono:</label>
-                <input type="text" className="form-control" id="Telefono" name="Telefono" placeholder=""   value={this.state.row.Telefono} onChange={this.Change.bind()} pattern="[0-9-]{2,20}" required  />
+                <input type="text" className="form-control" id="Telefono" name="Telefono" placeholder=""   value={this.state.row.Telefono} onChange={this.Change.bind()} pattern="[0-9-]{2,20}" required maxLength="13"  />
                 <label className="Advertencia" >{this.state.TelefonoInvalido}</label>  
        
         </div>
@@ -436,13 +453,13 @@ Normalidad=()=>{
                                 <div className="container-fluid inputs2">
                             <div className="form-group col-xs-4">
                                     <label htmlFor="Direccion">Direccion:</label>
-                                    <textarea rows="3" name="Direccion" cols="50" className="form-control textArea" form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#.,: ]{2,30}" required></textarea>
+                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.textAreaClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern="[A-Z]{1,30}(,[A-Z]{1,30})*" required></textarea>
                                       <label className="Advertencia" >{this.state.DireccionInvalido}</label>  
-                               
+                               </div>
                                 <div className="form-group col-xs-8">
                                     <input type="hidden" className="form-control" id="ID" name="ID" placeholder=""   value={this.state.ID2} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
                                 </div> 
-                                    </div>
+                                    
                             </div>
                         </div>
                     </div>
