@@ -52,7 +52,7 @@ class Sucursales extends Component {
         },
         Desactivado:true,
         ID:5,
-        ID2:null,
+        ID2:23,
         CambiarAgregar:1,
         IndexDatos:null,
         fun:true,
@@ -100,18 +100,20 @@ if(!/^[0-9]{1,13}?$/g.test(Telefono)){
 }
     ChangeDireccion=()=>{
         var Direccion=this.state.row.Direccion;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#". ]*$/g.test(Direccion)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Direccion)){
             this.setState({DireccionInvalido:"Campo invalido"})
+    this.setState({textAreaClass:"form-control textAreaIncorrecta"})
             this.setState({Desactivado:true})  
     }else{
         this.setState({DireccionInvalido:""})
-    
+        this.setState({Desactivado:true,textAreaClass:"form-control textAreaCorrecta"})
         }
         if(Direccion.length<1){
-            this.setState({textAreaClass:"form-control"})
         }
     
     }
+
+
     Change =(event)=>{
 
         var ids =this.state.ID+1;
@@ -121,13 +123,12 @@ if(!/^[0-9]{1,13}?$/g.test(Telefono)){
         row[event.target.name]=event.target.value.toUpperCase();
      this.setState({row});
 
-
     var Ciudad=row.Ciudad.trim();
     var Pais=row.Pais.trim();
     var Direccion=row.Direccion.trim();
     var Telefono=row.Telefono.trim();
 console.log(Direccion)
-if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#". ]*$/g.test(Direccion)){
+if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Direccion)){
     this.setState({textAreaClass:"form-control textAreaCorrecta"})
     
     if (Ciudad.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
@@ -270,7 +271,7 @@ this.setState({CambiarAgregar:1,ID:ids});
     var IndexDatos=IdCheck-1;
     console.log(IdCheck);
     console.log(Extension);
-    this
+    
        
 
 
@@ -279,6 +280,7 @@ this.setState({CambiarAgregar:1,ID:ids});
         document.getElementById('checkbox'+DD).checked=false;
          
     }
+this.ChangeDireccion();
 }
 if (IdCheck===Extension){
     var ExtensionExcepcion=Extension-1;
@@ -286,6 +288,7 @@ if (IdCheck===Extension){
         document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
    
     }
+    this.ChangeDireccion();
 }
     for (Extension; Extension!=IdCheck; Extension--){//Abajo
         document.getElementById('checkbox'+Extension).checked=false;
@@ -320,7 +323,8 @@ Normalidad=()=>{
         Telefono:""
     }
    
-    this.setState({row:row,Desactivado:true,fun:true})
+    this.setState({row:row,Desactivado:true,fun:true,textAreaClass:"form-control"})
+
 
 }
     render() {
@@ -379,8 +383,7 @@ Normalidad=()=>{
                                         </div>
                                         <div className="row">
                                         <div className="container-fluid">
-                                        <div className="TablaToda ">
-            <table class="table table-fixed">
+            <table className="table table-fixed">
         <thead>
         <tr className="text-center">
             <th></th>
@@ -415,7 +418,6 @@ Normalidad=()=>{
             
         </tbody>
     </table>
-    </div>
         <div className="Titulo2 text-center">
                 <h3>{fun ? 'Agregar' : 'Actualizar'}</h3>
                 <br/>
@@ -453,7 +455,7 @@ Normalidad=()=>{
                                 <div className="container-fluid inputs2">
                             <div className="form-group col-xs-4">
                                     <label htmlFor="Direccion">Direccion:</label>
-                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.textAreaClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern="[A-Z]{1,30}(,[A-Z]{1,30})*" required></textarea>
+                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.textAreaClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#., ]" required></textarea>
                                       <label className="Advertencia" >{this.state.DireccionInvalido}</label>  
                                </div>
                                 <div className="form-group col-xs-8">
