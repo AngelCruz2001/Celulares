@@ -76,6 +76,7 @@ class Trabajadores extends Component {
        SueldoInvalido:"",
        CurpInvalido:"",
        Vocal:"",
+       patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$",
         row:
             {
             ID: null,
@@ -222,7 +223,7 @@ if (IdCheck===Extension){
     Traer =(IndexDatos)=>{
         this.RefreshCampInv();
         this.setState({Verificar2:true})
-        this.setState({fun: false
+        this.setState({fun: falses
         ,IndexDatos})
             var T = this.state.T;
              var Convertir=JSON.stringify(T);
@@ -351,7 +352,10 @@ if (IdCheck===Extension){
             this.setState({CurpInvalido:"Caracteres invalidos"})
             
             console.log("No es correcta")
-
+            if(Curp.length==18){
+                this.setState({CurpInvalido:"No coincide con el formato"})
+                    
+                }
             
             this.setState({Desactivado:true})
         }else{
@@ -361,6 +365,7 @@ if (IdCheck===Extension){
         }
         if (Curp.length==18 && CurpCorrectaCampos==true && this.state.Verificar2==false){
             this.CurpRepetida();
+            
         }
        
    
@@ -373,16 +378,20 @@ if (IdCheck===Extension){
                 for (var i = 0; i < T.length; i++) {
                     if (T[i].Curp == this.state.row.Curp) {
                         
-                         console.log("Existente")
-                    this.setState({CurpInvalido:"Curp Repetida"})
-                        this.setState({Modal:false}) //Existe       
+                        this.setState({CurpInvalido:"Curp Repetida"})
+                        this.setState({Modal:false,patternCurp:"asd"}) //Existe       
+                        console.log("Existente",this.state.patternCurp)
+                        
                          this.setState({Desactivado:true})
                       break;
                     }else{
                      //No existe
                      console.log(Curp," != ",T[i].Curp)
-                    this.setState({CurpInvalido:""})
-                    }
+                     
+                     this.setState({CurpInvalido:"",patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"})
+                     
+                     console.log(Curp,this.state.patternCurp)
+    }
                 }
         }
     
@@ -703,7 +712,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp}  onChange={this.Change.bind()} pattern="^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$" maxlength="18"  required/>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp}  onChange={this.Change.bind()} pattern={this.state.patternCurp} maxlength="18"  required/>
                                                             <label className="Advertencia">{this.state.CurpInvalido} </label>
                                                             </div>    
                                                             <div className="form-group col-xs-4">

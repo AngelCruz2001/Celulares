@@ -47,7 +47,8 @@ class Camiones extends Component {
         PlacaInvalido: "",
         CapacidadInvalido: "",
         ModeloInvalido: "",
-        AñoInvalido: ""
+        AñoInvalido: "",
+        patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})"
     }
     componentDidMount(){
         document.getElementById("Borrar").style.display = "none"
@@ -56,30 +57,35 @@ class Camiones extends Component {
        
         var Placa=this.state.row.Placa;
         if(!/^([A-Z]{2}-\d{2}-\d{3})*$/g.test(Placa)){
-            console.log("Placa Incorrecta")
             this.setState({PlacaInvalido:"Campo invalido"})
+            console.log("Error Placa")
             this.setState({Desactivado:true})  
         }else{
-            console.log("Placa Correcta")
             this.setState({PlacaInvalido:""})
-            
+            if(Placa.length===9){
+                this.PlacaRepetida();
+            }
         }
     }
     ChangeCapacidad=()=>{
         var Capacidad=this.state.row.Capacidad;
         
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ ]*$/g.test(Capacidad)){
+        if(!/^(\d{2,5}KG)*$/g.test(Capacidad)){
             this.setState({CapacidadInvalido:"Campo invalido"})
+            console.log("Error Capacidad")
+            
             this.setState({Desactivado:true})  
         }else{
             this.setState({CapacidadInvalido:""})
+            
             
         }
     }
     ChangeModelo=()=>{
 var Modelo=this.state.row.Modelo;
-if(!/^[0-9]{1,13}?$/g.test(Modelo)){
+if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Modelo)){
     this.setState({ModeloInvalido:"Campo invalido"})
+            console.log("Error Modelo")
                
     this.setState({Desactivado:true})  
 }else{
@@ -92,12 +98,39 @@ if(!/^[0-9]{1,13}?$/g.test(Modelo)){
         if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Año)){
             this.setState({AñoInvalido:"Campo invalido"})
     this.setState({textAreaClass:"form-control textAreaIncorrecta"})
-            this.setState({Desactivado:true})  
+    console.log("Error Año")
+            
+    this.setState({Desactivado:true})  
+
     }else{
         this.setState({AñoInvalido:""})
         this.setState({Desactivado:true,textAreaClass:"form-control textAreaCorrecta"})
         }
     
+    }
+
+    PlacaRepetida =()=>{
+        var C=this.state.C;
+        var Placa=this.state.row.Placa.trim();
+        var Extension = Placa.length;
+                for (var i = 0; i < C.length; i++) {
+                    if (C[i].Placa == this.state.row.Placa) {
+                        
+                        this.setState({PlacaInvalido:"Placa Repetida"})
+                        this.setState({Desactivado:true,patternPlaca:"asd"})
+                        console.log(this.state.patternPlaca)
+                        console.log("Existente")
+                        this.setState({Modal:false}) //Existe       
+                         
+                      break;
+                    }else{
+                     //No existe
+
+                    this.setState({PlacaInvalido:"",patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})"})
+                    
+                }
+
+                }
     }
     Change =(event)=>{
 
@@ -112,12 +145,15 @@ if(!/^[0-9]{1,13}?$/g.test(Modelo)){
     var Capacidad=row.Capacidad.trim();
     var Modelo=row.Modelo.trim();
     var Año=row.Año.trim();
-console.log(Modelo)
-if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Modelo)){
-    
-    if (Placa.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
-        if(Capacidad.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
-            if(Año.match("[0-9-]{2,20}")){
+    console.log("1");
+if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")){
+    console.log("1");
+    if (Placa.match("[A-Z0-9-]{9,9}")){
+        console.log("2");
+        if(Capacidad.match("[0-9KG]{3,7}")){
+            console.log("3");
+            if(Año.match("[0-9]{4}")){
+                console.log("4");
                         this.setState({Desactivado:false})
                     }else{this.setState({Desactivado:true})}
                 }else{this.setState({Desactivado:true})}
@@ -231,7 +267,7 @@ if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(M
                 </div>
                 <div className="form-group col-xs-4">
                 <label htmlFor="Placa">Placa:</label>
-                    <input type="text" className="form-control" id="Placa" name="Placa" placeholder=""   value={this.state.row.Placa} onChange={this.Change.bind()} pattern="([A-Z]{2}-\d{2}-\d{3})" required  />
+                    <input type="text" className="form-control" id="Placa" name="Placa" placeholder=""   value={this.state.row.Placa} onChange={this.Change.bind()} pattern={this.state.patternPlaca} required  />
                     <label className="Advertencia" >{this.state.PlacaInvalido}</label>  
         </div>
             <div className="form-group col-xs-4">
@@ -248,6 +284,16 @@ if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(M
                                     <div className="form-group col-xs-8">
                                         <input type="hidden" className="form-control" id="ID" name="ID" placeholder=""   value={this.state.ID2} onChange={this.Change.bind()}    />
                                     </div>     
+        </div>
+        <div className="Inputs2">
+        <div className="container-fluid">
+        
+        <div className="form-group col-xs-4">
+            <label htmlFor="Modelo">Modelo:</label>
+            <input type="text" className="form-control" id="Modelo" name="Modelo" placeholder=""   value={this.state.row.Modelo} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#,. ]{2,50}" required maxLength="13"  />
+            <label className="Advertencia" >{this.state.ModeloInvalido}</label>  
+        </div>
+        </div>
         </div>
                      </div>
                         </div>
