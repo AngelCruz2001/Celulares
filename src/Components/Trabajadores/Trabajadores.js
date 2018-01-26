@@ -223,7 +223,7 @@ if (IdCheck===Extension){
     Traer =(IndexDatos)=>{
         this.RefreshCampInv();
         this.setState({Verificar2:true})
-        this.setState({fun: falses
+        this.setState({fun: false
         ,IndexDatos})
             var T = this.state.T;
              var Convertir=JSON.stringify(T);
@@ -544,9 +544,7 @@ this.setState({CambiarAgregar:1,ID:ids});
         }
     }
 
-    Id =()=>{
-        console.log(this.state.ID);
-    }
+    
     render() {
         let fun = this.state.fun;
         let Trabajadores=this.state.T;

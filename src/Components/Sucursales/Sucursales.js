@@ -383,15 +383,15 @@ Normalidad=()=>{
                                         </div>
                                         <div className="row">
                                         <div className="container-fluid">
-            <table className="table table-fixed">
+            <table className="table Tabla table-fixed">
         <thead>
         <tr className="text-center">
-            <th></th>
-            <th>ID</th>
-            <th>Ciudad</th>
-            <th>Pais</th>
-            <th>Direccion</th>
-            <th>Telefono</th>
+            <th className="th17"></th>
+            <th className="th18">ID</th>
+            <th className="th18">Ciudad</th>
+            <th className="th18">Pais</th>
+            <th className="th17">Direccion</th>
+            <th className="th17">Telefono</th>
         </tr>
         </thead>
         <tbody>

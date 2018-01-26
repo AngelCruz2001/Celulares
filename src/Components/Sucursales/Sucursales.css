@@ -4,7 +4,7 @@
 .Tabla{
   font-family: arial, sans-serif;
     /* padding: 8px; */
-      width: 98%;
+      width: 98% !important;
 }
 tr{
   display: inline-table;
@@ -58,3 +58,9 @@ input:required:valid{
   margin-left: 4%;
   
   }
+.th17{
+  width: 17.5%
+}
+.th18{
+  width: 18%
+}
