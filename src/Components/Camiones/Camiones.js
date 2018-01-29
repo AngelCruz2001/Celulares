@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import CCS from './Camiones.css'
 
 
 var CInicial=
@@ -175,7 +175,9 @@ class Camiones extends Component {
             row,
             Desactivado:false,
             fun:false,
-            ID2:IdActTra
+            ID2:IdActTra,
+            Año:AñoActTra
+
         })
             
             }
@@ -197,7 +199,7 @@ class Camiones extends Component {
                 Año: ""
                 }
             
-            this.setState({fun:true, row ,Desactivado:true})
+            this.setState({fun:true, row ,Desactivado:true,Año:""})
     
         }
         createForm = () =>{
@@ -207,7 +209,6 @@ class Camiones extends Component {
             this.RefreshCampInv();
     
         
-                console.log("asdf");
             
                 var ids =this.state.ID+1;
                 this.setState({ID2:ids})
@@ -216,7 +217,7 @@ class Camiones extends Component {
                 Placa: this.state.row.Placa,
                 Capacidad: this.state.row.Capacidad,
                 Modelo: this.state.row.Modelo,
-                Año: this.state.row.Año
+                Año: this.state.Año
                 }
         
             var X=this.state.C.concat([row])
@@ -238,9 +239,7 @@ class Camiones extends Component {
                 }
                 }
             this.setState({C:obj})
-            console.log(this.state.C.ID)
             
-            console.log(obj);         
                 
                 //     var C=this.state.C;
             var IndexDatos=this.state.IndexDatos;
@@ -269,8 +268,7 @@ class Camiones extends Component {
         }else{
 
             this.setState({PlacaInvalido:""})
-            console.log("Correcta Placa")
-            if (Placa.length==18 &&  this.state.Verificar2==false){
+            if (Placa.length==9){
                 this.PlacaRepetida();
             }
         }
@@ -283,7 +281,6 @@ class Camiones extends Component {
             
             this.setState({Desactivado:true})  
         }else{
-            console.log("Correcto Capacidad")
             this.setState({CapacidadInvalido:""})
             
             
@@ -296,13 +293,12 @@ if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(
     
     this.setState({Desactivado:true})  
 }else{
-    console.log("Correcto Modelo")
     this.setState({ModeloInvalido:""})
     }   
 
 }
     ChangeAño=()=>{
-        var Año=this.state.row.Año;
+        var Año=this.state.Año;
         if(!/^[0-9]*$/g.test(Año)){
             this.setState({AñoInvalido:"Campo invalido"})
     this.setState({textAreaClass:"form-control textAreaIncorrecta"})
@@ -310,7 +306,6 @@ if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(
     this.setState({Desactivado:true})  
     
 }else{
-    console.log("Correcto Año")
         this.setState({AñoInvalido:""})
         this.setState({textAreaClass:"form-control textAreaCorrecta"})
         }
@@ -352,16 +347,11 @@ if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(
     var Placa=row.Placa.trim();
     var Capacidad=row.Capacidad.trim();
     var Modelo=row.Modelo.trim();
-    var Año=row.Año.trim();
-    console.log("1");
+    var Año=this.state.Año.trim();
 if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")){
-    console.log("1");
     if (Placa.match("[A-Z0-9-]{9,9}")){
-        console.log("2");
         if(Capacidad.match("[0-9KG]{3,7}")){
-            console.log("3");
             if(Año.match("[0-9]{4}")){
-                console.log("4");
                         this.setState({Desactivado:false})
                     }else{this.setState({Desactivado:true})}
                 }else{this.setState({Desactivado:true})}

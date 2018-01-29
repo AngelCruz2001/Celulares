@@ -28,7 +28,7 @@ var SInicial=
         "ID": 4,
         "Ciudad": "TLAXCALA",
         "Pais": "MEXICO",
-        "Direccion": "SAN FRNASISCO, TLAXCALA DE XICOHTENATL, CENTRO, 90000 TLAXCALA DE XICOHTENATL",
+        "Direccion": "SAN FRANCISCO, TLAXCALA DE XICOHTENATL, CENTRO, 90000 TLAXCALA DE XICOHTENATL",
         "Telefono": "012464621511"
     },
     {
@@ -60,7 +60,8 @@ class Sucursales extends Component {
         CiudadInvalido:"",
         TelefonoInvalido:"",
         DireccionInvalido:"",
-        textAreaClass:"form-control"
+        patternDireccion:"[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#., ]",
+        DireccionClass:"form-control textArea"
     }
     componentDidMount(){
         document.getElementById("Borrar").style.display = "none"
@@ -89,7 +90,7 @@ class Sucursales extends Component {
     }
     ChangeTelefono=()=>{
 var Telefono=this.state.row.Telefono;
-if(!/^[0-9]{1,13}?$/g.test(Telefono)){
+if(!/^([0-9]{1,13})*$/g.test(Telefono)){
     this.setState({TelefonoInvalido:"Campo invalido"})
                
     this.setState({Desactivado:true})  
@@ -98,19 +99,14 @@ if(!/^[0-9]{1,13}?$/g.test(Telefono)){
     }   
 
 }
-    ChangeDireccion=()=>{
-        var Direccion=this.state.row.Direccion;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Direccion)){
-            this.setState({DireccionInvalido:"Campo invalido"})
-    this.setState({textAreaClass:"form-control textAreaIncorrecta"})
-            this.setState({Desactivado:true})  
-    }else{
-        this.setState({DireccionInvalido:""})
-        this.setState({Desactivado:true,textAreaClass:"form-control textAreaCorrecta"})
-        }
-        if(Direccion.length<1){
-        }
-    
+    ChangeDireccion=(Direccion)=>{
+        
+            if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ])*$/g.test(Direccion)){
+                this.setState({Desactivado:true,DireccionInvalido:"Campo invalido",DireccionClass:"form-control textAreaIncorecta"})  
+
+            }else{
+                this.setState({DireccionInvalido:"",DireccionClass:"form-control textArea"})
+            }
     }
 
 
@@ -127,31 +123,28 @@ if(!/^[0-9]{1,13}?$/g.test(Telefono)){
     var Pais=row.Pais.trim();
     var Direccion=row.Direccion.trim();
     var Telefono=row.Telefono.trim();
-console.log(Direccion)
-if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Direccion)){
-    this.setState({textAreaClass:"form-control textAreaCorrecta"})
     
     if (Ciudad.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
         if(Pais.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
             if(Telefono.match("[0-9-]{2,20}")){
-                        this.setState({Desactivado:false})
-                    }else{this.setState({Desactivado:true})}
+                if(Direccion.match('[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]')){
+                    this.setState({Desactivado:false})
                 }else{this.setState({Desactivado:true})}
-            }else{this.setState({Desactivado:true})}
-        }else{this.setState({Desactivado:true,textAreaClass:"form-control textAreaIncorrecta"})}
+        }else{this.setState({Desactivado:true})}
+    }else{this.setState({Desactivado:true})}
+}else{this.setState({Desactivado:true})}
 
         this.ChangeCiudad();
         this.ChangePais();
-        this.ChangeDireccion();
         this.ChangeTelefono();
+        this.ChangeDireccion(Direccion);
     }
     Eliminar=()=>{
-        // this.RefreshCampInv();
+        this.RefreshCampInv();
         var S = this.state.S;
         var Convertir=JSON.stringify(S);
         var obj = JSON.parse(Convertir);
         for (var i = 0; i < obj.length; i++) {
-        console.log(obj[i].ID)
             
             if (obj[i].ID == this.state.ID2) {
                 obj.splice(i, 1);
@@ -160,7 +153,6 @@ if(/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(D
             }
           }
         this.setState({S:obj})
-        console.log(obj);         
             
         var IndexDatos=this.state.IndexDatos;
  
@@ -182,8 +174,7 @@ this.Actualizar();
     }
     Agregar=()=>{
    
-        console.log("Agrego");
-        // this.RefreshCampInv();
+        this.RefreshCampInv();
 
       
          
@@ -209,18 +200,24 @@ this.Actualizar();
         }
        
           var X=this.state.S.concat([row])
-console.log(X)
 this.setState({S:X})
-console.log(this.state.S)
 this.setState({CambiarAgregar:1,ID:ids});
         
            this.Normalidad();
        
     }
+    RefreshCampInv =()=>{
+        this.setState({
+            CiudadInvalido: "",
+            PaisInvalido: "",
+            DireccionInvalido: "",
+            TelefonoInvalido: "",
+        });
+      }
     Actualizar=()=>{
-        // this.RefreshCampInv();
+        this.RefreshCampInv();
+
         
-        console.log("Cambio");
         this.setState({fun1:false})
         var IndexDatos=this.state.IndexDatos;
         var row= {
@@ -240,7 +237,6 @@ this.setState({CambiarAgregar:1,ID:ids});
            var Extension=S.length;
            for(var i=1; i<=Extension; i++)
            document.getElementById('checkbox'+i).checked=false;
-        console.log(i);
         document.getElementById("Borrar").style.display = "none"
     }
     Traer=(IndexDatos)=>{
@@ -269,8 +265,6 @@ this.setState({CambiarAgregar:1,ID:ids});
     var Extension=S.length;
     var Desactivado=IdCheck+1
     var IndexDatos=IdCheck-1;
-    console.log(IdCheck);
-    console.log(Extension);
     
        
 
@@ -295,11 +289,9 @@ if (IdCheck===Extension){
         
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
-       console.log("Activado")
        this.Traer(IndexDatos);
      document.getElementById("Borrar").style.display = "initial"
     }else{
-        console.log("Desactivado")
         this.Normalidad();
         document.getElementById("Borrar").style.display = "none"
     }
@@ -448,18 +440,18 @@ Normalidad=()=>{
         </div>
        
         
-        
+         
                         </div>
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="container-fluid inputs2">
                             <div className="form-group col-xs-4">
                                     <label htmlFor="Direccion">Direccion:</label>
-                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.textAreaClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#., ]" required></textarea>
+                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.DireccionClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern={this.state.patternDireccion} required></textarea>
                                       <label className="Advertencia" >{this.state.DireccionInvalido}</label>  
                                </div>
                                 <div className="form-group col-xs-8">
-                                    <input type="hidden" className="form-control" id="ID" name="ID" placeholder=""   value={this.state.ID2} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
+                                    <input type="hidden" className="form-control" id="ID" name="ID" placeholder=""   value={this.state.ID2} onChange={this.Change.bind()} required  />
                                 </div> 
                                     
                             </div>
