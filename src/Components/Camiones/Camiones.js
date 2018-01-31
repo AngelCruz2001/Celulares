@@ -253,7 +253,7 @@ class Camiones extends Component {
         }
     ChangeAñoS =(event)=>{
         const ValorAño=event.target.value;
-        const re= /^[0-9\b]+$/
+        const re= /^[1-2]{1}([0-9]{1,3})?$/
         if (re.test(event.target.value)||event.target.value==''){
             this.setState({Año:event.target.value})
         }
