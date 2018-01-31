@@ -69,9 +69,14 @@ class Sucursales extends Component {
     ChangePais =()=>{
        
         var Pais=this.state.row.Pais;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ ]*$/g.test(Pais)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Pais)){
+            if(Pais!=""){
             this.setState({PaisInvalido:"Campo invalido"})
             this.setState({Desactivado:true})  
+        }else{
+            this.setState({PaisInvalido:""})
+            
+        }
         }else{
             this.setState({PaisInvalido:""})
             
@@ -80,9 +85,14 @@ class Sucursales extends Component {
     ChangeCiudad=()=>{
         var Ciudad=this.state.row.Ciudad;
         
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ ]*$/g.test(Ciudad)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Ciudad)){
+       if(Ciudad!=""){
             this.setState({CiudadInvalido:"Campo invalido"})
             this.setState({Desactivado:true})  
+        }else{
+            this.setState({CiudadInvalido:""})
+            
+        }
         }else{
             this.setState({CiudadInvalido:""})
             
@@ -124,8 +134,8 @@ if(!/^([0-9]{1,13})*$/g.test(Telefono)){
     var Direccion=row.Direccion.trim();
     var Telefono=row.Telefono.trim();
     
-    if (Ciudad.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
-        if(Pais.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}")){
+    if (Ciudad.match("^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?")){
+        if(Pais.match("^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?")){
             if(Telefono.match("[0-9-]{2,20}")){
                 if(Direccion.match('[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]')){
                     this.setState({Desactivado:false})
@@ -423,12 +433,12 @@ Normalidad=()=>{
                 </div>
                 <div className="form-group col-xs-4">
                 <label htmlFor="Ciudad">Ciudad:</label>
-                    <input type="text" className="form-control" id="Ciudad" name="Ciudad" placeholder=""   value={this.state.row.Ciudad} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}" required  />
+                    <input type="text" className="form-control" id="Ciudad" name="Ciudad" placeholder=""   value={this.state.row.Ciudad} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required  />
                     <label className="Advertencia" >{this.state.CiudadInvalido}</label>  
         </div>
             <div className="form-group col-xs-4">
             <label htmlFor="Pais">Pais:</label>
-                <input type="text" className="form-control" id="Pais" name="Pais" placeholder=""   value={this.state.row.Pais} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,30}" required  />
+                <input type="text" className="form-control" id="Pais" name="Pais" placeholder=""   value={this.state.row.Pais} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required  />
                 <label className="Advertencia" >{this.state.PaisInvalido}</label>  
                 
         </div>
@@ -460,12 +470,29 @@ Normalidad=()=>{
                         </div>
                         </div>
                         <div className="text-right container">    
-                                        <button type="button" className="btn btn-success" data-toggle="modal"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target='.bs-example-modal-lg' onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
                                         <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
                                         </div>
 
                         
             </div>
+            <div className="row">
+                                    
+                                    
+                                    <div className="row">
+
+                                        <div className="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                            <div className="modal-dialog modal-lg">
+                                                    <div className="modal-content">
+                                                    <div className="modal-body">
+                                                    <h2>¡Correcto!</h2>
+                                                    <h4>Sucursal {this.state.fun1 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        </div>
+                                        </div> 
             </div>
             </div>
             

@@ -18,16 +18,18 @@ class Bienvenido extends Component {
         
                
             <div className="container-fluid" > 
-            <link href={CSS} rel="stylesheet"/> 
-            {/* // Titulo, Boton */} 
 
             
-        {/* <img src={JPG_Logo} width="300" height="300"/> */}
-                 <div className="text-center container">
-                <h1>Bienvenido</h1>  
+                 <div className="Titulo">
+                        <div className="container-fluid text-center"> 
+                        <hr/>
+                        <h1>Bienvenido</h1>
+                        
+                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Iniciar sesion </button>
+                        <hr/>
+                        </div>
                 
                 <div className="text-right">
-                <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Iniciar sesion </button>
               
                 
                 </div>

@@ -268,7 +268,7 @@ class Camiones extends Component {
         }else{
 
             this.setState({PlacaInvalido:""})
-            if (Placa.length==9){
+            if (Placa.length==9 && this.state.fun1===true){
                 this.PlacaRepetida();
             }
         }
@@ -288,7 +288,7 @@ class Camiones extends Component {
     }
     ChangeModelo=()=>{
 var Modelo=this.state.row.Modelo;
-if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]*$/g.test(Modelo)){
+if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Modelo)){
     this.setState({ModeloInvalido:"Campo invalido"})
     
     this.setState({Desactivado:true})  
@@ -426,7 +426,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
             </nav>
             <div className="row">
                                         <div className="container-fluid">
-            <table className="table table-fixed">
+            <table className="tableCamiones table-fixed">
         <thead>
         <tr className="text-center">
             <th></th>
@@ -497,7 +497,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
         
         <div className="form-group col-xs-4">
             <label htmlFor="Modelo">Modelo:</label>
-            <input type="text" className="form-control" id="Modelo" name="Modelo" placeholder=""   value={this.state.row.Modelo} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#,. ]{2,50}" required maxLength="20"  />
+            <input type="text" className="form-control" id="Modelo" name="Modelo" placeholder=""   value={this.state.row.Modelo} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required maxLength="20"  />
             <label className="Advertencia" >{this.state.ModeloInvalido}</label>  
         </div>
         </div>
@@ -505,12 +505,29 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
                      </div>
                         </div>
                         <div className="text-right container">    
-                                        <button type="button" className="btn btn-success" data-toggle="modal"  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target='.bs-example-modal-lg'  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
                                         <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
                                         </div>
 
                         
             </div>
+                                    <div className="row">
+                                    
+                                    
+                                        <div className="row">
+
+                                            <div className="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                                <div className="modal-dialog modal-lg">
+                                                        <div className="modal-content">
+                                                        <div className="modal-body">
+                                                        <h2>¡Correcto!</h2>
+                                                        <h4>Camión {this.state.fun1 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            </div>
+                                            </div> 
             </div>
             
             </div>

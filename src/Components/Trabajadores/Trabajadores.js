@@ -192,6 +192,7 @@ if (IdCheck===Extension){
         
         console.log("Cambio");
         this.setState({fun1:false})
+        
         var IndexDatos=this.state.IndexDatos;
         console.log(this.state.IndexDatos)
         var row = {
@@ -222,7 +223,7 @@ if (IdCheck===Extension){
     }
     Traer =(IndexDatos)=>{
         this.RefreshCampInv();
-        this.setState({Verificar2:true})
+        this.setState({Verificar2:true,Modal:false})
         this.setState({fun: false
         ,IndexDatos})
             var T = this.state.T;
@@ -277,18 +278,22 @@ if (IdCheck===Extension){
             Puesto: "" 
         }
        
-        this.setState({fun:true, row ,Desactivado:true})
-
+        this.setState({fun:true, row ,Desactivado:true,Modal:true})
     }
    
 
     ChangePuesto =()=>{
        
         var Puesto=this.state.row.Puesto;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Puesto)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Puesto)){
+            if(Puesto!=""){
             this.setState({PuestoInvalido:"Campo invalido"})
                        
             this.setState({Desactivado:true})  
+        }else{
+            this.setState({PuestoInvalidos:""})
+            
+        }
         }else{
             this.setState({PuestoInvalido:""})
             
@@ -296,10 +301,15 @@ if (IdCheck===Extension){
     }
     ChangeApellidos =()=>{
         var Apellidos=this.state.row.Apellidos;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Apellidos)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Apellidos)){
+            if(Apellidos!=""){
             this.setState({ApellidosInvalidos:"Campo invalidos"})
              
             this.setState({Desactivado:true})
+        }else{
+            this.setState({ApellidosInvalidos:""})
+            
+        }
         }else{
             this.setState({ApellidosInvalidos:""})
             
@@ -309,12 +319,17 @@ if (IdCheck===Extension){
     
         var Nombre=this.state.row.Nombre;
         
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]*$/g.test(Nombre)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Nombre)){
+            if(Nombre!=""){
             this.setState({NombreInvalido:"Campo invalido"})
             
             console.log("No es correcta")
 
             this.setState({Desactivado:true})
+            }else{
+                this.setState({NombreInvalido:""})
+
+            }
         }else{
             this.setState({NombreInvalido:""})
             
@@ -359,14 +374,14 @@ if (IdCheck===Extension){
             
             this.setState({Desactivado:true})
         }else{
-           var CurpCorrectaCampos=true;
             this.setState({CurpInvalido:""})
-            
-        }
-        if (Curp.length==18 && CurpCorrectaCampos==true && this.state.Verificar2==false){
+            console.log(Curp.length,this.state.fun1)
+            if (Curp.length==18 && this.state.fun1==false){
             this.CurpRepetida();
             
         }
+        }
+        
        
    
 }
@@ -609,7 +624,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                            
                              
                             
-                            <table className="table table-fixed" id="DatosT">
+                            <table className="table Curp table-fixed" id="DatosT">
                                     <thead>
                                         <tr>
                                         <th className="TDCheck"></th>
@@ -675,12 +690,12 @@ this.setState({CambiarAgregar:1,ID:ids});
 
                                                     <div className="form-group col-xs-4">
                                                         <label htmlFor="Nombre">Nombre:</label>
-                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required  />
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required  />
                                                         <label className="Advertencia" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,100}" required/>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required/>
                                                       <label className="Advertencia">{this.state.ApellidosInvalidos} </label>
                                                     </div>
                                                     
@@ -705,7 +720,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Puesto">Puesto:</label>
-                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}" required/>
+                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required/>
                                                             <label className="Advertencia">{this.state.PuestoInvalido} </label>
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
@@ -764,7 +779,6 @@ this.setState({CambiarAgregar:1,ID:ids});
                                             </div>
                                             </div> 
                                         </div>
-                                            <div className="container">
                                                 <div className="row">
                                                 
                                                 
@@ -782,7 +796,6 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                         </div> 
                                                     </div>
                                                 </div>
-                                </div>
                         
                         
 

@@ -1,3 +1,10 @@
 .Titulo {
     background: rgb(158, 165, 158);
   }
+  tableCamiones{
+    width:1301px !important;
+    height:230px;         
+    display: -moz-groupbox;   
+
+  }
+  

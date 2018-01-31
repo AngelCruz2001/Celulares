@@ -7,10 +7,10 @@ import Camiones from './Components/Camiones/Camiones';
 class App extends Component {
   state = {  }
   render() {
-    return (
+    return ( 
       // <Prueba/>
       // <Sucursales/> 
-       <Camiones/>
+      <Camiones/>
       // <Trabajadores/>
       //  <Bienvenido/>
     );
