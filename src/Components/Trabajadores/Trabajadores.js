@@ -145,6 +145,7 @@ if (IdCheck===Extension){
        this.Traer(IndexDatos);
        this.setState({Funcion2:false})
      document.getElementById("Borrar").style.display = "initial"
+     document.getElementById("FilaColor").style.backgroundColor="rgb(156, 182, 201)"
     }else{
         this.Normalidad();
         document.getElementById("Borrar").style.display = "none"
@@ -167,7 +168,6 @@ if (IdCheck===Extension){
     }
     CambiarAgregar =()=>{
         var fun=this.state.fun;
-        // this.setState({Funcion2:true});
         if (fun===true){
            this.createForm();
         }
@@ -183,7 +183,7 @@ if (IdCheck===Extension){
     Actualizar =()=>{
         this.RefreshCampInv();
         
-        this.setState({Funcion2:false})
+        // this.setState({Funcion2:false})
         
         var IndexDatos=this.state.IndexDatos;
         var row = {
@@ -267,14 +267,16 @@ if (IdCheck===Extension){
             Puesto: "" 
         }
        
-        this.setState({fun:true, row ,Desactivado:true,Modal:true,Funcion2:true})
+        this.setState({fun:true, row ,Desactivado:true,Modal:true})
+     document.getElementById("FilaColor").style.backgroundColor="#ddd"
+        
     }
    
 
     ChangePuesto =()=>{
        
         var Puesto=this.state.row.Puesto;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Puesto)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?$/g.test(Puesto)){
             if(Puesto!=""){
             this.setState({PuestoInvalido:"Campo invalido"})
                        
@@ -308,7 +310,7 @@ if (IdCheck===Extension){
     
         var Nombre=this.state.row.Nombre;
         
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Nombre)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?$/g.test(Nombre)){
             if(Nombre!=""){
             this.setState({NombreInvalido:"Campo invalido"})
             
@@ -344,7 +346,7 @@ if (IdCheck===Extension){
         }
     }
 
-    ChangeCurp =()=>{
+    ChangeCurp =(patternCurp)=>{
 
         var Nombre=this.state.row.Nombre.trim();
         var Curp=this.state.row.Curp.trim();
@@ -361,7 +363,7 @@ if (IdCheck===Extension){
             this.setState({Desactivado:true})
         }else{
             this.setState({CurpInvalido:""})
-            console.log(Curp.length,this.state.Funcion2)
+       
             if (Curp.length==18 && this.state.Funcion2===true){
             this.CurpRepetida();
             
@@ -381,7 +383,6 @@ if (IdCheck===Extension){
                         
                         this.setState({CurpInvalido:"Curp Repetida"})
                         this.setState({Modal:false,patternCurp:"asd"}) //Existe       
-                        
                          this.setState({Desactivado:true})
                       break;
                     }else{
@@ -394,12 +395,6 @@ if (IdCheck===Extension){
         }
     
      Change = (event) =>{
-
-        
-
-        // var ids =this.state.ID+1;
-        // this.setState({ID2:ids})
-
         const row =this.state.row;
             
         row[event.target.name]=event.target.value.toUpperCase();
@@ -425,7 +420,7 @@ if (IdCheck===Extension){
         var FechaNacimiento=row.FechaNacimiento.trim();
         var FechaAdmision=row.FechaAdmision.trim();
         var Sueldo=row.Sueldo.trim();
-        
+        var patternCurp=this.state.patternCurp;
 
         if(Curp.match("^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$")){
             
@@ -459,7 +454,7 @@ this.ChangeApellidos();
 this.ChangePuesto();
 this.ChangeSueldo();
 // this.CurpRepetida();
-this.ChangeCurp();
+this.ChangeCurp(patternCurp);
 
     
     } 
@@ -509,22 +504,10 @@ this.setState({CambiarAgregar:1,ID:ids});
         for (var i = 0; i < obj.length; i++) {
             if (obj[i].ID == this.state.ID2) {
                 obj.splice(i, 1);
-
               break;
             }
           }
         this.setState({T:obj})
-        
-            
-           //     var T=this.state.T;
-        var IndexDatos=this.state.IndexDatos;
-        //    var Azul=T.splice(IndexDatos,1);
-
-
-
-        // document.getElementById("DatosT").deleteRow(IndexDatos);
-        
-        
         this.Normalidad();
         var Extension=T.length;
         document.getElementById("Borrar").style.display = "none"
@@ -534,6 +517,44 @@ this.setState({CambiarAgregar:1,ID:ids});
         }
     }
 
+
+    CurpRepetidaCheck =(event)=>{
+        var Curp=event.target.value;
+        var Extension=Curp.length;
+        var Funcion2=this.state.Funcion2;
+        var T = this.state.T;
+        var Id=this.state.ID2;
+        var IndexDatos=this.state.IndexDatos;
+        var Convertir=JSON.stringify(T);
+        var obj = JSON.parse(Convertir);
+        var Extension = Curp.length;
+
+        if (Funcion2===false){
+            if(Curp.length===18){
+            if (obj[IndexDatos].Curp === Curp) {
+                console.log("Curp para actualizar")
+                console.log(obj[IndexDatos].Curp, Curp)
+            }else{
+
+                for (var i = 0; i < T.length; i++) {
+                    if (T[i].Curp == Curp) {
+                        
+                        this.setState({CurpInvalido:"Curp Repetida"})
+                        this.setState({Modal:false,patternCurp:"asd"}) //Existe       
+                         this.setState({Desactivado:true})
+                      break;
+                    }else{
+                     
+                     this.setState({CurpInvalido:"",patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"})
+                     
+    }
+                }
+
+
+            }
+    }
+    }
+}
     
     render() {
         let fun = this.state.fun;
@@ -622,7 +643,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                     var iE=i+1;
                                         return  (
                                     
-                                        <tr key={i} >
+                                        <tr key={i} className="FilaColor" id="FilaColor" >
                                             <td className="TDCheck">
                                             {/* <label className="btn btn-success active">
                                             <input type="radio" name="options"  autocomplete="off"/>
@@ -665,7 +686,7 @@ this.setState({CambiarAgregar:1,ID:ids});
 
                                                     <div className="form-group col-xs-4">
                                                         <label htmlFor="Nombre">Nombre:</label>
-                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required  />
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?" required  />
                                                         <label className="Advertencia" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-4">
@@ -695,12 +716,12 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Puesto">Puesto:</label>
-                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required/>
+                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?" required/>
                                                             <label className="Advertencia">{this.state.PuestoInvalido} </label>
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp}  onChange={this.Change.bind()} pattern={this.state.patternCurp} maxlength="18"  required/>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onInput={this.Change.bind()}  onChange={this.CurpRepetidaCheck.bind()} pattern={this.state.patternCurp} maxlength="18"  required/>
                                                             <label className="Advertencia">{this.state.CurpInvalido} </label>
                                                             </div>    
                                                             <div className="form-group col-xs-4">

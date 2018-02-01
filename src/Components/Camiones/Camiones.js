@@ -49,7 +49,8 @@ class Camiones extends Component {
         ModeloInvalido: "",
         AñoInvalido: "",
         patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})",
-        Año:""
+        Año:"",
+        Funcion2:true
     }
     Refresh =()=>{
         this.setState({
@@ -96,22 +97,14 @@ class Camiones extends Component {
         
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
-        console.log("Activado")
         this.Traer(IndexDatos);
-        console.log(this.state.Desactivado);
+        this.setState({Funcion2:false})
         document.getElementById("Borrar").style.display = "initial"
     }else{
         console.log("Desactivado")
         this.Normalidad();
-        console.log(this.state.Desactivado);
         document.getElementById("Borrar").style.display = "none"
     }
-    
-    
-        
-    
-    
-    
     for (var X=IdCheck; X<Extension;X++)
 
     if(document.getElementById('checkbox'+X).checked){
@@ -126,7 +119,7 @@ class Camiones extends Component {
         this.RefreshCampInv();
         
         console.log("Cambio");
-        this.setState({fun1:false})
+        this.setState({Funcion2:false})
         var IndexDatos=this.state.IndexDatos;
         var  row= {
         ID:this.state.row.ID,     
@@ -151,6 +144,7 @@ class Camiones extends Component {
         document.getElementById("Borrar").style.display = "none"
     }
     Traer =(IndexDatos)=>{
+        this.setState({PlacaInvalido:"",patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})"})
         this.RefreshCampInv();
         this.setState({Verificar2:true})
         this.setState({fun: false
@@ -268,7 +262,8 @@ class Camiones extends Component {
         }else{
 
             this.setState({PlacaInvalido:""})
-            if (Placa.length==9 && this.state.fun1===true){
+            console.log(Placa.length, this.state.Funcion2)
+            if (Placa.length==9 && this.state.Funcion2===true){
                 this.PlacaRepetida();
             }
         }
@@ -288,7 +283,7 @@ class Camiones extends Component {
     }
     ChangeModelo=()=>{
 var Modelo=this.state.row.Modelo;
-if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Modelo)){
+if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)*$/g.test(Modelo)){
     this.setState({ModeloInvalido:"Campo invalido"})
     
     this.setState({Desactivado:true})  
@@ -322,7 +317,6 @@ if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀ
                         this.setState({PlacaInvalido:"Placa Repetida"})
                         this.setState({Desactivado:true,patternPlaca:"asd"})
                         console.log(this.state.patternPlaca)
-                        this.setState({Modal:false}) //Existe       
                         
                         break;
                     }else{
@@ -337,8 +331,7 @@ if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀ
     }
     Change =(event)=>{
 
-        var ids =this.state.ID+1;
-        this.setState({ID2:ids})
+        
         const row =this.state.row;
             
         row[event.target.name]=event.target.value.toUpperCase();
@@ -365,7 +358,6 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
     }
     CambiarAgregar=()=>{
         var fun=this.state.fun;
-        this.setState({fun1:true});
         if (fun===true){
            this.createForm();
         }
@@ -373,6 +365,44 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
         this.Actualizar();
         }
     }
+
+    PlacaRepetidaCheck =(event)=>{
+        var Placa=event.target.value;
+        var Extension=Placa.length;
+        var Funcion2=this.state.Funcion2;
+        var C = this.state.C;
+        var Id=this.state.ID2;
+        var IndexDatos=this.state.IndexDatos;
+        var Convertir=JSON.stringify(C);
+        var obj = JSON.parse(Convertir);
+        var Extension = Placa.length;
+
+        if (Funcion2===false){
+            if(Placa.length===9){
+            if (obj[IndexDatos].Placa === Placa) {
+                console.log("Placa para actualizar")
+                console.log(obj[IndexDatos].Placa, Placa)
+            }else{
+
+                for (var i = 0; i < C.length; i++) {
+                    if (C[i].Placa == Placa) {
+                        
+                        this.setState({PlacaInvalido:"Placa Repetida"})
+                        this.setState({patternPlaca:"asd"}) //Existe       
+                         this.setState({Desactivado:true})
+                      break;
+                    }else{
+                     
+                     this.setState({PlacaInvalido:"",patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})"})
+                     
+    }
+                }
+
+
+            }
+    }
+    }
+}
    
     
     render() {
@@ -439,7 +469,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
         </thead>
         <tbody>
 
-            {this.state.C.map(function(c,i){
+            {this.state.C.map(function(C,i){
             var iE=i+1;
             return(
                     <tr key = {i}>
@@ -449,11 +479,11 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
                     <label htmlFor={ 'checkbox'+iE} ></label>
                     </div>
                     </td>
-                    <td>{c.ID}</td>
-                    <td>{c.Placa}</td>
-                    <td>{c.Capacidad}</td>
-                    <td>{c.Modelo}</td>
-                    <td>{c.Año}</td>
+                    <td>{C.ID}</td>
+                    <td>{C.Placa}</td>
+                    <td>{C.Capacidad}</td>
+                    <td>{C.Modelo}</td>
+                    <td>{C.Año}</td>
                     
                     </tr>
             )
@@ -474,7 +504,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
                 </div>
                 <div className="form-group col-xs-4">
                 <label htmlFor="Placa">Placa:</label>
-                    <input type="text" className="form-control" id="Placa" name="Placa" placeholder=""   value={this.state.row.Placa} onChange={this.Change.bind()} pattern={this.state.patternPlaca} required maxLength="9"  />
+                    <input type="text" className="form-control" id="Placa" name="Placa" placeholder=""   value={this.state.row.Placa} onChange={this.PlacaRepetidaCheck.bind()} onInput={this.Change.bind()} pattern={this.state.patternPlaca} required maxLength="9"  />
                     <label className="Advertencia" >{this.state.PlacaInvalido}</label>  
         </div>
             <div className="form-group col-xs-4">
@@ -521,7 +551,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
                                                         <div className="modal-content">
                                                         <div className="modal-body">
                                                         <h2>¡Correcto!</h2>
-                                                        <h4>Camión {this.state.fun1 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
+                                                        <h4>Camión {this.state.Funcion2 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
                                                         </div>
                                                     </div>
                                                 </div>

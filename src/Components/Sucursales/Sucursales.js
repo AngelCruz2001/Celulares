@@ -122,8 +122,7 @@ if(!/^([0-9]{1,13})*$/g.test(Telefono)){
 
     Change =(event)=>{
 
-        var ids =this.state.ID+1;
-        this.setState({ID2:ids})
+        
         const row =this.state.row;
             
         row[event.target.name]=event.target.value.toUpperCase();
