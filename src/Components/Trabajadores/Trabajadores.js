@@ -63,7 +63,7 @@ class Trabajadores extends Component {
     state = { 
         T:TInicial,
         fun: true, 
-        fun1:true,
+        Funcion2:true,
         CambiarAgregar:1,
         ID:5,
         Desactivado:true,
@@ -121,8 +121,7 @@ Ver = (IdCheck) => {
     var Extension=T.length;
     var Desactivado=IdCheck+1
     var IndexDatos=IdCheck-1;
-    console.log(IdCheck);
-    console.log(Extension);
+    
     
        
 
@@ -130,14 +129,12 @@ Ver = (IdCheck) => {
         if(Extension!=IdCheck){
     for (var DD=1; DD!=IdCheck; DD++){ //Arriba
         document.getElementById('checkbox'+DD).checked=false;
-         
     }
 }
 if (IdCheck===Extension){
     var ExtensionExcepcion=Extension-1;
     for (ExtensionExcepcion; ExtensionExcepcion!=0; ExtensionExcepcion--){//Abajo
         document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
-   
     }
 }
     for (Extension; Extension!=IdCheck; Extension--){//Abajo
@@ -145,14 +142,11 @@ if (IdCheck===Extension){
         
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
-       console.log("Activado")
        this.Traer(IndexDatos);
-     console.log(this.state.Desactivado);
+       this.setState({Funcion2:false})
      document.getElementById("Borrar").style.display = "initial"
     }else{
-        console.log("Desactivado")
         this.Normalidad();
-        console.log(this.state.Desactivado);
         document.getElementById("Borrar").style.display = "none"
     }
     
@@ -170,11 +164,10 @@ if (IdCheck===Extension){
             }
 
         }
-    //     console.log(Desactivado);
     }
     CambiarAgregar =()=>{
         var fun=this.state.fun;
-        this.setState({fun1:true});
+        // this.setState({Funcion2:true});
         if (fun===true){
            this.createForm();
         }
@@ -190,11 +183,9 @@ if (IdCheck===Extension){
     Actualizar =()=>{
         this.RefreshCampInv();
         
-        console.log("Cambio");
-        this.setState({fun1:false})
+        this.setState({Funcion2:false})
         
         var IndexDatos=this.state.IndexDatos;
-        console.log(this.state.IndexDatos)
         var row = {
             ID: this.state.row.ID,
             Curp: this.state.row.Curp,
@@ -208,7 +199,6 @@ if (IdCheck===Extension){
          this.state.T[IndexDatos] = row;
          
         //    this.Refresh();
-           console.log(this.state.T);
            
            this.setState({fun: true})
            this.Normalidad();
@@ -218,10 +208,10 @@ if (IdCheck===Extension){
            var Extension=T.length;
            for(var i=1; i<=Extension; i++)
            document.getElementById('checkbox'+i).checked=false;
-        console.log(i);
         document.getElementById("Borrar").style.display = "none"
     }
     Traer =(IndexDatos)=>{
+        this.setState({CurpInvalido:"",patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"})
         this.RefreshCampInv();
         this.setState({Verificar2:true,Modal:false})
         this.setState({fun: false
@@ -252,7 +242,6 @@ if (IdCheck===Extension){
             fun:false,
             ID2:IdActTra
         })
-        console.log(row)
            
             }
 
@@ -278,7 +267,7 @@ if (IdCheck===Extension){
             Puesto: "" 
         }
        
-        this.setState({fun:true, row ,Desactivado:true,Modal:true})
+        this.setState({fun:true, row ,Desactivado:true,Modal:true,Funcion2:true})
     }
    
 
@@ -323,7 +312,6 @@ if (IdCheck===Extension){
             if(Nombre!=""){
             this.setState({NombreInvalido:"Campo invalido"})
             
-            console.log("No es correcta")
 
             this.setState({Desactivado:true})
             }else{
@@ -344,7 +332,6 @@ if (IdCheck===Extension){
         if(Sueldo!=""){
             this.setState({SueldoInvalido:"Campo invalido"})
             
-            console.log("No es correcta")
 
             this.setState({Desactivado:true})
         }else{
@@ -366,7 +353,6 @@ if (IdCheck===Extension){
         if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 0-9]*$/g.test(Curp)){
             this.setState({CurpInvalido:"Caracteres invalidos"})
             
-            console.log("No es correcta")
             if(Curp.length==18){
                 this.setState({CurpInvalido:"No coincide con el formato"})
                     
@@ -375,8 +361,8 @@ if (IdCheck===Extension){
             this.setState({Desactivado:true})
         }else{
             this.setState({CurpInvalido:""})
-            console.log(Curp.length,this.state.fun1)
-            if (Curp.length==18 && this.state.fun1==false){
+            console.log(Curp.length,this.state.Funcion2)
+            if (Curp.length==18 && this.state.Funcion2===true){
             this.CurpRepetida();
             
         }
@@ -395,17 +381,14 @@ if (IdCheck===Extension){
                         
                         this.setState({CurpInvalido:"Curp Repetida"})
                         this.setState({Modal:false,patternCurp:"asd"}) //Existe       
-                        console.log("Existente",this.state.patternCurp)
                         
                          this.setState({Desactivado:true})
                       break;
                     }else{
                      //No existe
-                     console.log(Curp," != ",T[i].Curp)
                      
                      this.setState({CurpInvalido:"",patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"})
                      
-                     console.log(Curp,this.state.patternCurp)
     }
                 }
         }
@@ -414,8 +397,8 @@ if (IdCheck===Extension){
 
         
 
-        var ids =this.state.ID+1;
-        this.setState({ID2:ids})
+        // var ids =this.state.ID+1;
+        // this.setState({ID2:ids})
 
         const row =this.state.row;
             
@@ -486,11 +469,9 @@ this.ChangeCurp();
     createForm = () =>{
 
         
-           console.log("Agrego");
         this.RefreshCampInv();
 
       
-            console.log("asdf");
          
             var ids =this.state.ID+1;
             this.setState({ID2:ids})
@@ -506,10 +487,7 @@ this.ChangeCurp();
         }
        
           var X=this.state.T.concat([row])
-console.log(this.state.T)
-console.log(X)
 this.setState({T:X})
-console.log(this.state.T)
 this.setState({CambiarAgregar:1,ID:ids});
         
            this.Normalidad();
@@ -536,14 +514,11 @@ this.setState({CambiarAgregar:1,ID:ids});
             }
           }
         this.setState({T:obj})
-        console.log(this.state.T.ID)
         
-        console.log(obj);//json sin su elemento          
             
            //     var T=this.state.T;
         var IndexDatos=this.state.IndexDatos;
         //    var Azul=T.splice(IndexDatos,1);
-        //    console.log(Azul);
 
 
 
@@ -563,7 +538,7 @@ this.setState({CambiarAgregar:1,ID:ids});
     render() {
         let fun = this.state.fun;
         let Trabajadores=this.state.T;
-        let fun1 = this.state.fun1;
+        let Funcion2 = this.state.Funcion2;
         return (
 
                 <div className="container-fluid">
@@ -771,7 +746,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                         <div className="modal-content">
                                                         <div className="modal-body">
                                                         <h2>¡Correcto!</h2>
-                                                        <h4>Trabajador {fun1 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
+                                                        <h4>Trabajador {Funcion2 ? 'agregado correctamente.' : 'actualizado correctamente.'}</h4>
                                                         </div>
                                                     </div>
                                                 </div>
