@@ -90,8 +90,8 @@ class Trabajadores extends Component {
             Puesto: "" 
             },
             Verificar:0,
-            Verificar2:false
-      
+            Verificar2:false,
+            filaClass:"FilaColor" 
      
      }
      Refresh =()=>{
@@ -121,41 +121,72 @@ Ver = (IdCheck) => {
     var Extension=T.length;
     var Desactivado=IdCheck+1
     var IndexDatos=IdCheck-1;
-    
-    
-       
-
-
         if(Extension!=IdCheck){
     for (var DD=1; DD!=IdCheck; DD++){ //Arriba
         document.getElementById('checkbox'+DD).checked=false;
+        if(DD%2==0) {
+            var Color="#ddd";
+        }else{
+            var Color="#FFFFFF";
+            
+        }             
+     this.setState({filaClass:"FilaColor"});
+        
+        document.getElementById("FilaColor"+DD).style.backgroundColor=Color;
     }
 }
 if (IdCheck===Extension){
     var ExtensionExcepcion=Extension-1;
     for (ExtensionExcepcion; ExtensionExcepcion!=0; ExtensionExcepcion--){//Abajo
         document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
+        if(ExtensionExcepcion%2==0) {
+            var Color="#ddd";
+        }else{
+            var Color="#FFFFFF";
+            
+        }             
+        document.getElementById("FilaColor"+ExtensionExcepcion).style.backgroundColor=Color;
+    
     }
 }
     for (Extension; Extension!=IdCheck; Extension--){//Abajo
         document.getElementById('checkbox'+Extension).checked=false;
+        if(Extension%2==0) {
+            var Color="#ddd";
+        }else{
+            var Color="#FFFFFF";
+            
+        }             
+        document.getElementById("FilaColor"+Extension).style.backgroundColor=Color;
+    
         
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
        this.Traer(IndexDatos);
        this.setState({Funcion2:false})
      document.getElementById("Borrar").style.display = "initial"
-     document.getElementById("FilaColor").style.backgroundColor="rgb(156, 182, 201)"
+     document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
+     this.setState({filaClass:"No"});
     }else{
         this.Normalidad();
         document.getElementById("Borrar").style.display = "none"
+
+        for (var PP=1; PP<=Extension; PP++){ //Arriba
+            if(PP%2==0) {
+                var Color="#ddd";
+            }else{
+                var Color="#FFFFFF";
+                
+            }    
+            this.setState({filaClass:"FilaColor"});
+                     
+            document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
+        }
+
+
+
+
     }
-    
-   
-     
-    
-    
-    
     for (var X=IdCheck; X<Extension;X++)
 
     if(document.getElementById('checkbox'+X).checked){
@@ -206,9 +237,24 @@ if (IdCheck===Extension){
            
            var T=this.state.T;
            var Extension=T.length;
-           for(var i=1; i<=Extension; i++)
+           for(var i=1; i<=Extension; i++){
            document.getElementById('checkbox'+i).checked=false;
         document.getElementById("Borrar").style.display = "none"
+        for (var PP=1; PP<=Extension; PP++){ //Arriba
+            document.getElementById('checkbox'+PP).checked=false;
+            if(PP%2==0) {
+                var Color="#ddd";
+            }else{
+                var Color="#FFFFFF";
+                
+            }             
+            this.setState({filaClass:"FilaColor"});
+            
+            document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
+        }
+     
+        
+    }
     }
     Traer =(IndexDatos)=>{
         this.setState({CurpInvalido:"",patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"})
@@ -256,6 +302,7 @@ if (IdCheck===Extension){
     
     Normalidad () {
         var IDO=this.state.ID;
+       var IdCheck=this.state.IndexDatos-1;
         var row = {
             ID: IDO,
             Curp: "",
@@ -268,7 +315,6 @@ if (IdCheck===Extension){
         }
        
         this.setState({fun:true, row ,Desactivado:true,Modal:true})
-     document.getElementById("FilaColor").style.backgroundColor="#ddd"
         
     }
    
@@ -486,12 +532,6 @@ this.setState({T:X})
 this.setState({CambiarAgregar:1,ID:ids});
         
            this.Normalidad();
-        //    this.Refresh();
-          
-      
-           
-     
-       
         }
 
      
@@ -513,7 +553,15 @@ this.setState({CambiarAgregar:1,ID:ids});
         document.getElementById("Borrar").style.display = "none"
         for (var PP=1; PP<=Extension; PP++){ //Arriba
             document.getElementById('checkbox'+PP).checked=false;
-             
+            if(PP%2==0) {
+                var Color="#ddd";
+            }else{
+                var Color="#FFFFFF";
+                
+            }             
+            this.setState({filaClass:"FilaColor"});
+            
+            document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
         }
     }
 
@@ -643,7 +691,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                     var iE=i+1;
                                         return  (
                                     
-                                        <tr key={i} className="FilaColor" id="FilaColor" >
+                                        <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
                                             <td className="TDCheck">
                                             {/* <label className="btn btn-success active">
                                             <input type="radio" name="options"  autocomplete="off"/>
@@ -756,11 +804,9 @@ this.setState({CambiarAgregar:1,ID:ids});
                                 <br/>
                                 <br/>
                                 
-                                <div className="container">
-                                    <div className="row">
+                                
                                     
                                     
-                                        <div className="row">
 
                                             <div className="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                                 <div className="modal-dialog modal-lg">
@@ -772,10 +818,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                     </div>
                                                 </div>
                                             </div> 
-                                            </div>
-                                            </div> 
-                                        </div>
-                                                <div className="row">
+                                           
                                                 
                                                 
                                                     <div className="row">
@@ -791,7 +834,6 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                             </div>
                                                         </div> 
                                                     </div>
-                                                </div>
                         
                         
 

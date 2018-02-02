@@ -50,7 +50,9 @@ class Camiones extends Component {
         AñoInvalido: "",
         patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})",
         Año:"",
-        Funcion2:true
+        Funcion2:true,
+        filaClass:"FilaColor" 
+
     }
     Refresh =()=>{
         this.setState({
@@ -81,7 +83,8 @@ class Camiones extends Component {
             if(Extension!=IdCheck){
         for (var DD=1; DD!=IdCheck; DD++){ //Arriba
             document.getElementById('checkbox'+DD).checked=false;
-             
+            this.CheckColor(DD);
+
         }
     }
 
@@ -89,17 +92,22 @@ class Camiones extends Component {
         var ExtensionExcepcion=Extension-1;
         for (ExtensionExcepcion; ExtensionExcepcion!=0; ExtensionExcepcion--){//Abajo
             document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
-       
+            this.CheckColor(ExtensionExcepcion);
+
         }
     }
     for (Extension; Extension!=IdCheck; Extension--){//Abajo
         document.getElementById('checkbox'+Extension).checked=false;
-        
+        this.CheckColor(Extension);
+
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
         this.Traer(IndexDatos);
         this.setState({Funcion2:false})
+        document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
         document.getElementById("Borrar").style.display = "initial"
+        this.setState({filaClass:"No"});
+
     }else{
         console.log("Desactivado")
         this.Normalidad();
@@ -142,6 +150,8 @@ class Camiones extends Component {
             document.getElementById('checkbox'+i).checked=false;
         console.log(i);
         document.getElementById("Borrar").style.display = "none"
+        this.CheckColor(i);
+
     }
     Traer =(IndexDatos)=>{
         this.setState({PlacaInvalido:"",patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})"})
@@ -242,8 +252,9 @@ class Camiones extends Component {
             document.getElementById("Borrar").style.display = "none"
             for (var PP=1; PP<=Extension; PP++){ //Arriba
                 document.getElementById('checkbox'+PP).checked=false;
-                    
+                this.CheckColor(PP);        
             }
+
         }
     ChangeAñoS =(event)=>{
         const ValorAño=event.target.value;
@@ -403,7 +414,21 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
     }
     }
 }
-   
+CheckColor =(PP)=>{
+    var C=this.state.C;
+    var Extension=C.length;
+    for (var PP=1; PP<=Extension; PP++){
+        if(PP%2==0) {
+            var Color="#ddd";
+        }else{
+            var Color="#FFFFFF";
+            
+        }             
+        this.setState({filaClass:"FilaColor"});
+        
+        document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
+    }
+}
     
     render() {
         let fun =this.state.fun;
@@ -472,7 +497,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
             {this.state.C.map(function(C,i){
             var iE=i+1;
             return(
-                    <tr key = {i}>
+                <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
                     <td>
                     <div className="ckbox">
                     <input type="checkbox" id={'checkbox'+iE}  onClick={() => this.Ver(iE)}/>

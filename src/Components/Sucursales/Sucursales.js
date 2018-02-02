@@ -61,7 +61,9 @@ class Sucursales extends Component {
         TelefonoInvalido:"",
         DireccionInvalido:"",
         patternDireccion:"[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#., ]",
-        DireccionClass:"form-control textArea"
+        DireccionClass:"form-control textArea",
+        filaClass:"FilaColor" 
+
     }
     componentDidMount(){
         document.getElementById("Borrar").style.display = "none"
@@ -170,6 +172,8 @@ if(!/^([0-9]{1,13})*$/g.test(Telefono)){
         document.getElementById("Borrar").style.display = "none"
         for (var PP=1; PP<=Extension; PP++){ //Arriba
             document.getElementById('checkbox'+PP).checked=false;
+         this.CheckColor(PP);
+            
              
         }
     }
@@ -247,6 +251,8 @@ this.setState({CambiarAgregar:1,ID:ids});
            for(var i=1; i<=Extension; i++)
            document.getElementById('checkbox'+i).checked=false;
         document.getElementById("Borrar").style.display = "none"
+        this.CheckColor(i);
+        
     }
     Traer=(IndexDatos)=>{
         this.setState({IndexDatos,fun: false})
@@ -281,7 +287,7 @@ this.setState({CambiarAgregar:1,ID:ids});
         if(Extension!=IdCheck){
     for (var DD=1; DD!=IdCheck; DD++){ //Arriba
         document.getElementById('checkbox'+DD).checked=false;
-         
+         this.CheckColor(DD);
     }
 this.ChangeDireccion();
 }
@@ -289,16 +295,20 @@ if (IdCheck===Extension){
     var ExtensionExcepcion=Extension-1;
     for (ExtensionExcepcion; ExtensionExcepcion!=0; ExtensionExcepcion--){//Abajo
         document.getElementById('checkbox'+ExtensionExcepcion).checked=false;
+        this.CheckColor(ExtensionExcepcion);
    
     }
     this.ChangeDireccion();
 }
     for (Extension; Extension!=IdCheck; Extension--){//Abajo
         document.getElementById('checkbox'+Extension).checked=false;
+        this.CheckColor(Extension);
         
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
        this.Traer(IndexDatos);
+     document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
+     this.setState({filaClass:"No"});
      document.getElementById("Borrar").style.display = "initial"
     }else{
         this.Normalidad();
@@ -327,6 +337,22 @@ Normalidad=()=>{
     this.setState({row:row,Desactivado:true,fun:true,textAreaClass:"form-control"})
 
 
+}
+
+CheckColor =(PP)=>{
+    var S=this.state.S;
+    var Extension=S.length;
+    for (var PP=1; PP<=Extension; PP++){
+        if(PP%2==0) {
+            var Color="#ddd";
+        }else{
+            var Color="#FFFFFF";
+            
+        }             
+        this.setState({filaClass:"FilaColor"});
+        
+        document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
+    }
 }
     render() {
         let fun =this.state.fun;
@@ -400,7 +426,8 @@ Normalidad=()=>{
             {this.state.S.map(function(t,i){
             var iE=i+1;
             return(
-                    <tr key = {i}>
+                <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
+
                     <td>
                     <div className="ckbox">
                     <input type="checkbox" id={'checkbox'+iE}  onClick={() => this.Ver(iE)}/>
