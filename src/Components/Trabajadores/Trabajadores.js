@@ -256,7 +256,47 @@ if (IdCheck===Extension){
         
     }
     }
-    Traer =(IndexDatos)=>{
+    onClickTr =(IdCheck)=>{
+        var Extension=this.state.T.length;
+    for (var i=1; i<=Extension; i++){
+        if(document.getElementById('checkbox'+i).checked){
+            break;
+        }
+    }
+    if(this.state.onClickTr===true && as===true){
+        console.log(1)
+        document.getElementById('checkbox'+IdCheck).checked=true;
+        this.CheckColorOn(IdCheck);
+        this.Ver(IdCheck); 
+            this.setState({filaClass:"No"});
+            this.setState({onClickTr:false})
+            
+        }else {
+            if (IdCheck===i){
+                console.log(2)
+                for (var PP=1; PP<=Extension; PP++){ //Arriba
+                    document.getElementById('checkbox'+PP).checked=false;
+                }
+                document.getElementById('checkbox'+IdCheck).checked=false;
+                this.CheckColorOn(IdCheck);
+                this.setState({onClickTr:true})
+                this.Normalidad();
+                
+            }else {
+                
+                console.log(3)
+                document.getElementById('checkbox'+IdCheck).checked=true;
+                this.CheckColorOn(IdCheck);
+                this.Ver(IdCheck);
+                this.setState({filaClass:"No"});
+                this.setState({onClickTr:false})
+                var as=true;
+                var IdCheck2=IdCheck;
+                }
+            }
+    
+        }
+        Traer =(IndexDatos)=>{
         this.setState({CurpInvalido:"",patternCurp:"^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$"})
         this.RefreshCampInv();
         this.setState({Verificar2:true,Modal:false})
@@ -313,6 +353,7 @@ if (IdCheck===Extension){
             Sueldo: "",
             Puesto: "" 
         }
+        document.getElementById("Borrar").style.display = "none"
        
         this.setState({fun:true, row ,Desactivado:true,Modal:true})
         
@@ -338,7 +379,7 @@ if (IdCheck===Extension){
     }
     ChangeApellidos =()=>{
         var Apellidos=this.state.row.Apellidos;
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?$/g.test(Apellidos)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?$/g.test(Apellidos)){
             if(Apellidos!=""){
             this.setState({ApellidosInvalidos:"Campo invalidos"})
              
@@ -356,7 +397,7 @@ if (IdCheck===Extension){
     
         var Nombre=this.state.row.Nombre;
         
-        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?$/g.test(Nombre)){
+        if(!/^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?)?$/g.test(Nombre)){
             if(Nombre!=""){
             this.setState({NombreInvalido:"Campo invalido"})
             
@@ -603,7 +644,37 @@ this.setState({CambiarAgregar:1,ID:ids});
     }
     }
 }
+CheckColorOn=(IdCheck)=>{
+    var Extension=this.state.T.length;
+    if(document.getElementById('checkbox'+IdCheck).checked){
+        document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
     
+        
+    }else{
+        for (var PP=1; PP<=Extension; PP++){ //Arriba
+         this.CheckColor(PP);
+            
+             
+        }
+    }
+    
+}
+CheckColor =(PP)=>{
+    var T=this.state.T;
+    var Extension=T.length;
+    for (var PP=1; PP<=Extension; PP++){
+        if(PP%2==0) {
+            var Color="#ddd";
+        }else{
+            var Color="#FFFFFF";
+            
+        }             
+        this.setState({filaClass:"FilaColor"});
+        
+        document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
+    }
+}
+
     render() {
         let fun = this.state.fun;
         let Trabajadores=this.state.T;
@@ -691,7 +762,8 @@ this.setState({CambiarAgregar:1,ID:ids});
                                     var iE=i+1;
                                         return  (
                                     
-                                        <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
+                                            <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} onClick={()=> this.onClickTr(iE)}>
+
                                             <td className="TDCheck">
                                             {/* <label className="btn btn-success active">
                                             <input type="radio" name="options"  autocomplete="off"/>
@@ -701,7 +773,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                 
                                                     <div className="ckbox">
                                                     
-                                                    <input type="checkbox" id={'checkbox'+iE} onClick={() => this.Ver(iE)} />
+                                                    <input type="checkbox" id={'checkbox'+iE}  />
                                                     <label htmlFor={ 'checkbox'+iE} ></label>
                                                     
                                                     </div>
@@ -734,12 +806,12 @@ this.setState({CambiarAgregar:1,ID:ids});
 
                                                     <div className="form-group col-xs-4">
                                                         <label htmlFor="Nombre">Nombre:</label>
-                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?" required  />
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?)?" required  />
                                                         <label className="Advertencia" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required/>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?" required/>
                                                       <label className="Advertencia">{this.state.ApellidosInvalidos} </label>
                                                     </div>
                                                     
@@ -769,7 +841,7 @@ this.setState({CambiarAgregar:1,ID:ids});
                                                             </div>
                                                             <div className="form-group col-xs-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onInput={this.Change.bind()}  onChange={this.CurpRepetidaCheck.bind()} pattern={this.state.patternCurp} maxlength="18"  required/>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onInput={this.Change.bind()}  onChange={this.CurpRepetidaCheck.bind()} pattern={this.state.patternCurp} maxLength="18"  required/>
                                                             <label className="Advertencia">{this.state.CurpInvalido} </label>
                                                             </div>    
                                                             <div className="form-group col-xs-4">

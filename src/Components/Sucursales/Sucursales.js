@@ -62,7 +62,9 @@ class Sucursales extends Component {
         DireccionInvalido:"",
         patternDireccion:"[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#., ]",
         DireccionClass:"form-control textArea",
-        filaClass:"FilaColor" 
+        filaClass:"FilaColor" ,
+        IdCheck:null,
+        onClickTr:true
 
     }
     componentDidMount(){
@@ -280,8 +282,8 @@ this.setState({CambiarAgregar:1,ID:ids});
     var Extension=S.length;
     var Desactivado=IdCheck+1
     var IndexDatos=IdCheck-1;
+    this.setState({IdCheck})
     
-       
 
 
         if(Extension!=IdCheck){
@@ -307,9 +309,8 @@ if (IdCheck===Extension){
     }
     if(document.getElementById('checkbox'+IdCheck).checked){
        this.Traer(IndexDatos);
-     document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
-     this.setState({filaClass:"No"});
-     document.getElementById("Borrar").style.display = "initial"
+        this.CheckColorOn(IdCheck);
+       document.getElementById("Borrar").style.display = "initial"
     }else{
         this.Normalidad();
         document.getElementById("Borrar").style.display = "none"
@@ -324,6 +325,61 @@ if (IdCheck===Extension){
 
     }
 }
+onClickTr =(IdCheck)=>{
+    var Extension=this.state.S.length;
+for (var i=1; i<=Extension; i++){
+    if(document.getElementById('checkbox'+i).checked){
+        break;
+    }
+}
+if(this.state.onClickTr===true && as===true){
+    console.log(1)
+    document.getElementById('checkbox'+IdCheck).checked=true;
+    this.CheckColorOn(IdCheck);
+    this.Ver(IdCheck); 
+        this.setState({filaClass:"No"});
+        this.setState({onClickTr:false})
+        
+    }else {
+        if (IdCheck===i){
+            console.log(2)
+            for (var PP=1; PP<=Extension; PP++){ //Arriba
+                document.getElementById('checkbox'+PP).checked=false;
+            }
+            document.getElementById('checkbox'+IdCheck).checked=false;
+            this.CheckColorOn(IdCheck);
+            this.setState({onClickTr:true})
+            this.Normalidad();
+            
+        }else {
+            
+            console.log(3)
+            document.getElementById('checkbox'+IdCheck).checked=true;
+            this.CheckColorOn(IdCheck);
+            this.Ver(IdCheck);
+            this.setState({filaClass:"No"});
+            this.setState({onClickTr:false})
+            var as=true;
+            var IdCheck2=IdCheck;
+            }
+        }
+
+    }
+CheckColorOn=(IdCheck)=>{
+    var Extension=this.state.S.length;
+    if(document.getElementById('checkbox'+IdCheck).checked){
+        document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
+    
+        
+    }else{
+        for (var PP=1; PP<=Extension; PP++){ //Arriba
+         this.CheckColor(PP);
+            
+             
+        }
+    }
+    
+}
 Normalidad=()=>{
     var IDO=this.state.ID;
     var row = {
@@ -335,6 +391,7 @@ Normalidad=()=>{
     }
    
     this.setState({row:row,Desactivado:true,fun:true,textAreaClass:"form-control"})
+    document.getElementById("Borrar").style.display = "none"
 
 
 }
@@ -354,6 +411,8 @@ CheckColor =(PP)=>{
         document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
     }
 }
+
+
     render() {
         let fun =this.state.fun;
         return (
@@ -410,7 +469,7 @@ CheckColor =(PP)=>{
                                         </div>
                                         <div className="row">
                                         <div className="container-fluid">
-            <table className="table Tabla table-fixed">
+            <table className="table table-responsive Tabla table-fixed">
         <thead>
         <tr className="text-center">
             <th className="th17"></th>
@@ -426,11 +485,11 @@ CheckColor =(PP)=>{
             {this.state.S.map(function(t,i){
             var iE=i+1;
             return(
-                <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
+                <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} onClick={()=> this.onClickTr(iE)}>
 
                     <td>
                     <div className="ckbox">
-                    <input type="checkbox" id={'checkbox'+iE}  onClick={() => this.Ver(iE)}/>
+                    <input type="checkbox" id={'checkbox'+iE}/>
                     <label htmlFor={ 'checkbox'+iE} ></label>
                     </div>
                     </td>

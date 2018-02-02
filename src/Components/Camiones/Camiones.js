@@ -123,6 +123,55 @@ class Camiones extends Component {
 
         }
     }
+    onClickTr =(IdCheck)=>{
+        var Extension=this.state.C.length;
+    
+    for (var i=1; i<=Extension; i++){
+        if(document.getElementById('checkbox'+i).checked){
+            break;
+        }
+    }
+        if(this.state.onClickTr===true){
+            document.getElementById('checkbox'+IdCheck).checked=true;
+            this.CheckColorOn(IdCheck);
+            this.Ver(IdCheck); 
+            this.setState({filaClass:"No"});
+            this.setState({onClickTr:false})
+            
+        }else {
+            if (IdCheck===i){
+                for (var PP=1; PP<=Extension; PP++){ //Arriba
+                    document.getElementById('checkbox'+PP).checked=false;
+                }
+                document.getElementById('checkbox'+IdCheck).checked=false;
+                this.CheckColorOn(IdCheck);
+                this.setState({onClickTr:true})
+                this.Normalidad();
+            }else {
+                document.getElementById('checkbox'+IdCheck).checked=true;
+                this.CheckColorOn(IdCheck);
+                this.Ver(IdCheck);
+                this.setState({filaClass:"No"});
+                this.setState({onClickTr:false})
+                var IdCheck2=IdCheck;
+                }
+            }
+    }
+    CheckColorOn=(IdCheck)=>{
+        var Extension=this.state.C.length;
+        if(document.getElementById('checkbox'+IdCheck).checked){
+            document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
+        
+            
+        }else{
+            for (var PP=1; PP<=Extension; PP++){ //Arriba
+             this.CheckColor(PP);
+                
+                 
+            }
+        }
+        
+    }
     Actualizar =()=>{
         this.RefreshCampInv();
         
@@ -204,7 +253,8 @@ class Camiones extends Component {
                 }
             
             this.setState({fun:true, row ,Desactivado:true,Año:""})
-    
+            document.getElementById("Borrar").style.display = "none"
+
         }
         createForm = () =>{
 
@@ -429,7 +479,46 @@ CheckColor =(PP)=>{
         document.getElementById("FilaColor"+PP).style.backgroundColor=Color;
     }
 }
-    
+onClickTr =(IdCheck)=>{
+    var Extension=this.state.C.length;
+for (var i=1; i<=Extension; i++){
+    if(document.getElementById('checkbox'+i).checked){
+        break;
+    }
+}
+if(this.state.onClickTr===true && as===true){
+    console.log(1)
+    document.getElementById('checkbox'+IdCheck).checked=true;
+    this.CheckColorOn(IdCheck);
+    this.Ver(IdCheck); 
+        this.setState({filaClass:"No"});
+        this.setState({onClickTr:false})
+        
+    }else {
+        if (IdCheck===i){
+            console.log(2)
+            for (var PP=1; PP<=Extension; PP++){ //Arriba
+                document.getElementById('checkbox'+PP).checked=false;
+            }
+            document.getElementById('checkbox'+IdCheck).checked=false;
+            this.CheckColorOn(IdCheck);
+            this.setState({onClickTr:true})
+            this.Normalidad();
+            
+        }else {
+            
+            console.log(3)
+            document.getElementById('checkbox'+IdCheck).checked=true;
+            this.CheckColorOn(IdCheck);
+            this.Ver(IdCheck);
+            this.setState({filaClass:"No"});
+            this.setState({onClickTr:false})
+            var as=true;
+            var IdCheck2=IdCheck;
+            }
+        }
+
+    }
     render() {
         let fun =this.state.fun;
         
@@ -497,10 +586,11 @@ CheckColor =(PP)=>{
             {this.state.C.map(function(C,i){
             var iE=i+1;
             return(
-                <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
+                <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} onClick={()=> this.onClickTr(iE)}>
+
                     <td>
                     <div className="ckbox">
-                    <input type="checkbox" id={'checkbox'+iE}  onClick={() => this.Ver(iE)}/>
+                    <input type="checkbox" id={'checkbox'+iE}  />
                     <label htmlFor={ 'checkbox'+iE} ></label>
                     </div>
                     </td>
