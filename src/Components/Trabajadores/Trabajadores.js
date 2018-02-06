@@ -745,9 +745,9 @@ CheckColor =(PP)=>{
                                         <th className="TDCheck"></th>
                                         <th className="TDID">Id</th>
                                         <th className="TDNombre">Nombre</th>
-                                        <th>Apellidos</th>
-                                        <th>Fecha de nacimiento</th>
-                                        <th>Sueldo</th>
+                                        <th className="TDApellidos">Apellidos</th>
+                                        <th className="TDFecha">Fecha de nacimiento</th>
+                                        <th className="TDSueldo">Sueldo</th>
                                         <th>Puesto</th>
                                         <th>Curp</th>
                                         
@@ -859,7 +859,7 @@ CheckColor =(PP)=>{
                                         <br/>
                                         <div className="text-right container">
                                         
-                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target={this.state.Modal ? '.bs-example-modal-lg2' : '.bs-example-modal-lg'} onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
+                                        <button type="button" className="btn btn-success" data-toggle="modal" data-target='.bs-example-modal-lg' onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
                                         <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
                                         
                                         
