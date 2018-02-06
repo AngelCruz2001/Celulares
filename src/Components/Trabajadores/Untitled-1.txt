@@ -15,17 +15,6 @@ tr {
  
    
     }
-    .TDApellidos{
-      width: 14%;
-    }
-    .TDFecha {
-      width: 14.5%;
-    }
-    .TDSueldo {
-      width: 15%;
-    }
-    
-
     tbody{
       overflow-y: auto;      
       overflow-x:auto;
@@ -58,10 +47,6 @@ tr {
       width: 100%;
       border-collapse: collapse;
     }
-    .TablaToda {
-      min-width: 1950px;
-    }
-
     td, th {
       text-align: left;
       padding: 8px;

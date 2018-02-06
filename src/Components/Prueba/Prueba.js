@@ -1,324 +1,114 @@
 
 import React, { Component } from 'react';
-import $ from "jquery";
+import CSS from './Prueba.css';
+var TInicial = [
+    {
+        "ID": 1,
+        "Curp": "JIFB010925MASMGRA2",
+        "Nombre": "BRENDA",
+        "Apellidos": "JIMENEZ FIGUEROA",
+        "FechaNacimiento":"2001-09-25" ,
+        "FechaAdmision":"2017-08-21" ,
+        "Sueldo": "5000",
+        "Puesto": "ATENCION AL PUBLICO" 
+    },
+    {
+        "ID": 2,
+        "Curp": "CARG010921HDGHMRA5",
+        "Nombre": "GERARDO",
+        "Apellidos": "CHAVEZ ROMAN",
+        "FechaNacimiento":"2001-09-21" ,
+        "FechaAdmision":"2016-08-18" ,
+        "Sueldo": "4500",
+        "Puesto": "REPARADOR" 
+    },
+    {
+        "ID": 3,
+        "Curp": "CUGA010714HDGRRNA1",
+        "Nombre": "ANGEL",
+        "Apellidos": "CRUZ GARCIA",
+        "FechaNacimiento":"2001-07-14" ,
+        "FechaAdmision":"2013-10-21" ,
+        "Sueldo": "5000",
+        "Puesto": "GERENTE" 
+
+    },
+    {
+        "ID": 4,
+        "Curp": "GOZE000512MDGRRNA1",
+        "Nombre": "ELIZABETH",
+        "Apellidos": "GONZALEZ SAUCEDO",
+        "FechaNacimiento":"2000-11-25" ,
+        "FechaAdmision":"2015-05-16" ,
+        "Sueldo": "2000",
+        "Puesto": "VENDEDOR" 
+
+    },
+    {
+        "ID": 5,
+        "Curp": "SAMM010418HASNRGA2",
+        "Nombre": "MIGUEL ANGEL",
+        "Apellidos": "SANCHEZ MORAN",
+        "FechaNacimiento":"2001-04-18" ,
+        "FechaAdmision":"2014-12-24" ,
+        "Sueldo": "7000",
+        "Puesto": "CONDUCTOR" 
+    
+    }
+ ];
 class Tabla extends Component {
-    state = {  }
+    state = { 
+        T:TInicial
+
+     }
 
 
 
   render() {
         return (
-           <div>
-    <div className="container">
+    <div className="TablaToda ">
+                           
+                             
+                            
+    <table>
+            <thead>
+                <tr>
+                <th className="TDCheck"></th>
+                <th className="TDID">Id</th>
+                <th className="TDNombre">Nombre</th>
+                <th>Apellidos</th>
+                <th>Fecha de nacimiento</th>
+                <th>Sueldo</th>
+                <th>Puesto</th>
+                <th>Curp</th>
+                
+                </tr>
+            </thead>
+            
+            <tbody>
+            
+            {this.state.T.map(function(t,i){
+            
+            var IdCheck=t.ID;
+            var iE=i+1;
+                return  (
+            
+                    <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} >
 
-<div className="row">
-    <div className="col-md-4">
-        <h3>Default Styling</h3>
-
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Checkbox Block (Default Checked)</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch">
-                        <label>
-                            <input type="checkbox" name="" checked="checked" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Checkbox Inline (Default Unchecked)</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch">
-                        <input type="checkbox" name="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Checkbox Disabled (Default Checked)</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Checkbox Disabled (Default Unchecked)</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch">
-                        <input type="checkbox" name="" disabled="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-        
-        
-        <h3>Light Styling</h3>
-
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Checkbox Block</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-light">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Checkbox Inline</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-light">
-                        <input type="checkbox" name="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Checkbox Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-light">
-                        <input type="checkbox" name="" disabled="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <h3>Success</h3>            
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-success">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-success">
-                        <label>
-                            <input type="checkbox" name="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-success">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        
+                   
+                    <td className="TDID">{t.ID}</td>
+                    <td className="TDNombre">{t.Nombre}</td>
+                    <td>{t.Apellidos}</td>
+                    <td>{t.FechaNacimiento}</td>
+                    <td>{t.Sueldo}</td>
+                    <td>{t.Puesto}</td>
+                    <td>{t.Curp}</td>
+                </tr> 
+                )
+            },this)}                               
+                </tbody>
+        </table>
     </div>
-    <div className="col-md-4">
-        <h3>Primary</h3>            
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-primary">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-primary">
-                        <label>
-                            <input type="checkbox" name="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-primary">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <h3>Info</h3>            
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-info">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-info">
-                        <label>
-                            <input type="checkbox" name="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-info">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <h3>Warning</h3>            
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-warning">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-warning">
-                        <label>
-                            <input type="checkbox" name="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-warning">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div className="col-md-4">
-        <h3>Danger</h3>            
-        <div className="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-danger">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-danger">
-                        <label>
-                            <input type="checkbox" name="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-danger">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-        
-        
-        <h3>Dark</h3>            
-        <div classNameName="panel panel-default">
-            <div className="panel-body">
-                <small className="text-uppercase text-muted"><b>Default Checked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-dark">
-                        <label>
-                            <input type="checkbox" name="" checked="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Unchecked</b></small>
-                <div className="form-group">
-                    <div className="checkbox checbox-switch switch-dark">
-                        <label>
-                            <input type="checkbox" name="" />
-                            <span></span>
-                            Checkbox Label
-                        </label>
-                    </div>
-                </div>
-
-                <small className="text-uppercase text-muted"><b>Default Disabled</b></small>
-                <div className="form-group">
-                    <label className="checkbox-inline checbox-switch switch-dark">
-                        <input type="checkbox" name="" disabled="" checked="" />
-                        <span></span>
-                        Checkbox Label
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-</div>
-</div>
-
                   
             
         );
