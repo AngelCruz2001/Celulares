@@ -4,15 +4,18 @@ import Prueba from'./Components/Prueba/Prueba';
 import Trabajadores from'./Components/Trabajadores/Trabajadores';
 import Bienvenido from'./Components/Bienvenido/Bienvenido';
 import Camiones from './Components/Camiones/Camiones';
+import Celulares from './Components/Celulares/Celulares';
+
 class App extends Component {
   state = {  }
   render() {
     return ( 
       // <Prueba/>
       // <Sucursales/> 
-      <Trabajadores/>
-      // <Camiones/>
+      //  <Trabajadores/>
+      //<Camiones/>
       //  <Bienvenido/>
+      <Celulares/>
     );
   }
 } 

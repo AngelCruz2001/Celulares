@@ -747,6 +747,7 @@ CheckColor =(PP)=>{
                                         <th className="TDNombre">Nombre</th>
                                         <th className="TDApellidos">Apellidos</th>
                                         <th className="TDFecha">Fecha de nacimiento</th>
+                                        <th className="TDFecha">Fecha de admision</th>
                                         <th className="TDSueldo">Sueldo</th>
                                         <th>Puesto</th>
                                         <th>Curp</th>
@@ -781,11 +782,12 @@ CheckColor =(PP)=>{
                                             </td>
                                             <td className="TDID">{t.ID}</td>
                                             <td className="TDNombre">{t.Nombre}</td>
-                                            <td>{t.Apellidos}</td>
-                                            <td>{t.FechaNacimiento}</td>
-                                            <td>{t.Sueldo}</td>
-                                            <td>{t.Puesto}</td>
-                                            <td>{t.Curp}</td>
+                                            <td className="TDApellidos">{t.Apellidos}</td>
+                                            <td className="TDFechaNac">{t.FechaNacimiento}</td>
+                                            <td className="TDFechaAdm">{t.FechaAdmision}</td>
+                                            <td className="TDSueldo">{t.Sueldo}</td>
+                                            <td className="TDPuesto">{t.Puesto}</td>
+                                            <td className="TDCurp">{t.Curp}</td>
                                         </tr> 
                                         )
                                     },this)}                               

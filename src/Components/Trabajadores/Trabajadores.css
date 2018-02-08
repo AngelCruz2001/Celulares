@@ -1,16 +1,8 @@
-/* html,body {
-  font-family: 'Mukta Malar', sans-serif;
-} */
-tr {
-    width: 100%;
-    display: inline-table;
-    table-layout: fixed;
 
-    }
     
-    table,Curp{
+    table {
      height:230px;         
-     width: 1368px !important;    
+     width: 100% !important;    
      display: -moz-groupbox;   
  
    
@@ -32,7 +24,6 @@ tr {
       
       height: 200px;           
       width: 100%;
-      position: absolute;
     }
 
      .form-group{
@@ -49,13 +40,13 @@ tr {
     .inputs {
       display: -moz-inline-grid;
     } 
-    /* display: -webkit-inline-flex; */
+   
     .Titulo {
       background: rgb(158, 165, 158);
     }
     table {
       font-family: arial, sans-serif;
-      width: 100%;
+      width: auto;
       border-collapse: collapse;
     }
     .TablaToda {
@@ -172,7 +163,7 @@ tr {
 }
 #Agregar{
    margin: 3%;
-   /* 2px 2px 5px rgb(230, 13, 13); */
+
 }
 input:focus:required:invalid{
 border-color: #d62323;
@@ -201,4 +192,4 @@ label{
 
 .FilaColor:hover {
   background-color:rgb(167, 225, 223) !important;
-}
+} 
