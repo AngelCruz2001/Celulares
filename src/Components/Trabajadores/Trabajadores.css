@@ -4,27 +4,14 @@
      height:230px;         
      width: 100% !important;    
      display: -moz-groupbox;   
- 
+    overflow-x: auto;
+    overflow-x: auto;
+    
    
-    }
-    .TDApellidos{
-      width: 14%;
-    }
-    .TDFecha {
-      width: 14.5%;
-    }
-    .TDSueldo {
-      width: 15%;
     }
     
 
-    tbody{
-      overflow-y: auto;      
-      overflow-x:auto;
-      
-      height: 200px;           
-      width: 100%;
-    }
+  
 
      .form-group{
       display: ruby !important;
@@ -44,11 +31,7 @@
     .Titulo {
       background: rgb(158, 165, 158);
     }
-    table {
-      font-family: arial, sans-serif;
-      width: auto;
-      border-collapse: collapse;
-    }
+   
     .TablaToda {
       min-width: 1950px;
     }
@@ -193,3 +176,6 @@ label{
 .FilaColor:hover {
   background-color:rgb(167, 225, 223) !important;
 } 
+@media (max-width: 600px) {
+.Todo{background: #0f8845;}
+}

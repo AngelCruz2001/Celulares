@@ -164,10 +164,11 @@ if (IdCheck===Extension){
     if(document.getElementById('checkbox'+IdCheck).checked){
        this.Traer(IndexDatos);
        this.setState({Funcion2:false})
-     document.getElementById("Borrar").style.display = "initial"
-     document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
-     this.setState({filaClass:"No"});
+       document.getElementById("Borrar").style.display = "initial"
+       document.getElementById("FilaColor"+IdCheck).style.backgroundColor="rgb(35, 198, 192)";
+       this.setState({filaClass:"No"});
     }else{
+        this.setState({Funcion2:true})
         this.Normalidad();
         document.getElementById("Borrar").style.display = "none"
 
@@ -735,7 +736,6 @@ CheckColor =(PP)=>{
                     
                         <div className="Cuerpo">
                        
-                                <div className="TablaToda ">
                            
                              
                             
@@ -793,7 +793,6 @@ CheckColor =(PP)=>{
                                     },this)}                               
                                         </tbody>
                                 </table>
-                            </div>
                                         
                                         
                                             <div className="Titulo2 text-center">

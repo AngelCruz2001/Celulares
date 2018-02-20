@@ -10,12 +10,12 @@ class App extends Component {
   state = {  }
   render() {
     return ( 
-      // <Prueba/>
-      // <Sucursales/> 
-      //  <Trabajadores/>
-      //<Camiones/>
+      //  <Prueba/>
+      //  <Sucursales/> 
+       <Trabajadores/>
+      //  <Camiones/>
       //  <Bienvenido/>
-      <Celulares/>
+      //  <Celulares/>
     );
   }
 } 

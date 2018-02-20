@@ -569,8 +569,8 @@ if(this.state.onClickTr===true && as===true){
 
             </nav>
             <div className="row">
-                                        <div className="container-fluid">
-            <table className="tableCamiones table-fixed">
+            <div className="container-fluid">
+            <table className="table-responsive">
         <thead>
         <tr className="text-center">
             <th></th>
