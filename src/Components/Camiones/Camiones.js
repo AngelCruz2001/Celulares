@@ -332,7 +332,7 @@ class Camiones extends Component {
     ChangeCapacidad=()=>{
         var Capacidad=this.state.row.Capacidad;
         
-        if(!/^(\d{2,5}KG)*$/g.test(Capacidad)){
+        if(!/^(([1-9]{1}[0-9]{2,8}KG))*/g.test(Capacidad)){
             this.setState({CapacidadInvalido:"Campo invalido"})
             
             this.setState({Desactivado:true})  
@@ -404,7 +404,7 @@ if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁ�
     var Año=this.state.Año.trim();
 if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")){
     if (Placa.match("[A-Z0-9-]{9,9}")){
-        if(Capacidad.match("[0-9KG]{3,7}")){
+        if(Capacidad.match("(([1-9]{1}[0-9]{2,8}KG))")){
             if(Año.match("[0-9]{4}")){
                         this.setState({Desactivado:false})
                     }else{this.setState({Desactivado:true})}
@@ -624,7 +624,7 @@ if(this.state.onClickTr===true && as===true){
         </div>
             <div className="form-group col-xs-4">
             <label htmlFor="Capacidad">Capacidad:</label>
-                <input type="text" className="form-control" id="Capacidad" name="Capacidad" placeholder=""   value={this.state.row.Capacidad} onChange={this.Change.bind()} pattern="(\d{2,5}KG)" required maxLength="7"  />
+                <input type="text" className="form-control" id="Capacidad" name="Capacidad" placeholder=""   value={this.state.row.Capacidad} onChange={this.Change.bind()} pattern="(([1-9]{1}[0-9]{2,8}KG))" required maxLength="7"  />
                 <label className="Advertencia" >{this.state.CapacidadInvalido}</label>  
                 
         </div>   

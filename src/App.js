@@ -12,10 +12,10 @@ class App extends Component {
     return ( 
       //  <Prueba/>
       //  <Sucursales/> 
-       <Trabajadores/>
+      //  <Trabajadores/>
       //  <Camiones/>
       //  <Bienvenido/>
-      //  <Celulares/>
+       <Celulares/>
     );
   }
 } 
