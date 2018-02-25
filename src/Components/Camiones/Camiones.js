@@ -7,7 +7,7 @@ var CInicial=
     {
         "ID": 1,
         "Placa": "NK-64-956",
-        "Capacidad": "80KG",
+        "Capacidad": "800KG",
         "Modelo": "SCANIA",
         "Año": "2018"
     },
@@ -556,7 +556,7 @@ if(this.state.onClickTr===true && as===true){
                         <li><a href="#">Trabajadores</a></li>
                         <li><a href="#">Camiones</a></li>
                         <li><a href="#">Celulares</a></li>
-                        <li><a href="{Sucursales}">Sucursales</a></li>
+                        <li><a href="#">Sucursales</a></li>
                         <li><a href="#">Usuarios</a></li>
                         <li><a href="#"></a></li>
                     </ul>
@@ -617,18 +617,18 @@ if(this.state.onClickTr===true && as===true){
                     <div className="container-fluid inputs1">
                 </div>
                 </div>
-                <div className="form-group col-xs-4">
+                <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <label htmlFor="Placa">Placa:</label>
                     <input type="text" className="form-control" id="Placa" name="Placa" placeholder=""   value={this.state.row.Placa} onChange={this.PlacaRepetidaCheck.bind()} onInput={this.Change.bind()} pattern={this.state.patternPlaca} required maxLength="9"  />
                     <label className="Advertencia" >{this.state.PlacaInvalido}</label>  
         </div>
-            <div className="form-group col-xs-4">
+            <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <label htmlFor="Capacidad">Capacidad:</label>
                 <input type="text" className="form-control" id="Capacidad" name="Capacidad" placeholder=""   value={this.state.row.Capacidad} onChange={this.Change.bind()} pattern="(([1-9]{1}[0-9]{2,8}KG))" required maxLength="7"  />
                 <label className="Advertencia" >{this.state.CapacidadInvalido}</label>  
                 
         </div>   
-        <div className="form-group col-xs-4">
+        <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                         <label htmlFor="Año">Año:</label>
                                         <input type="text" className="form-control" id="Año" name="Año" placeholder=""   value={this.state.Año} onChange={this.ChangeAñoS.bind()} pattern="[0-9]{4}" required maxLength="4"  />
                                         <label className="Advertencia" >{this.state.AñoInvalido}</label>  
@@ -640,7 +640,7 @@ if(this.state.onClickTr===true && as===true){
         <div className="Inputs2">
         <div className="container-fluid">
         
-        <div className="form-group col-xs-4">
+        <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <label htmlFor="Modelo">Modelo:</label>
             <input type="text" className="form-control" id="Modelo" name="Modelo" placeholder=""   value={this.state.row.Modelo} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required maxLength="20"  />
             <label className="Advertencia" >{this.state.ModeloInvalido}</label>  
