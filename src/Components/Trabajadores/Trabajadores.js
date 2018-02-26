@@ -418,7 +418,7 @@ if (IdCheck===Extension){
     ChangeSueldo =()=>{
         var Sueldo=this.state.row.Sueldo;
         
-    if(!/^[1-9]+[0-9]*([.][0-9])?$/.test(Sueldo)){
+    if(!/^[1-9]{1}[0-9]{2,4}([.][0-9][0-9])?$/.test(Sueldo)){
         if(Sueldo!=""){
             this.setState({SueldoInvalido:"Campo invalido"})
             
@@ -832,7 +832,7 @@ CheckColor =(PP)=>{
                                                            </div>
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4"> 
                                                             <label htmlFor="Sueldo">Sueldo:</label>
-                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]+[0-9]*([.][0-9])?$"  required/>
+                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]{1}[0-9]{2,4}([.][0-9][0-9])?"  required/>
                                                             <label className="Advertencia">{this.state.SueldoInvalido} </label>                                                         
                                                             </div>
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4"> 

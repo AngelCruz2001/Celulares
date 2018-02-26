@@ -263,7 +263,7 @@ class Celulares extends Component {
                 Ensamblado: "",
                 Precio: ""
                 }
-            
+            this.RefreshCampInv();
             this.setState({fun:true, row ,Desactivado:true,Precio:""})
             document.getElementById("Borrar").style.display = "none"
 
@@ -324,21 +324,22 @@ class Celulares extends Component {
     ChangeMarca =()=>{
        
         var Marca=this.state.row.Marca;
-        
-        if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,10}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,10})?)*/g.test(Marca)){
+        if (Marca.length!=0){
+        if(!/^([A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)$/g.test(Marca)){
             this.setState({MarcaInvalido:"Campo invalido"})
             this.setState({Desactivado:true})  
             console.log("Paso Incorrecto")
         }else{
-console.log("Paso Correcto")
+    console.log("Paso Correcto")
             this.setState({MarcaInvalido:""})
          
         }
     }
+}
     ChangeModelo=()=>{
         var Modelo=this.state.row.Modelo;
         
-        if(!/^[A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{1}[A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{2,15})?)?$/g.test(Modelo)){
+        if(!/^([A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{1}[A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15})?)?)*$/g.test(Modelo)){
             this.setState({ModeloInvalido:"Campo invalido"})
             
             this.setState({Desactivado:true})  
@@ -361,7 +362,7 @@ if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁ�
 }
     ChangePrecio=()=>{
         var Precio=this.state.Precio;
-        if(!/^[1-9]+[0-9]*([.][0-9])?$/.test(Precio)){
+        if(!/^([1-9]+[0-9]*([.][0-9])?)*$/.test(Precio)){
             this.setState({PrecioInvalido:"Campo invalido"})
     this.setState({textAreaClass:"form-control textAreaIncorrecta"})
     
@@ -388,9 +389,9 @@ if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁ�
     var Ensamblado=row.Ensamblado.trim();
     var Precio=row.Precio.trim();
 if(Ensamblado.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")){
-    if (Marca.match("([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15}))?)")){
+    if (Marca.match("([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15}))?)")){
         if(Modelo.match("([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15}))?)")){
-            if(Precio.match("([1-9]+[0-9]*([.][0-9]{2s})?)")){
+            if(Precio.match("([1-9]+[0-9]*([.][0-9])?)")){
                         this.setState({Desactivado:false})
                     }else{this.setState({Desactivado:true})}
                 }else{this.setState({Desactivado:true})}
@@ -564,17 +565,17 @@ if(this.state.onClickTr===true && as===true){
             </div>
             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <label htmlFor="Marca">Marca:</label>
-            <input type="text" className="form-control" id="Marca" name="Marca" placeholder=""   value={this.state.row.Marca} onChange={this.Change.bind()} pattern="([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,10}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,10})?)" required maxLength="20"  />
+            <input type="text" className="form-control" id="Marca" name="Marca" placeholder=""   value={this.state.row.Marca} onChange={this.Change.bind()} pattern="(^[A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?))" required maxLength="20"  />
             <label className="Advertencia" >{this.state.MarcaInvalido}</label>  
             </div>
             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <label htmlFor="Modelo">Modelo:</label>
-            <input type="text" className="form-control" id="Modelo" name="Modelo" placeholder=""   value={this.state.row.Modelo} onChange={this.Change.bind()} pattern="([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15}))" required maxLength="60"  />
+            <input type="text" className="form-control" id="Modelo" name="Modelo" placeholder=""   value={this.state.row.Modelo} onChange={this.Change.bind()} pattern="^([A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{1}[A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ0-9]{1,15})?)?)*" required maxLength="60"  />
             <label className="Advertencia" >{this.state.ModeloInvalido}</label>  
             </div>   
             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
             <label htmlFor="Ensamblado">Ensamblado:</label>
-            <input type="text" className="form-control" id="Ensamblado" name="Ensamblado" placeholder=""   value={this.state.row.Ensamblado} onChange={this.Change.bind()} pattern="([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})" required maxLength="30"  />
+            <input type="text" className="form-control" id="Ensamblado" name="Ensamblado" placeholder=""   value={this.state.row.Ensamblado} onChange={this.Change.bind()} pattern="^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)*" required maxLength="30"  />
             <label className="Advertencia" >{this.state.EnsambladoInvalido}</label>  
             </div>
             <div className="form-group col-xs-8">
@@ -585,14 +586,14 @@ if(this.state.onClickTr===true && as===true){
 
             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <label htmlFor="Precio">Precio:</label>
-                <input type="text" className="form-control" id="Precio" name="Precio" placeholder=""   value={this.state.row.Precio} onChange={this.Change.bind()} pattern="[1-9]+[0-9]*([.][0-9])?" required maxLength="8"  />
+                <input type="text" className="form-control" id="Precio" name="Precio" placeholder=""   value={this.state.row.Precio} onChange={this.Change.bind()} pattern="^([1-9]+[0-9]*([.][0-9])?)*" required maxLength="8"  />
                 <label className="Advertencia" >{this.state.PrecioInvalido}</label>  
             </div>
             </div>
             </div>
             </div>
            
-            <div className="text-right">    
+            <div className="text-right Ultimo">    
             <button type="button" className="btn btn-success" data-toggle="modal" data-target='.bs-example-modal-lg'  onClick={this.CambiarAgregar.bind()} disabled={this.state.Desactivado}>{fun ? 'Agregar' : 'Actualizar'}</button>
             <button type="hidden"  className="btn btn-danger" id="Borrar" onClick={this.Eliminar.bind()}>Borrar</button>
             </div>          
