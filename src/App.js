@@ -12,8 +12,8 @@ class App extends Component {
     return ( 
       //  <Prueba/>
       //  <Sucursales/> 
-       <Trabajadores/>
-      //  <Camiones/>
+      //  <Trabajadores/>
+       <Camiones/>
       //  <Bienvenido/>
       //  <Celulares/>
     );

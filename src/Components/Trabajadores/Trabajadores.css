@@ -4,10 +4,10 @@
      height:230px;         
      width: 100% !important;    
      display: -moz-groupbox;   
-    overflow-x: auto;
-    overflow-x: auto;
-    
-   
+     overflow-y: auto !important;
+     overflow-x: auto;
+     
+     
     }
     
 

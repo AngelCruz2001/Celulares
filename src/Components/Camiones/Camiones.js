@@ -51,7 +51,8 @@ class Camiones extends Component {
         patternPlaca:"([A-Z]{2}-[0-9]{2}-[0-9]{3})",
         Año:"",
         Funcion2:true,
-        filaClass:"FilaColor" 
+        filaClass:"FilaColor",
+        AñoPattern:"[0-9]{4}"
 
     }
     Refresh =()=>{
@@ -309,16 +310,33 @@ class Camiones extends Component {
     ChangeAñoS =(event)=>{
         const ValorAño=event.target.value;
         const re= /^[1-2]{1}([0-9]{1,3})?$/
-        if (re.test(event.target.value)||event.target.value==''){
-            this.setState({Año:event.target.value})
-        }
+        var Number=parseInt(event.target.value);
+        var fecha = new Date();
+        var AñoActual = fecha.getFullYear();
+
+        
+            if (re.test(event.target.value)||event.target.value==''){
+                this.setState({Año:event.target.value})
+           
+                    if(event.target.value.length===4){
+                        if(Number>=1999 && Number<=AñoActual){
+                            this.setState({AñoInvalido:""})
+                            this.setState({AñoPattern:"[0-9]{4}"});
+                    }else{
+                        this.setState({AñoInvalido:"Uy, parece que este camion no existe"})
+                        this.setState({Desactivado:true})  
+                        this.setState({AñoPattern:"0000"});
+                    }
+            }
+            }
+        
 
     }
     ChangePlaca =()=>{
        
         var Placa=this.state.row.Placa;
         if(!/^([A-Z]{2}-\d{2}-\d{3})*$/g.test(Placa)){
-            this.setState({PlacaInvalido:"Campo invalido"})
+            this.setState({PlacaInvalido:"¡Ey! Revisa este campo."})
             this.setState({Desactivado:true})  
         }else{
 
@@ -331,9 +349,9 @@ class Camiones extends Component {
     }
     ChangeCapacidad=()=>{
         var Capacidad=this.state.row.Capacidad;
-        
-        if(!/^(([1-9]{1}[0-9]{2,8}KG))*/g.test(Capacidad)){
-            this.setState({CapacidadInvalido:"Campo invalido"})
+        if(Capacidad.length>0){
+        if(!/^[1-9]{1}[0-9]{2,8}(KG)/g.test(Capacidad)){
+            this.setState({CapacidadInvalido:"¡Ey! Revisa este campo."})
             
             this.setState({Desactivado:true})  
         }else{
@@ -342,10 +360,11 @@ class Camiones extends Component {
             
         }
     }
+}
     ChangeModelo=()=>{
 var Modelo=this.state.row.Modelo;
 if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)*$/g.test(Modelo)){
-    this.setState({ModeloInvalido:"Campo invalido"})
+    this.setState({ModeloInvalido:"¡Ey! Revisa este campo."})
     
     this.setState({Desactivado:true})  
 }else{
@@ -356,7 +375,7 @@ if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁ�
     ChangeAño=()=>{
         var Año=this.state.Año;
         if(!/^[0-9]*$/g.test(Año)){
-            this.setState({AñoInvalido:"Campo invalido"})
+            this.setState({AñoInvalido:"¡Ey! Revisa este campo."})
     this.setState({textAreaClass:"form-control textAreaIncorrecta"})
     
     this.setState({Desactivado:true})  
@@ -375,7 +394,7 @@ if(!/^([a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁ�
                 for (var i = 0; i < C.length; i++) {
                     if (C[i].Placa == this.state.row.Placa) {
                         
-                        this.setState({PlacaInvalido:"Placa Repetida"})
+                        this.setState({PlacaInvalido:"Ups, esta placa ya se encuentra registrada."})
                         this.setState({Desactivado:true,patternPlaca:"asd"})
                         console.log(this.state.patternPlaca)
                         
@@ -448,7 +467,7 @@ if(Modelo.match("[A-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0 ]{2,50}")
                 for (var i = 0; i < C.length; i++) {
                     if (C[i].Placa == Placa) {
                         
-                        this.setState({PlacaInvalido:"Placa Repetida"})
+                        this.setState({PlacaInvalido:"Ups, esta placa ya se encuentra registrada."})
                         this.setState({patternPlaca:"asd"}) //Existe       
                          this.setState({Desactivado:true})
                       break;
@@ -630,7 +649,7 @@ if(this.state.onClickTr===true && as===true){
         </div>   
         <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                         <label htmlFor="Año">Año:</label>
-                                        <input type="text" className="form-control" id="Año" name="Año" placeholder=""   value={this.state.Año} onChange={this.ChangeAñoS.bind()} pattern="[0-9]{4}" required maxLength="4"  />
+                                        <input type="text" className="form-control" id="Año" name="Año" placeholder=""   value={this.state.Año} onChange={this.ChangeAñoS.bind()} pattern={this.state.AñoPattern} required maxLength="4"  />
                                         <label className="Advertencia" >{this.state.AñoInvalido}</label>  
                                     </div>
                                     <div className="form-group col-xs-8">

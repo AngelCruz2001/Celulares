@@ -104,7 +104,7 @@ class Sucursales extends Component {
     }
     ChangeTelefono=()=>{
 var Telefono=this.state.row.Telefono;
-if(!/^([0-9]{1,13})*$/g.test(Telefono)){
+if(!/^([0-9]{10,13})*$/g.test(Telefono)){
     this.setState({TelefonoInvalido:"Campo invalido"})
                
     this.setState({Desactivado:true})  
@@ -139,7 +139,7 @@ if(!/^([0-9]{1,13})*$/g.test(Telefono)){
     
     if (Ciudad.match("^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?")){
         if(Pais.match("^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?")){
-            if(Telefono.match("[0-9-]{2,20}")){
+            if(Telefono.match("[0-9-]{10,13}")){
                 if(Direccion.match('[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ0-9#",. ]')){
                     this.setState({Desactivado:false})
                 }else{this.setState({Desactivado:true})}
@@ -469,7 +469,7 @@ CheckColor =(PP)=>{
                                         </div>
                                         <div className="row">
                                         <div className="container-fluid">
-            <table className="table table-responsive Tabla table-fixed">
+            <table className="table-responsive">
         <thead>
         <tr className="text-center">
             <th className="th17"></th>
@@ -518,18 +518,18 @@ CheckColor =(PP)=>{
                 </div>
                 <div className="form-group col-xs-4">
                 <label htmlFor="Ciudad">Ciudad:</label>
-                    <input type="text" className="form-control" id="Ciudad" name="Ciudad" placeholder=""   value={this.state.row.Ciudad} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required  />
+                    <input type="text" className="form-control" id="Ciudad" name="Ciudad" placeholder=""   value={this.state.row.Ciudad} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required maxlenght="16"  />
                     <label className="Advertencia" >{this.state.CiudadInvalido}</label>  
         </div>
             <div className="form-group col-xs-4">
             <label htmlFor="Pais">Pais:</label>
-                <input type="text" className="form-control" id="Pais" name="Pais" placeholder=""   value={this.state.row.Pais} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required  />
+                <input type="text" className="form-control" id="Pais" name="Pais" placeholder=""   value={this.state.row.Pais} onChange={this.Change.bind()} pattern="^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?" required maxlenght="16"  />
                 <label className="Advertencia" >{this.state.PaisInvalido}</label>  
                 
         </div>
         <div className="form-group col-xs-4">
             <label htmlFor="Telefono">Telefono:</label>
-                <input type="text" className="form-control" id="Telefono" name="Telefono" placeholder=""   value={this.state.row.Telefono} onChange={this.Change.bind()} pattern="[0-9-]{2,20}" required maxLength="13"  />
+                <input type="text" className="form-control" id="Telefono" name="Telefono" placeholder=""   value={this.state.row.Telefono} onChange={this.Change.bind()} pattern="[0-9-]{10,13}" required maxLength="13"  />
                 <label className="Advertencia" >{this.state.TelefonoInvalido}</label>  
        
         </div>
@@ -542,7 +542,7 @@ CheckColor =(PP)=>{
                                 <div className="container-fluid inputs2">
                             <div className="form-group col-xs-4">
                                     <label htmlFor="Direccion">Direccion:</label>
-                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.DireccionClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern={this.state.patternDireccion} required></textarea>
+                                    <textarea rows="3" name="Direccion" cols="50" className={this.state.DireccionClass} form="usrform" onChange={this.Change.bind()} value={this.state.row.Direccion} pattern={this.state.patternDireccion} required maxlenght="60"></textarea>
                                       <label className="Advertencia" >{this.state.DireccionInvalido}</label>  
                                </div>
                                 <div className="form-group col-xs-8">

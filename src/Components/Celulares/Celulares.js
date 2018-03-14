@@ -586,7 +586,7 @@ if(this.state.onClickTr===true && as===true){
 
             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                 <label htmlFor="Precio">Precio:</label>
-                <input type="text" className="form-control" id="Precio" name="Precio" placeholder=""   value={this.state.row.Precio} onChange={this.Change.bind()} pattern="^([1-9]+[0-9]*([.][0-9])?)*" required maxLength="8"  />
+                <input type="text" className="form-control" id="Precio" name="Precio" placeholder=""   value={this.state.row.Precio} onChange={this.Change.bind()} pattern="([1-9]+[0-9]*([.][0-9][0-9])?)" required maxLength="9"  />
                 <label className="Advertencia" >{this.state.PrecioInvalido}</label>  
             </div>
             </div>

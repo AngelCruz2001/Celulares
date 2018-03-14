@@ -766,19 +766,10 @@ CheckColor =(PP)=>{
                                             <tr key={i} className={this.state.filaClass+" FilaColor"+iE} id={"FilaColor"+iE} onClick={()=> this.onClickTr(iE)}>
 
                                             <td className="TDCheck">
-                                            {/* <label className="btn btn-success active">
-                                            <input type="radio" name="options"  autocomplete="off"/>
-                                            <span className="glyphicon glyphicon-ok"></span>
-                                        </label> */}
-                                                    {/*  */}
-                                                
                                                     <div className="ckbox">
-                                                    
                                                     <input type="checkbox" id={'checkbox'+iE}  />
                                                     <label htmlFor={ 'checkbox'+iE} ></label>
-                                                    
                                                     </div>
-                                                    
                                             </td>
                                             <td className="TDID">{t.ID}</td>
                                             <td className="TDNombre">{t.Nombre}</td>
@@ -807,18 +798,18 @@ CheckColor =(PP)=>{
 
                                                     <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                                         <label htmlFor="Nombre">Nombre:</label>
-                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?)?" required  />
+                                                         <input type="text" className="form-control" id="Nombre" name="Nombre" placeholder=""   value={this.state.row.Nombre} onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?)?" required maxLenght="40"  />
                                                         <label className="Advertencia" >{this.state.NombreInvalido}</label>                                                
                                                     </div>
                                                     <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                                     <label htmlFor="Apellidos">Apellidos:</label>
-                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?" required/>
+                                                    <input type="text" className="form-control" name="Apellidos" placeholder="" value={this.state.row.Apellidos}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{3,15}([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{3,15})?" required maxLenght="30"/>
                                                       <label className="Advertencia">{this.state.ApellidosInvalidos} </label>
                                                     </div>
                                                     
                                                     <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
                                                     <label htmlFor="FechaNacimiento">Fecha de nacimiento:</label>
-                                                    <input type="date" placeholder="Fecha de Nacimiento"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required/>
+                                                    <input type="date" placeholder="Fecha de Nacimiento"  className="form-control" placeholder="" name="FechaNacimiento" value={this.state.row.FechaNacimiento} onChange={this.Change.bind()} required />
                                                       <label className="Advertencia"> </label>
                                                     </div>
                                                 </div>
@@ -827,26 +818,26 @@ CheckColor =(PP)=>{
                                                         <div className="inputs2">
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4"> 
                                                             <label htmlFor="FechaAdmision">Fecha de admision:</label>
-                                                            <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()} required/>
+                                                            <input type="date" className="form-control" name="FechaAdmision" id="fechaAdmision" value={this.state.row.FechaAdmision} onChange={this.Change.bind()} required />
                                                             <label className="Advertencia"> </label>
                                                            </div>
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4"> 
                                                             <label htmlFor="Sueldo">Sueldo:</label>
-                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]{1}[0-9]{2,4}([.][0-9][0-9])?"  required/>
+                                                            <input type="text" className="form-control" name="Sueldo" id="Sueldo" value={this.state.row.Sueldo} onChange={this.Change.bind()}pattern="^[1-9]{1}[0-9]{2,4}([.][0-9][0-9])?"  required maxLenght="8"/>
                                                             <label className="Advertencia">{this.state.SueldoInvalido} </label>                                                         
                                                             </div>
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4"> 
                                                             <label htmlFor="Puesto">Puesto:</label>
-                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?" required/>
+                                                            <input type="text" className="form-control" name="Puesto" id="Puesto" value={this.state.row.Puesto}  onChange={this.Change.bind()} pattern="[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ]{2,15}(([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?([ ][A-ZÁÀÉÈÍÌÓÒÚÙÑÜ]{2,15})?)?" required maxLenght="30"/>
                                                             <label className="Advertencia">{this.state.PuestoInvalido} </label>
                                                             </div>
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4"> 
                                                             <label htmlFor="Curp">Curp:</label>
-                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onInput={this.Change.bind()}  onChange={this.CurpRepetidaCheck.bind()} pattern={this.state.patternCurp} maxLength="18"  required/>
+                                                            <input type="text" className="form-control" name="Curp" id="Curp" value={this.state.row.Curp} onInput={this.Change.bind()}  onChange={this.CurpRepetidaCheck.bind()} pattern={this.state.patternCurp} maxLength="18"  required />
                                                             <label className="Advertencia">{this.state.CurpInvalido} </label>
                                                             </div>    
                                                             <div className="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                                                            <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()} />
+                                                            <input type="hidden" className="form-control" name="ID" id="Id"  value={this.state.ID2} onChange={this.Change.bind()}  />
                                                             </div>
                                                             <br/>
                                                         </div>
